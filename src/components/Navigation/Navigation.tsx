@@ -8,7 +8,7 @@ export const Navigation = () => {
 
             <StyledLink to="/">Main page</StyledLink>
             </li>
-            <li style={{display: "flex", margin: "0 5%"}}>
+            <li style={{display: "flex"}}>
                 <StyledLink to="/bag">Shop bag</StyledLink>
             </li>
         </Wrapper>

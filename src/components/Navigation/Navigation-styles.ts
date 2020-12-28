@@ -22,6 +22,13 @@ export const Wrapper = styled.ul`
 
 
 export const StyledLink = styled(Link)`
+  height: 5vh;
+  width: 13vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 13px;
   text-decoration: none;
   color: #cfcfcf;
 
