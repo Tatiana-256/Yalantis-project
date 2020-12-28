@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import {Navigation} from "./components/Navigation/Navigation";
 import {Error404} from './components/Error/Error';
+import {Products} from './components/Products/Products';
 
 function App() {
     return (
@@ -14,7 +15,7 @@ function App() {
             <Navigation/>
             <Switch>
                 <Route path="/">
-                    <div>Main page</div>
+                    <Products/>
                 </Route>
                 <Route path="*">
                     <Error404/>

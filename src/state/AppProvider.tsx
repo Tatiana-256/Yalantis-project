@@ -28,4 +28,3 @@ export const useAppState = () => {
     return contextValue;
 };
 
-// const {state, dispatch} = useAppState();
