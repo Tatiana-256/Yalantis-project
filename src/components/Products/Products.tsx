@@ -17,7 +17,7 @@ export const Products =() => {
 
 
     return <ProductsWrap>
-        {state.products.map(product => <Product product={product}/>)}
+        {state.products.map(product => <Product product={product} key={product.id}/>)}
     </ProductsWrap>
 }
 

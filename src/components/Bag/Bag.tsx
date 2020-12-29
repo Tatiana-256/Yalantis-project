@@ -1,5 +1,6 @@
 import React from 'react';
 import {useAppState} from "../../state/AppProvider";
+import {BagProd} from "./BagProd/BagProd";
 
 
 export const Bag = () => {
@@ -7,12 +8,13 @@ export const Bag = () => {
 
     const {allProducts} = state.basket
 
+    if (allProducts.length === 0) {
+        return <div>
+            Basket is empty
+        </div>
+    }
 
     return <div>
-        {allProducts.map(product => <div key={product.product.id}>
-            <div>{product.product.name}</div>
-            <div>{product.product.price}</div>
-            <div>{product.quantity}</div>
-        </div>)}
+        {allProducts.map(product => <BagProd productItem={product}/>)}
     </div>
 }

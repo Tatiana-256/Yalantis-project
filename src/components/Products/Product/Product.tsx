@@ -30,6 +30,7 @@ export const Product: React.FC<IProps> = ({product}) => {
             product: product,
             quantity: 1
         }))
+        dispatch(actionsProduct.addTotalSum(product.price))
         console.log(state.basket)
     }
 

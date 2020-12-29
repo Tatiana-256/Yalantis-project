@@ -5,6 +5,8 @@ import {IProduct} from "../../../state/entitiesTypes";
 import productIcon from '../../../common-files/product-icon.png'
 import {Count, ProdInfo, Wrapper} from './ProductPage-style';
 import {Button} from '../../../common/common-styles';
+import {useAppState} from '../../../state/AppProvider';
+import {actionsProduct} from "../../../state/actions";
 
 
 interface MatchParams {
@@ -13,7 +15,7 @@ interface MatchParams {
 
 export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
 
-    // const {state, dispatch} = useAppState()
+    const {state, dispatch} = useAppState()
 
     const [product, setProduct] = useState({} as IProduct)
 
@@ -27,6 +29,17 @@ export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
     }, [])
 
     console.log(product)
+
+
+    const addItem = () => {
+        dispatch(actionsProduct.addProductToBasket({
+            product: product,
+            quantity: 1
+        }))
+        dispatch(actionsProduct.addTotalSum(product.price))
+        console.log(state.basket)
+    }
+
 
     return <Wrapper>
         <img src={productIcon} style={{height: '300px'}}/>
@@ -46,7 +59,7 @@ export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
                     <div>1</div>
                     <Button width={'30px'} height={'30px'}>+</Button>
                 </Count>
-                <Button height={"50px"} width={"100px"}>Add</Button>
+                <Button height={"50px"} width={"100px"} onClick={addItem}>Add to basket</Button>
             </div>
         </div>
     </Wrapper>

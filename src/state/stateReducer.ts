@@ -30,11 +30,16 @@ export const stateReducer = (state: AppStateType, action: ActionsType): AppState
                 ...state,
                 basket: {
                     ...state.basket,
-                    allProducts: addItemToBasket(state.basket.allProducts, action.product
-                    )
+                    allProducts: addItemToBasket(state.basket.allProducts, action.product)
                 }
-                // cartItems: addItemToCart(state.cartItems, action.payload),
-
+            }
+        case "ADD_TOTAL_SUM":
+            return {
+                ...state,
+                basket: {
+                    ...state.basket,
+                    totalSum: state.basket.totalSum + action.number
+                }
             }
         default: {
             console.error(new Error('Action is not supported'))

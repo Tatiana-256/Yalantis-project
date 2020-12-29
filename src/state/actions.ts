@@ -12,4 +12,5 @@ export const actionsProduct = {
         product: IProduct,
         quantity: number
     }) => ({type: 'ADD_PRODUCTS', product} as const),
+    addTotalSum:  (number: number) => ({type: 'ADD_TOTAL_SUM', number} as const)
 }
