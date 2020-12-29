@@ -12,5 +12,5 @@ export const addItemToBasket = (basketItems: Array<IBasketProduct>, basketItemTo
                 : basketItem
         );
     }
-    return [...basketItems, {...basketItemToAdd, quantity: 1}];
+    return [...basketItems, {...basketItemToAdd, quantity: basketItemToAdd.quantity}];
 };
