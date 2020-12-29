@@ -37,3 +37,7 @@ export const StyledLink = styled(Link)`
   }
 
 `
+export const BagIcon = styled.img`
+  height: 5vh;
+  width: 51px;
+`

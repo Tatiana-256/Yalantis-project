@@ -2,6 +2,8 @@ import React, {useEffect} from 'react';
 import {productsAPI} from '../../API-Requests/products-API';
 import {actionsProduct} from '../../state/actions';
 import {useAppState} from '../../state/AppProvider';
+import {Product} from './Product/Product';
+import {ProductsWrap} from './Products-styles';
 
 
 export const Products = () => {
@@ -13,12 +15,8 @@ export const Products = () => {
     }, [])
 
 
-    return <div>
-        {state.products.map(product => <div>
-                <div>{product.name}</div>
-                <div>{product.price}</div>
-            </div>
-        )}
-
-    </div>
+    return <ProductsWrap>
+        {state.products.map(product => <Product product={product}/>)}
+    </ProductsWrap>
 }
+
