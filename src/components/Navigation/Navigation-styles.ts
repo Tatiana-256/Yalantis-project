@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 export const Wrapper = styled.ul`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 10vh;
   width: 100%;
   text-transform: uppercase;
@@ -23,11 +23,12 @@ export const Wrapper = styled.ul`
 
 export const StyledLink = styled(Link)`
   height: 5vh;
-  width: 13vw;
+  width: 100%;
   display: flex;
+  justify-content: space-evenly;
+  //display: flex;
   align-items: center;
-  justify-content: center;
-  border: 1px solid;
+  //justify-content: center;
   border-radius: 13px;
   text-decoration: none;
   color: #cfcfcf;

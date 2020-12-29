@@ -6,8 +6,9 @@ import {Product} from './Product/Product';
 import {ProductsWrap} from './Products-styles';
 
 
-export const Products = () => {
+export const Products =() => {
     const {state, dispatch} = useAppState()
+
 
     useEffect(() => {
         productsAPI.getProducts()

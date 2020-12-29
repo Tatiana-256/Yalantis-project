@@ -22,3 +22,17 @@ export interface IProduct {
     updatedAt: string,
     isEditable: boolean
 }
+
+
+// basket types
+export interface IBasketProduct {
+    product: IProduct,
+    quantity: number
+}
+
+
+export interface IProductAPIRequest {
+    name: string,
+    price: number,
+    origin: string
+}

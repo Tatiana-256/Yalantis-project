@@ -8,15 +8,15 @@ import {
 import {Navigation} from "./components/Navigation/Navigation";
 import {Error404} from './components/Error/Error';
 import {Products} from './components/Products/Products';
+import {ProductPage} from "./components/Products/ProductPage/ProductPage";
 
 function App() {
     return (
         <BrowserRouter>
             <Navigation/>
             <Switch>
-                <Route path="/">
-                    <Products/>
-                </Route>
+                <Route exact path={"/products"} component={Products}/>
+                <Route exact path={"/products/:id"} component={ProductPage}/>
                 <Route path="*">
                     <Error404/>
                 </Route>
