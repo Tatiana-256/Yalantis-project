@@ -8,7 +8,7 @@ export const addItemToBasket = (basketItems: Array<IBasketProduct>, basketItemTo
     if (existingBasketItem) {
         return basketItems.map((basketItem) =>
             basketItem.product.id === basketItemToAdd.product.id
-                ? {...basketItem, quantity: basketItem.quantity + 1}
+                ? {...basketItem, quantity: basketItem.quantity + basketItemToAdd.quantity}
                 : basketItem
         );
     }

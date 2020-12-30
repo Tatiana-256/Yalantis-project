@@ -26,7 +26,7 @@ export const BagProd: React.FC<IProd> = ({productItem}) => {
         </div>
         <Info>
             <div style={{fontWeight: "bold"}}>{product.name}</div>
-            <div>Price for one item: {product.price}</div>
+            <div>Price for one item: {product.price} ₴</div>
             <div>Quantity: {quantity}</div>
         </Info>
     </Wrap>

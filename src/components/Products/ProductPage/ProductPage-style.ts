@@ -17,9 +17,9 @@ export const ProdInfo = styled.div`
   height: 24vh;
 `
 
-export const Count = styled.div`
+export const Count = styled.div<{ width?: string}>`
   display: flex;
-  width: 20%;
+  width: ${({width}) => width || "50%"};
   padding: 0 5%;
   margin-right: 5%;
   align-items: center;

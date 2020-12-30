@@ -3,10 +3,8 @@ import {RouteComponentProps} from 'react-router-dom';
 import {productsAPI} from "../../../API-Requests/products-API";
 import {IProduct} from "../../../state/entitiesTypes";
 import productIcon from '../../../common-files/product-icon.png'
-import {Count, ProdInfo, Wrapper} from './ProductPage-style';
-import {Button} from '../../../common/common-styles';
-import {useAppState} from '../../../state/AppProvider';
-import {actionsProduct} from "../../../state/actions";
+import {ProdInfo, Wrapper} from './ProductPage-style';
+import {CountQuality} from '../../../common-components/CountQuantity';
 
 
 interface MatchParams {
@@ -15,7 +13,6 @@ interface MatchParams {
 
 export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
 
-    const {state, dispatch} = useAppState()
 
     const [product, setProduct] = useState({} as IProduct)
 
@@ -30,15 +27,7 @@ export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
 
     console.log(product)
 
-
-    const addItem = () => {
-        dispatch(actionsProduct.addProductToBasket({
-            product: product,
-            quantity: 1
-        }))
-        dispatch(actionsProduct.addTotalSum(product.price))
-        console.log(state.basket)
-    }
+    const [itemQuantity, setItemQuantity] = useState(1)
 
 
     return <Wrapper>
@@ -49,20 +38,21 @@ export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
         }}>
             <ProdInfo>
                 <div style={{fontWeight: "bold"}}>{product.name}</div>
-                <div>Price: {product.price}</div>
+                <div>Price: {product.price} ₴</div>
                 <div>Created at: {product.createdAt}</div>
                 <div>Country of origin: {product.origin}</div>
             </ProdInfo>
             <div style={{display: "flex"}}>
-                <Count>
-                    <Button width={'30px'} height={'30px'}>-</Button>
-                    <div>1</div>
-                    <Button width={'30px'} height={'30px'}>+</Button>
-                </Count>
-                <Button height={"50px"} width={"100px"} onClick={addItem}>Add to basket</Button>
+                <CountQuality
+                    width={35}
+                    buttonSize={40}
+                    itemQuantity={itemQuantity}
+                    decrement={() => setItemQuantity(prev => prev - 1)}
+                    increment={() => setItemQuantity(prev => prev + 1)}
+                    product={product}
+                />
             </div>
         </div>
     </Wrapper>
-
-
 }
+

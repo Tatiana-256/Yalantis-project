@@ -17,6 +17,10 @@ export const Products =() => {
 
 
     return <ProductsWrap>
+        <div style={{width: "100%"}}>
+
+
+        </div>
         {state.products.map(product => <Product product={product} key={product.id}/>)}
     </ProductsWrap>
 }
