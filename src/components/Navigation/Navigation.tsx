@@ -3,6 +3,7 @@ import {BagIcon, StyledLink, Wrapper} from './Navigation-styles';
 import shoppingBag from '../../common-files/bag.png'
 import {useAppState} from "../../state/AppProvider";
 import {useHistory, useLocation} from 'react-router-dom';
+import style from './Navigation.module.css'
 
 
 export const Navigation = () => {
@@ -19,7 +20,7 @@ export const Navigation = () => {
                 onClick={history.goBack}
             >Back
             </div>
-            <div style={{width: "55%", display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+            <div className={style.navigation_wrap}>
                 <li style={{display: "flex", margin: "0 5%"}}>
                     <StyledLink to="/products">Main page</StyledLink>
                 </li>
@@ -37,4 +38,4 @@ export const Navigation = () => {
     </nav>
 
 }
-// #363B4D
+

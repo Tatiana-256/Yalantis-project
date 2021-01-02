@@ -1,6 +1,6 @@
 import React from 'react';
 import {IBasketProduct} from "../../../state/entitiesTypes";
-import {ImageProd, WrapperProd} from "../../Products/Product/Product-style";
+import {ImageProd} from "../../Products/Product/Product-style";
 import productIcon from "../../../common-files/product-icon.png";
 import {useHistory} from "react-router-dom";
 import {Info, Wrap} from '../Bag-styles';

@@ -10,6 +10,9 @@ export const productsAPI = {
                     return res.data
                 }
             )
+            .catch(error => {
+                console.error('Error:', error);
+            })
     },
     getProduct(productId: string) {
         return instance.get<IProduct>(`/products/${productId}`
@@ -19,5 +22,8 @@ export const productsAPI = {
                     return res.data
                 }
             )
+            .catch(error => {
+                console.error('Error:', error);
+            })
     },
 }

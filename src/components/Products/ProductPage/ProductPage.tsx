@@ -15,19 +15,14 @@ export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
 
 
     const [product, setProduct] = useState({} as IProduct)
+    const [itemQuantity, setItemQuantity] = useState(1)
 
     const productId = match.params.id
-    console.log(`match: ${productId}`)
-
 
     useEffect(() => {
         productsAPI.getProduct(productId)
-            .then(data => setProduct(data))
+            .then(data => data && setProduct(data))
     }, [])
-
-    console.log(product)
-
-    const [itemQuantity, setItemQuantity] = useState(1)
 
 
     return <Wrapper>

@@ -6,20 +6,25 @@ import {Product} from './Product/Product';
 import {ProductsWrap} from './Products-styles';
 
 
-export const Products =() => {
+export const Products = () => {
     const {state, dispatch} = useAppState()
 
 
     useEffect(() => {
         productsAPI.getProducts()
-            .then(data => dispatch(actionsProduct.setProducts(data.items)))
+            .then(data => {
+                    data && dispatch(actionsProduct.setProducts(data.items))
+                }
+            )
     }, [])
 
 
+    if (state.products.length === 0) {
+        return <div>Network error</div>
+    }
+
     return <ProductsWrap>
         <div style={{width: "100%"}}>
-
-
         </div>
         {state.products.map(product => <Product product={product} key={product.id}/>)}
     </ProductsWrap>

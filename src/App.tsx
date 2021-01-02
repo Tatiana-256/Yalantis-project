@@ -12,6 +12,8 @@ import {ProductPage} from "./components/Products/ProductPage/ProductPage";
 import {Bag} from './components/Bag/Bag';
 
 function App() {
+
+
     return (
         <BrowserRouter>
             <Navigation/>

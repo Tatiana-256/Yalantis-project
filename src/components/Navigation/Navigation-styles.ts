@@ -26,9 +26,7 @@ export const StyledLink = styled(Link)`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  //display: flex;
   align-items: center;
-  //justify-content: center;
   border-radius: 13px;
   text-decoration: none;
   color: #cfcfcf;

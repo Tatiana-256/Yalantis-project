@@ -1,0 +1,25 @@
+.error_wrapper {
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.error_text {
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error_button {
+    background-color: #363B4D;
+    height: 7vh;
+    font-size: 1.3rem;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
