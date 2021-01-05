@@ -3,7 +3,24 @@ import {IBasketProduct, IProduct} from "./entitiesTypes";
 import {addItemToBasket} from "./reducer.utils";
 
 
-export const initialState = {
+interface InitialState {
+    loading: boolean,
+    products: IProduct[],
+    basket: {
+        allProducts: IBasketProduct[],
+        totalSum: number
+    }
+}
+
+export const initialState: InitialState = {
+    loading: true,
+    products: [],
+    basket: {
+        allProducts: [],
+        totalSum: 0,
+    }
+};
+};```
     loading: true as boolean,
     products: [] as Array<IProduct>,
     basket: {
@@ -47,7 +64,6 @@ export const stateReducer = (state: AppStateType, action: ActionsType): AppState
         }
     }
 }
-
 
 
 
