@@ -14,7 +14,7 @@ interface MatchParams {
 export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
 
 
-    const [product, setProduct] = useState({} as IProduct)
+    const [product, setProduct] = useState<IProduct | null>(null)
     const [itemQuantity, setItemQuantity] = useState(1)
 
     const productId = match.params.id
@@ -50,4 +50,3 @@ export const ProductPage = ({match}: RouteComponentProps<MatchParams>) => {
         </div>
     </Wrapper>
 }
-
