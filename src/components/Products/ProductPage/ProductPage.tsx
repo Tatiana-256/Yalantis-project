@@ -21,8 +21,7 @@ export const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
     productsAPI.getProduct(productId).then((data) => {
       if (data === "error") {
         setError((prevState) => !prevState);
-      } else {
-        // @ts-ignore
+      } else if (typeof data !== "string"){
         setProduct(data);
       }
     });

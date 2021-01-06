@@ -4,12 +4,11 @@ import shoppingBag from "../../common-files/bag.png";
 import { useAppState } from "../../state/AppProvider";
 import { useHistory, useLocation } from "react-router-dom";
 
-export const Navigation = () => {
+export const Navigation: React.FunctionComponent = () => {
   const { state } = useAppState();
 
-  let history = useHistory();
-  console.log(history);
-  let location = useLocation();
+  const history = useHistory();
+  const location = useLocation();
 
   return (
     <nav>

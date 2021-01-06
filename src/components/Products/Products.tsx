@@ -14,8 +14,7 @@ export const Products = () => {
     productsAPI.getProducts().then((data) => {
       if (data === "error") {
         setError((prevState) => !prevState);
-      } else {
-        // @ts-ignore
+      } else if (typeof data !== "string") {
         dispatch(actionsProduct.setProducts(data.items));
       }
     });

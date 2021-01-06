@@ -4,6 +4,7 @@ import { useAppState } from "../state/AppProvider";
 import { actionsProduct } from "../state/actions";
 import { Count } from "../components/Products/ProductPage/ProductPage-style";
 import { Button } from "../common-utils/common-styles";
+import PropTypes  from "prop-types";
 
 interface IProps {
   product: IProduct;
@@ -60,4 +61,13 @@ export const CountQuality: React.FC<IProps> = ({
       </Button>
     </>
   );
+};
+
+CountQuality.propTypes = {
+  product: PropTypes.any,
+  itemQuantity: PropTypes.number.isRequired,
+  increment: PropTypes.func.isRequired,
+  decrement: PropTypes.func.isRequired,
+  buttonSize: PropTypes.number,
+  width: PropTypes.number,
 };
