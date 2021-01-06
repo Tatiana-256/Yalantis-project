@@ -17,7 +17,7 @@ export const Navigation: React.FunctionComponent = () => {
           <div style={{ color: "white", margin: " 0 3%" }} />
         ) : (
           <div
-            style={{ color: "white", margin: " 0 3%" }}
+            style={{ color: "white", margin: " 0 3%", cursor: "pointer" }}
             onClick={history.goBack}
           >
             Back
