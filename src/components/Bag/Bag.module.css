@@ -1,9 +1,0 @@
-
-.bag_wrap{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    height: 70vh;
-    flex-direction: column
-}

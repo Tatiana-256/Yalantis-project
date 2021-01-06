@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 export const Wrapper = styled.ul`
   display: flex;
@@ -10,16 +9,21 @@ export const Wrapper = styled.ul`
   width: 100%;
   text-transform: uppercase;
   font-size: 1.2rem;
-  background-color: #363B4D;
+  background-color: #363b4d;
   list-style-type: none;
   margin-block-start: 0;
   margin-block-end: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
   padding-inline-start: 0;
+`;
 
-`
-
+export const LinkWrapper = styled.div`
+  width: 55%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
 
 export const StyledLink = styled(Link)`
   height: 5vh;
@@ -32,11 +36,10 @@ export const StyledLink = styled(Link)`
   color: #cfcfcf;
 
   &:hover {
-    color: white
+    color: white;
   }
-
-`
+`;
 export const BagIcon = styled.img`
   height: 5vh;
   width: 51px;
-`
+`;
