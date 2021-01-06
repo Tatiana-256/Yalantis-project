@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const WrapperProd = styled.div`
   width: 24%;
   margin: 2%;
@@ -10,16 +9,16 @@ export const WrapperProd = styled.div`
   align-items: center;
   justify-content: center;
   box-shadow: 13px 11px 30px #0000005c;
-`
+`;
 export const ImageProd = styled.img`
   width: 70%;
   border-radius: 50%;
   border: 2px solid black;
   margin: 3%;
-`
+`;
 
 export const Button = styled.button`
-  background-color: #363B4D;
+  background-color: #363b4d;
   width: 50%;
   height: 40px;
   font-size: 1rem;
@@ -30,6 +29,6 @@ export const Button = styled.button`
   margin: 2% 0;
 
   &:hover {
-    color: white
+    color: white;
   }
-`
+`;
