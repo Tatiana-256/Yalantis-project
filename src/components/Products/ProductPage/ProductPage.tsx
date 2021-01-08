@@ -37,7 +37,7 @@ export const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
       <div
         style={{
           width: "70%",
-          padding: "0 5%",
+          padding: "0 3.5rem",
         }}
       >
         {product && (

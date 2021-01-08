@@ -14,17 +14,17 @@ export const Navigation: React.FunctionComponent = () => {
     <nav>
       <Wrapper>
         {history.length < 3 ? (
-          <div style={{ color: "white", margin: " 0 3%" }} />
+          <div style={{ color: "white", margin: " 0 3rem" }} />
         ) : (
           <div
-            style={{ color: "white", margin: " 0 3%", cursor: "pointer" }}
+            style={{ color: "white", margin: " 0 3rem", cursor: "pointer" }}
             onClick={history.goBack}
           >
             Back
           </div>
         )}
         <LinkWrapper>
-          <li style={{ display: "flex", margin: "0 5%" }}>
+          <li style={{ display: "flex", margin: "0 3.5rem" }}>
             <StyledLink to="/products">Main page</StyledLink>
           </li>
           {location.pathname === "/bag" ? (

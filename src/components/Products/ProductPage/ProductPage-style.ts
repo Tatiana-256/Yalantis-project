@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 1.5rem;
-  padding: 5%;
+  padding: 4rem;
 
 `
 
@@ -20,8 +20,7 @@ export const ProdInfo = styled.div`
 export const Count = styled.div<{ width?: string}>`
   display: flex;
   width: ${({width}) => width || "50%"};
-  padding: 0 5%;
-  margin-right: 5%;
+  padding: 0 4rem;
   align-items: center;
   justify-content: space-between;
 `

@@ -11,7 +11,7 @@ export const BagWrap = styled.div`
 
 export const Wrap = styled.div`
   display: flex;
-  padding: 5% 5% 0;
+  padding: 3rem 3rem 0;
 `;
 
 export const Info = styled.div`
@@ -24,11 +24,12 @@ export const Info = styled.div`
 export const TotalWrap = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 33%;
-  padding: 5% 5% 0;
+  margin-left: 60vw;
+  padding: 2rem 2rem 0;
   font-size: 1.5rem;
 `;
 export const Item = styled(TotalWrap)`
-  padding: 2% 5% 0;
+  padding: 1rem 3rem 0;
   font-weight: bold;
+  margin-left: 0;
 `;

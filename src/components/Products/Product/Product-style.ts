@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const WrapperProd = styled.div`
   width: 24%;
-  margin: 2%;
-  padding: 1%;
+  margin: 1rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,7 +14,7 @@ export const ImageProd = styled.img`
   width: 70%;
   border-radius: 50%;
   border: 2px solid black;
-  margin: 3%;
+  margin: 1rem;
 `;
 
 export const Button = styled.button`
@@ -23,10 +23,10 @@ export const Button = styled.button`
   height: 40px;
   font-size: 1rem;
   color: #cfcfcf;
-  padding: 3%;
+  padding: 3rem;
   border-radius: 31px;
   border: none;
-  margin: 2% 0;
+  margin: 2rem 0;
 
   &:hover {
     color: white;
