@@ -5,6 +5,7 @@ import { IBasketProduct } from "../../../state/entitiesTypes";
 import { ImageProd } from "../../Products/Product/Product-style";
 import productIcon from "../../../common-files/product-icon.png";
 import { Info, Wrap } from "../Bag-styles";
+import trash from "../../../common-files/trash-icon.png";
 
 interface IProd {
   productItem: IBasketProduct;
@@ -28,6 +29,11 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
         <div style={{ fontWeight: "bold" }}>{product.name}</div>
         <div>Price for one item: {product.price} ₴</div>
         <div>Quantity: {quantity}</div>
+        <img
+          src={trash}
+          alt="trash"
+          style={{ height: "20%", cursor: "pointer" }}
+        />
       </Info>
     </Wrap>
   );

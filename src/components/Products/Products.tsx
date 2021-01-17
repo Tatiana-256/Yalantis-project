@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import productsAPI from "../../API-Requests/products-API";
 import { actionsProduct } from "../../state/actions";
 import { useAppState } from "../../state/AppProvider";
+import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
 import { ProductsWrap } from "./Products-styles";
 
@@ -25,10 +26,12 @@ export const Products = () => {
 
   return (
     <ProductsWrap>
+      <Pagination currentPage={1} />
       <div style={{ width: "100%" }} />
       {state.products.map((product) => (
         <Product product={product} key={product.id} />
       ))}
+      <Pagination currentPage={1} />
     </ProductsWrap>
   );
 };
