@@ -1,4 +1,5 @@
 import React, { useContext, useReducer } from "react";
+import PropTypes from "prop-types";
 import { ActionsType, AppStateType } from "./actions";
 import { initialState, stateReducer } from "./stateReducer";
 
@@ -19,8 +20,11 @@ export const AppProvider: React.FC = ({ children }) => {
   );
 };
 
+AppProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
 export const useAppState = () => {
   const contextValue = useContext(AppContext);
   return contextValue;
 };
-

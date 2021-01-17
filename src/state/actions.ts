@@ -1,5 +1,6 @@
-import { InferActionsTypes, IProduct } from "./entitiesTypes";
+// eslint-disable-next-line import/no-cycle
 import { initialState } from "./stateReducer";
+import { InferActionsTypes, IProduct } from "./entitiesTypes";
 
 export type AppStateType = typeof initialState;
 

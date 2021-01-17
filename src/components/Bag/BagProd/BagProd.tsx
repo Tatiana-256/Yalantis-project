@@ -1,8 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+import PropTypes from "prop-types";
 import { IBasketProduct } from "../../../state/entitiesTypes";
 import { ImageProd } from "../../Products/Product/Product-style";
 import productIcon from "../../../common-files/product-icon.png";
-import { useHistory } from "react-router-dom";
 import { Info, Wrap } from "../Bag-styles";
 
 interface IProd {
@@ -30,4 +31,9 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
       </Info>
     </Wrap>
   );
+};
+
+BagProd.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  productItem: PropTypes.any.isRequired,
 };

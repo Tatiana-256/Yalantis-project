@@ -3,9 +3,9 @@ import {
   IProductAPI,
   IProductAPIRequest,
 } from "../state/entitiesTypes";
-import { request } from "./API-settings";
+import request from "./API-settings";
 
-export const productsAPI = {
+const productsAPI = {
   getProducts() {
     return request
       .get<IProductAPI>(`/products`)
@@ -27,3 +27,5 @@ export const productsAPI = {
       });
   },
 };
+
+export default productsAPI;

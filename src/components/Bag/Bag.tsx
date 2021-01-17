@@ -13,7 +13,7 @@ export const Bag = () => {
   if (allProducts.length === 0) {
     return (
       <BagWrap>
-        <img src={basket} style={{ height: "30vh" }} alt={"basket"} />
+        <img src={basket} style={{ height: "30vh" }} alt="basket" />
         Your basket is empty
       </BagWrap>
     );

@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { ActionsType, AppStateType } from "./actions";
 import { IBasketProduct, IProduct } from "./entitiesTypes";
 import { addItemToBasket } from "./reducer.utils";
@@ -60,6 +61,3 @@ export const stateReducer = (
     }
   }
 };
-
-
-
