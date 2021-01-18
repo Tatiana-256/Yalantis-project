@@ -38,14 +38,17 @@ const productsSlice = createSlice({
         action.payload
       );
     },
+    addTotalSum(state, action) {
+      state.basket.totalSum = state.basket.totalSum + action.payload;
+    },
     deleteProductFromBasket(state, action) {
       state.basket.allProducts = deleteItemFromBasket(
         state.basket.allProducts,
         action.payload
       );
     },
-    addTotalSum(state, action) {
-      state.basket.totalSum = state.basket.totalSum + action.payload;
+    deleteFromTotalSum(state, action) {
+      state.basket.totalSum = state.basket.totalSum - action.payload;
     },
   },
 });
@@ -56,6 +59,7 @@ export const {
   addProductToBasket,
   addTotalSum,
   deleteProductFromBasket,
+  deleteFromTotalSum,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

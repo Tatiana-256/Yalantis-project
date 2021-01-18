@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -9,7 +9,12 @@ import { Button } from "../../../common-utils/common-styles";
 import { Count } from "../../Products/ProductPage/ProductPage-style";
 import trash from "../../../common-files/trash-icon.png";
 import productIcon from "../../../common-files/product-icon.png";
-import { deleteProductFromBasket } from "../../../state/redux/prosuctSlice";
+import {
+  addProductToBasket,
+  addTotalSum,
+  deleteFromTotalSum,
+  deleteProductFromBasket,
+} from "../../../state/redux/prosuctSlice";
 
 interface IProd {
   productItem: IBasketProduct;
@@ -17,6 +22,7 @@ interface IProd {
 
 export const BagProd: React.FC<IProd> = ({ productItem }) => {
   const { product, quantity } = productItem;
+  const [inputQuantity, setInputQuantity] = useState(quantity);
   const dispatch = useDispatch();
 
   const history = useHistory();
@@ -25,6 +31,20 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
     history.push(`products/${product.id}`);
   };
 
+  const onInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setInputQuantity(Number(event.currentTarget.value));
+  };
+
+  const addOneMoreItem = () => {
+    setInputQuantity((prevState) => prevState + 1);
+    dispatch(addProductToBasket({ product, quantity: 1 }));
+    dispatch(addTotalSum(product.price));
+  };
+
+  const deleteItem = () => {
+    dispatch(deleteProductFromBasket(product.id));
+    dispatch(deleteFromTotalSum(product.price * inputQuantity));
+  };
   return (
     <Wrap>
       <div style={{ width: "100px" }}>
@@ -53,9 +73,10 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
               borderRadius: "13px",
               outline: "none",
             }}
-            value={quantity}
+            value={inputQuantity}
+            onChange={onInputChange}
           />
-          <Button width={`${40}px`} height={`${40}px`}>
+          <Button width={`${40}px`} height={`${40}px`} onClick={addOneMoreItem}>
             +
           </Button>
         </Count>
@@ -65,7 +86,7 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
           src={trash}
           alt="trash"
           style={{ height: "20%", cursor: "pointer" }}
-          onClick={() => dispatch(deleteProductFromBasket(product.id))}
+          onClick={deleteItem}
           onKeyPress={() => {}}
         />
       </Info>
