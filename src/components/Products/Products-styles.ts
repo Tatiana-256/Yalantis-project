@@ -5,4 +5,5 @@ export const ProductsWrap = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  width: 80vw;
 `;
