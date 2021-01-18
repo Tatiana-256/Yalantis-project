@@ -12,6 +12,7 @@ import productIcon from "../../../common-files/product-icon.png";
 import {
   addProductToBasket,
   addTotalSum,
+  decreaseProductInBasket,
   deleteFromTotalSum,
   deleteProductFromBasket,
 } from "../../../state/redux/prosuctSlice";
@@ -41,6 +42,14 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
     dispatch(addTotalSum(product.price));
   };
 
+  const decreaseProduct = () => {
+    if (inputQuantity > 1) {
+      setInputQuantity((prevState) => prevState - 1);
+      dispatch(decreaseProductInBasket(product.id));
+      dispatch(deleteFromTotalSum(product.price));
+    }
+  };
+
   const deleteItem = () => {
     dispatch(deleteProductFromBasket(product.id));
     dispatch(deleteFromTotalSum(product.price * inputQuantity));
@@ -56,10 +65,7 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
           <Button
             width={`${40}px`}
             height={`${40}px`}
-            // onClick={() => {
-            //   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            //   itemQuantity > 1 && decrement();
-            // }}
+            onClick={decreaseProduct}
           >
             -
           </Button>
@@ -98,5 +104,3 @@ BagProd.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   productItem: PropTypes.any.isRequired,
 };
-
-// {/*<div>Quantity: {quantity}</div>*/}

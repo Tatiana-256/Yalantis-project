@@ -24,6 +24,20 @@ export const addItemToBasket = (
   ];
 };
 
+export const decreaseProduct = (
+  basketItems: Array<IBasketProduct>,
+  basketItemDecreaseId: string
+) => {
+  return basketItems.map((basketItem) =>
+    basketItem.product.id === basketItemDecreaseId
+      ? {
+          ...basketItem,
+          quantity: basketItem.quantity - 1,
+        }
+      : basketItem
+  );
+};
+
 export const deleteItemFromBasket = (
   basketItems: Array<IBasketProduct>,
   itemId: string
