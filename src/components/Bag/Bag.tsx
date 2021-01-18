@@ -1,25 +1,23 @@
 import React from "react";
-import { useAppState } from "../../state/AppProvider";
 import { BagProd } from "./BagProd/BagProd";
-import basket from "../../common-files/shopping-basket.png";
+import basketImg from "../../common-files/shopping-basket.png";
 import { IBasketProduct } from "../../state/entitiesTypes";
 import { BagWrap, Item, TotalWrap } from "./Bag-styles";
+import { useProductsSelector } from "../../state/redux/state-selectors";
 
 export const Bag = () => {
-  const { state } = useAppState();
+  const { basket } = useProductsSelector();
 
-  const { allProducts, totalSum } = state.basket;
-
-  if (allProducts.length === 0) {
+  if (basket.allProducts.length === 0) {
     return (
       <BagWrap>
-        <img src={basket} style={{ height: "30vh" }} alt="basket" />
+        <img src={basketImg} style={{ height: "30vh" }} alt="basket" />
         Your basket is empty
       </BagWrap>
     );
   }
 
-  const totalQuantity = allProducts.reduce(
+  const totalQuantity = basket.allProducts.reduce(
     (accumulator: number, current: IBasketProduct) => {
       return accumulator + current.quantity;
     },
@@ -29,10 +27,10 @@ export const Bag = () => {
   return (
     <div>
       <TotalWrap>
-        <Item>Total sum: {totalSum} ₴</Item>
+        <Item>Total sum: {basket.totalSum} ₴</Item>
         <Item>Count of products: {totalQuantity}</Item>
       </TotalWrap>
-      {allProducts.map((product) => (
+      {basket.allProducts.map((product) => (
         <BagProd productItem={product} key={product.product.id} />
       ))}
     </div>

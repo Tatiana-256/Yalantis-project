@@ -2,13 +2,13 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { BagIcon, LinkWrapper, StyledLink, Wrapper } from "./Navigation-styles";
 import shoppingBag from "../../common-files/bag.png";
-import { useAppState } from "../../state/AppProvider";
+import { useProductsSelector } from "../../state/redux/state-selectors";
 
 export const Navigation: React.FunctionComponent = () => {
-  const { state } = useAppState();
-
   const history = useHistory();
   const location = useLocation();
+
+  const { basket } = useProductsSelector();
 
   return (
     <nav>
@@ -38,7 +38,7 @@ export const Navigation: React.FunctionComponent = () => {
             <li style={{ display: "flex", width: "29%" }}>
               <StyledLink to="/bag">
                 <BagIcon src={shoppingBag} />
-                <div>sum {state.basket.totalSum}</div>
+                <div>sum {basket.totalSum}</div>
               </StyledLink>
             </li>
           )}

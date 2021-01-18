@@ -1,11 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from "prop-types";
 import { IProduct } from "../state/entitiesTypes";
-import { useAppState } from "../state/AppProvider";
-import { actionsProduct } from "../state/actions";
 import { Count } from "../components/Products/ProductPage/ProductPage-style";
 import { Button } from "../common-utils/common-styles";
+import { addProductToBasket, addTotalSum } from "../state/redux/prosuctSlice";
 
 interface IProps {
   product: IProduct;
@@ -24,16 +24,16 @@ const CountQuality: React.FC<IProps> = ({
   buttonSize,
   width,
 }) => {
-  const { dispatch } = useAppState();
+  const dispatch = useDispatch();
 
   const addItem = () => {
     dispatch(
-      actionsProduct.addProductToBasket({
+      addProductToBasket({
         product,
         quantity: itemQuantity,
       })
     );
-    dispatch(actionsProduct.addTotalSum(product.price * itemQuantity));
+    dispatch(addTotalSum(product.price * itemQuantity));
   };
 
   return (
