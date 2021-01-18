@@ -7,3 +7,9 @@ export const useProductsSelector = () => {
     return state.products;
   });
 };
+
+export const useCountriesSelector = () => {
+  return useSelector((state: RootState) => {
+    return state.filter;
+  });
+};

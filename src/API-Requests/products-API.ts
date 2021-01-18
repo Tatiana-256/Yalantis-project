@@ -1,8 +1,4 @@
-import {
-  IProduct,
-  IProductAPI,
-  IProductAPIRequest,
-} from "../state/entitiesTypes";
+import { IProduct, IProductAPI } from "../state/entitiesTypes";
 import request from "./API-settings";
 
 const productsAPI = {

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import countriesAPI from "../../API-Requests/countries-API";
 import productsAPI from "../../API-Requests/products-API";
 import { IProduct } from "../../state/entitiesTypes";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
@@ -8,6 +9,7 @@ import { Filters } from "../Filters/Filters";
 import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
 import { ProductsWrap } from "./Products-styles";
+import { setCountries } from "../../state/redux/filterSlise";
 
 export const Products = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,9 @@ export const Products = () => {
         dispatch(setProducts(data.items));
         dispatch(setStatus("succeeded"));
       } else if (data === "error") dispatch(setStatus("failed"));
+    });
+    countriesAPI.getOriginCountries().then((data) => {
+      dispatch(setCountries(data));
     });
   }, [dispatch]);
 

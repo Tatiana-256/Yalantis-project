@@ -1,8 +1,10 @@
 import React from "react";
-import { FilterWrapper } from "./Filters-style";
+import { useCountriesSelector } from "../../state/redux/state-selectors";
+import { CountryWrap, FilterWrapper, TextCountry } from "./Filters-style";
 
 export const Filters = () => {
-  const origin = ["Europe", "USA", "Africa", "Asia"];
+  const { countries } = useCountriesSelector();
+
   return (
     <FilterWrapper>
       <div
@@ -13,24 +15,11 @@ export const Filters = () => {
       >
         Filters:
       </div>
-      {origin.map((orig) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            margin: "10px ",
-          }}
-        >
+      {countries.map((orig) => (
+        <CountryWrap key={Math.random().toString()}>
           <input type="checkbox" />
-          <div
-            style={{
-              marginLeft: "10px",
-              fontSize: "1.2rem",
-            }}
-          >
-            {orig}
-          </div>
-        </div>
+          <TextCountry>{orig.displayName}</TextCountry>
+        </CountryWrap>
       ))}
     </FilterWrapper>
   );
