@@ -1,13 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
 import { IBasketProduct } from "../../../state/entitiesTypes";
 import { ImageProd } from "../../Products/Product/Product-style";
-import productIcon from "../../../common-files/product-icon.png";
 import { Info, Wrap } from "../Bag-styles";
-import trash from "../../../common-files/trash-icon.png";
 import { Button } from "../../../common-utils/common-styles";
 import { Count } from "../../Products/ProductPage/ProductPage-style";
+import trash from "../../../common-files/trash-icon.png";
+import productIcon from "../../../common-files/product-icon.png";
+import { deleteProductFromBasket } from "../../../state/redux/prosuctSlice";
 
 interface IProd {
   productItem: IBasketProduct;
@@ -15,6 +17,7 @@ interface IProd {
 
 export const BagProd: React.FC<IProd> = ({ productItem }) => {
   const { product, quantity } = productItem;
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
@@ -57,11 +60,13 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
           </Button>
         </Count>
         <div>Price for one item: {product.price} ₴</div>
-        <div>Quantity: {quantity}</div>
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
         <img
           src={trash}
           alt="trash"
           style={{ height: "20%", cursor: "pointer" }}
+          onClick={() => dispatch(deleteProductFromBasket(product.id))}
+          onKeyPress={() => {}}
         />
       </Info>
     </Wrap>
@@ -72,3 +77,5 @@ BagProd.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   productItem: PropTypes.any.isRequired,
 };
+
+// {/*<div>Quantity: {quantity}</div>*/}

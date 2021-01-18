@@ -38,6 +38,8 @@
     "no-param-reassign": "off",
     "operator-assignment": "off",
     "import/prefer-default-export": "off",
+    "no-noninteractive-element-interactions": "off",
+
     "prettier/prettier": [
       "error",
       {

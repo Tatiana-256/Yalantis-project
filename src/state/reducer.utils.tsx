@@ -23,3 +23,12 @@ export const addItemToBasket = (
     { ...basketItemToAdd, quantity: basketItemToAdd.quantity },
   ];
 };
+
+export const deleteItemFromBasket = (
+  basketItems: Array<IBasketProduct>,
+  itemId: string
+) => {
+  return basketItems.filter(
+    (item: IBasketProduct) => item.product.id !== itemId
+  );
+};

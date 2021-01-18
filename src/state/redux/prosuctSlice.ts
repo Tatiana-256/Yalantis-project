@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IBasketProduct, IProduct } from "../entitiesTypes";
-import { addItemToBasket } from "../reducer.utils";
+import { addItemToBasket, deleteItemFromBasket } from "../reducer.utils";
 
 export interface IInitialState {
   status: "loading" | "succeeded" | "failed" | null;
@@ -38,6 +38,12 @@ const productsSlice = createSlice({
         action.payload
       );
     },
+    deleteProductFromBasket(state, action) {
+      state.basket.allProducts = deleteItemFromBasket(
+        state.basket.allProducts,
+        action.payload
+      );
+    },
     addTotalSum(state, action) {
       state.basket.totalSum = state.basket.totalSum + action.payload;
     },
@@ -49,6 +55,7 @@ export const {
   setStatus,
   addProductToBasket,
   addTotalSum,
+  deleteProductFromBasket,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;
