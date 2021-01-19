@@ -1,9 +1,12 @@
 import React from "react";
 import { useCountriesSelector } from "../../state/redux/state-selectors";
-import { CountryWrap, FilterWrapper, TextCountry } from "./Filters-style";
+import { Country } from "./2.Country";
+import { FilterWrapper } from "./Filters-style";
 
 export const Filters = () => {
   const { countries } = useCountriesSelector();
+
+  console.log(countries);
 
   return (
     <FilterWrapper>
@@ -16,10 +19,7 @@ export const Filters = () => {
         Filters:
       </div>
       {countries.map((orig) => (
-        <CountryWrap key={Math.random().toString()}>
-          <input type="checkbox" />
-          <TextCountry>{orig.displayName}</TextCountry>
-        </CountryWrap>
+        <Country key={Math.random().toString()} country={orig} />
       ))}
     </FilterWrapper>
   );

@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
@@ -39,6 +40,11 @@
     "operator-assignment": "off",
     "import/prefer-default-export": "off",
     "no-debugger": "off",
+    "no-cond-assign": "off",
+    "import/no-cycle": "off",
+    "array-callback-return": "off",
+    "consistent-return": "off",
+    "no-return-assign": "off",
     "no-noninteractive-element-interactions": "off",
     "prettier/prettier": [
       "error",

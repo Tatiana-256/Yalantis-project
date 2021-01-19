@@ -4,8 +4,12 @@ import countriesAPI from "../../API-Requests/countries-API";
 import productsAPI from "../../API-Requests/products-API";
 import { IProduct } from "../../state/entitiesTypes";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
-import { useProductsSelector } from "../../state/redux/state-selectors";
-import { Filters } from "../Filters/Filters";
+import {
+  useCountriesSelector,
+  useFilteredProducts,
+  useProductsSelector,
+} from "../../state/redux/state-selectors";
+import { Filters } from "../Filters/1.Filters";
 import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
 import { ProductsWrap } from "./Products-styles";
@@ -31,6 +35,9 @@ export const Products = () => {
 
   const { status, products } = useProductsSelector();
 
+  const prod = useFilteredProducts();
+  console.log(prod);
+
   if (status === "loading") return <div>loading...</div>;
 
   return (
@@ -41,7 +48,7 @@ export const Products = () => {
         <div style={{ width: "100%" }} />
         {/* eslint-disable-next-line no-nested-ternary */}
         {status === "succeeded" ? (
-          products.map((product: IProduct) => (
+          prod.map((product: IProduct) => (
             <Product product={product} key={product.id} />
           ))
         ) : status === "failed" ? (
