@@ -2,11 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface IInitialState {
   countries: Array<ICountries>;
-  // filterCountries: Array<string>;
+  page: number;
+  perPage: number;
+  ProductsTotalCount: number;
 }
 
 export const initialState: IInitialState = {
   countries: [],
+  page: 1,
+  perPage: 25,
+  ProductsTotalCount: 50,
 };
 
 const filterSlice = createSlice({
@@ -21,19 +26,28 @@ const filterSlice = createSlice({
       console.log(state.countries);
     },
     changeCountriesFilter(state, action) {
-      state.countries.map((a) => {
-        if (a.value === action.payload) {
-          return (a.isChecked = !a.isChecked);
-        }
-      });
+      state.countries = state.countries.map((c) =>
+        c.value === action.payload
+          ? {
+              ...c,
+              value: c.value,
+              displayName: c.displayName,
+              isChecked: !c.isChecked,
+            }
+          : c
+      );
+    },
+    setPageOptions(state, action) {
+      state.page = action.payload.page;
+      state.perPage = action.payload.perPage;
+      state.ProductsTotalCount = action.payload.totalItems;
     },
   },
 });
 export const {
   setCountries,
   changeCountriesFilter,
-  // addToCountriesFilter,
-  // removeFromCountriesFilter,
+  setPageOptions,
 } = filterSlice.actions;
 export default filterSlice.reducer;
 

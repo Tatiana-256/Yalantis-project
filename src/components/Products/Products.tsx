@@ -5,7 +5,6 @@ import productsAPI from "../../API-Requests/products-API";
 import { IProduct } from "../../state/entitiesTypes";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
 import {
-  useCountriesSelector,
   useFilteredProducts,
   useProductsSelector,
 } from "../../state/redux/state-selectors";
@@ -13,7 +12,7 @@ import { Filters } from "../Filters/1.Filters";
 import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
 import { ProductsWrap } from "./Products-styles";
-import { setCountries } from "../../state/redux/filterSlise";
+import { setCountries, setPageOptions } from "../../state/redux/filterSlise";
 
 export const Products = () => {
   const dispatch = useDispatch();
@@ -25,6 +24,13 @@ export const Products = () => {
       // @ts-ignore
       if (typeof data !== "string") {
         dispatch(setProducts(data.items));
+        dispatch(
+          setPageOptions({
+            page: data.page,
+            perPage: data.perPage,
+            totalItems: data.totalItems,
+          })
+        );
         dispatch(setStatus("succeeded"));
       } else if (data === "error") dispatch(setStatus("failed"));
     });
@@ -48,9 +54,13 @@ export const Products = () => {
         <div style={{ width: "100%" }} />
         {/* eslint-disable-next-line no-nested-ternary */}
         {status === "succeeded" ? (
-          prod.map((product: IProduct) => (
-            <Product product={product} key={product.id} />
-          ))
+          products.length > 0 ? (
+            products.map((product: IProduct) => (
+              <Product product={product} key={product.id} />
+            ))
+          ) : (
+            <div>No products found</div>
+          )
         ) : status === "failed" ? (
           <div>There is some problem with loading data </div>
         ) : (

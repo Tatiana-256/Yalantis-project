@@ -4,9 +4,9 @@ import { Button } from "../../common-utils/common-styles";
 export const PageWrap = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
-  height: 10vh;
+  height: 15vh;
 `;
 
 interface IPage {
@@ -23,6 +23,7 @@ export const Page = styled(Button)<IPage>`
     backGround &&
     css`
       background-color: ${backGround};
+
       &:hover {
         color: white;
         background-color: #737b97;
