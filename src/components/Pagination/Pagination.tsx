@@ -3,13 +3,13 @@ import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Page, PageWrap } from "./Pagination-style";
 import {
+  useFilteredProducts,
   useFiltersSelector,
-  useProductsSelector,
 } from "../../state/redux/state-selectors";
-import productsAPI from "../../API-Requests/products-API";
 import { setProducts } from "../../state/redux/prosuctSlice";
 import { setPageOptions } from "../../state/redux/filterSlise";
 import { Button, Option } from "../../common-utils/common-styles";
+import filtersAPI from "../../API-Requests/filters-API";
 
 interface IProps {
   currentPage: number;
@@ -18,10 +18,16 @@ interface IProps {
 const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
   const dispatch = useDispatch();
 
-  const { countries, page, perPage, ProductsTotalCount } = useFiltersSelector();
-  const [value, setValue] = useState(perPage);
+  const {
+    perPage,
+    ProductsTotalCount,
+    maxPrice,
+    minPrice,
+  } = useFiltersSelector();
 
-  const { products } = useProductsSelector();
+  const origins = useFilteredProducts().join();
+
+  const [value, setValue] = useState(perPage);
 
   const placeholder = Math.ceil(ProductsTotalCount / perPage);
   const pages = [];
@@ -37,19 +43,29 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
   const rightPortionPageNumber = portionNumber * numberPages;
 
   const setNewPage = (productsCount: number, pageNumber?: number) => {
-    productsAPI.getProducts(productsCount, pageNumber).then((data) => {
-      console.log(data);
-      if (typeof data !== "string") {
-        dispatch(setProducts(data.items));
-        dispatch(
-          setPageOptions({
-            page: data.page,
-            perPage: data.perPage,
-            totalItems: data.totalItems,
-          })
-        );
-      }
-    });
+    filtersAPI
+      .loadFiltersProducts(
+        origins,
+        minPrice,
+        maxPrice,
+        productsCount,
+        pageNumber
+      )
+      .then((data) => {
+        console.log(data);
+        if (typeof data !== "string") {
+          console.log(data);
+
+          dispatch(setProducts(data.data.items));
+          dispatch(
+            setPageOptions({
+              page: data.data.page,
+              perPage: data.data.perPage,
+              totalItems: data.data.totalItems,
+            })
+          );
+        }
+      });
   };
 
   const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {

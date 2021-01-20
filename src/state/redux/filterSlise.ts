@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import update from "react-addons-update";
 
 export interface IInitialState {
   countries: Array<ICountries>;
@@ -30,7 +31,8 @@ const filterSlice = createSlice({
       console.log(state.countries);
     },
     changeCountriesFilter(state, action) {
-      state.countries = state.countries.map((c) =>
+      const newState = { ...state };
+      state.countries = newState.countries.map((c) =>
         c.value === action.payload
           ? {
               ...c,
@@ -38,7 +40,7 @@ const filterSlice = createSlice({
               displayName: c.displayName,
               isChecked: !c.isChecked,
             }
-          : c
+          : { ...c }
       );
     },
     setPageOptions(state, action) {
