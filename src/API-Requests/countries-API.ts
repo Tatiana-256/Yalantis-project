@@ -12,6 +12,11 @@ const countriesAPI = {
         return "error";
       });
   },
+  loadFiltersProducts(origins?: string, minPrice?: string, maxPrice?: string) {
+    return request.get(
+      `/products?origins=${origins}&minPrice=${minPrice}&maxPrice=${maxPrice}`
+    );
+  },
 };
 
 export default countriesAPI;
