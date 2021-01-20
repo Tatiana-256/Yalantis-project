@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface IInitialState {
   countries: Array<ICountries>;
+  minPrice: number;
+  maxPrice: number;
   page: number;
   perPage: number;
   ProductsTotalCount: number;
@@ -12,6 +14,8 @@ export const initialState: IInitialState = {
   page: 1,
   perPage: 25,
   ProductsTotalCount: 50,
+  minPrice: 0,
+  maxPrice: 0,
 };
 
 const filterSlice = createSlice({
@@ -42,12 +46,17 @@ const filterSlice = createSlice({
       state.perPage = action.payload.perPage;
       state.ProductsTotalCount = action.payload.totalItems;
     },
+    addMaxMinPrice(state, action) {
+      state.minPrice = action.payload.minPrice;
+      state.maxPrice = action.payload.maxPrice;
+    },
   },
 });
 export const {
   setCountries,
   changeCountriesFilter,
   setPageOptions,
+  addMaxMinPrice,
 } = filterSlice.actions;
 export default filterSlice.reducer;
 
