@@ -5,7 +5,7 @@ import { ICountries } from "../../state/redux/filterSlise";
 
 interface IProps {
   country: ICountries;
-  setCountryFilter: (country: string) => void;
+  setCountryFilter: (country: ICountries) => void;
 }
 
 export const Country: React.FC<IProps> = ({ country, setCountryFilter }) => {
@@ -15,7 +15,7 @@ export const Country: React.FC<IProps> = ({ country, setCountryFilter }) => {
         <input
           type="checkbox"
           checked={country.isChecked}
-          onChange={() => setCountryFilter(country.value)}
+          onChange={() => setCountryFilter(country)}
         />
         <TextCountry> {country.displayName}</TextCountry>
       </CountryWrap>
@@ -26,4 +26,5 @@ export const Country: React.FC<IProps> = ({ country, setCountryFilter }) => {
 Country.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   country: PropTypes.any.isRequired,
+  setCountryFilter: PropTypes.func.isRequired,
 };
