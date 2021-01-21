@@ -30,7 +30,6 @@ export const Filters = () => {
       console.log(data);
       if (typeof data !== "string") {
         dispatch(setProducts(data.items));
-        // dispatch(addMaxMinPrice({ minPrice, maxPrice }));
         dispatch(setStatus("succeeded"));
       } else if (data === "error") dispatch(setStatus("failed"));
     });

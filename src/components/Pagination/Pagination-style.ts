@@ -10,33 +10,35 @@ export const PageWrap = styled.div`
 `;
 
 interface IPage {
-  backGround?: string;
-  borderColor?: string;
-  textColor?: string;
+  prop?: {
+    backGround?: string;
+    borderColor?: string;
+    textColor?: string;
+  };
 }
 
 export const Page = styled(Button)<IPage>`
   height: 40px;
   width: 40px;
   margin: 10px;
-  ${({ backGround }) =>
-    backGround &&
+  ${({ prop }) =>
+    prop &&
     css`
-      background-color: ${backGround};
+      background-color: ${prop.backGround};
 
       &:hover {
         color: white;
         background-color: #737b97;
       }
     `}
-  ${({ borderColor }) =>
-    borderColor &&
+  ${({ prop }) =>
+    prop &&
     css`
-      border: 1px solid ${borderColor};
+      border: 1px solid ${prop.borderColor};
     `}
-  ${({ textColor }) =>
-    textColor &&
+  ${({ prop }) =>
+    prop &&
     css`
-      color: ${textColor};
+      color: ${prop.textColor};
     `}
 `;

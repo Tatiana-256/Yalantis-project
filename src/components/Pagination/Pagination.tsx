@@ -1,13 +1,13 @@
 import React, { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Page, PageWrap } from "./Pagination-style";
 import {
-  useFilteredProducts,
   useFiltersSelector,
+  useProductsSelector,
 } from "../../state/redux/state-selectors";
-import { setProducts } from "../../state/redux/prosuctSlice";
-import { setPageOptions } from "../../state/redux/filterSlise";
+import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
+import { selectCountries, setPageOptions } from "../../state/redux/filterSlise";
 import { Button, Option } from "../../common-utils/common-styles";
 import filtersAPI from "../../API-Requests/filters-API";
 
@@ -19,13 +19,15 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
   const dispatch = useDispatch();
 
   const {
+    page,
     perPage,
     ProductsTotalCount,
     maxPrice,
     minPrice,
   } = useFiltersSelector();
+  const { status } = useProductsSelector();
 
-  const origins = useFilteredProducts().join();
+  const origins = useSelector(selectCountries);
 
   const [value, setValue] = useState(perPage);
 
@@ -36,13 +38,13 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
   }
 
   const numberPages = 5;
-
   const showArrowRight = Math.ceil(placeholder / numberPages);
   const [portionNumber, setPortionNumber] = useState(1);
   const leftPortionPageNumber = (portionNumber - 1) * numberPages + 1;
   const rightPortionPageNumber = portionNumber * numberPages;
 
   const setNewPage = (productsCount: number, pageNumber?: number) => {
+    dispatch(setStatus("loading"));
     filtersAPI
       .loadFiltersProducts(
         origins,
@@ -56,15 +58,16 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
         if (typeof data !== "string") {
           console.log(data);
 
-          dispatch(setProducts(data.data.items));
+          dispatch(setProducts(data.items));
           dispatch(
             setPageOptions({
-              page: data.data.page,
-              perPage: data.data.perPage,
-              totalItems: data.data.totalItems,
+              page: data.page,
+              perPage: data.perPage,
+              totalItems: data.totalItems,
             })
           );
-        }
+          dispatch(setStatus("succeeded"));
+        } else if (data === "error") dispatch(setStatus("failed"));
       });
   };
 
@@ -76,6 +79,8 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
   const onPageChange = (p: number) => {
     setNewPage(value, p);
   };
+
+  if (status === "loading") return <div>loading...</div>;
 
   return (
     <PageWrap>
@@ -106,6 +111,15 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
             <Page
               key={Math.random().toString()}
               onClick={() => onPageChange(p)}
+              prop={
+                page !== p
+                  ? {
+                      backGround: "white",
+                      textColor: "black",
+                      borderColor: "#363b4d",
+                    }
+                  : {}
+              }
             >
               {p}
             </Page>
@@ -130,8 +144,3 @@ export default Pagination;
 Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
 };
-
-// {/*<Page>{currentPage}</Page>*/}
-// {/*<Page backGround="white" textColor="black" borderColor="#363b4d">*/}
-// {/*  {currentPage}*/}
-// {/*</Page>*/}
