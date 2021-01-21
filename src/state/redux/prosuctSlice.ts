@@ -7,7 +7,7 @@ import {
 } from "../reducer.utils";
 
 export interface IInitialState {
-  status: "loading" | "succeeded" | "failed" | null;
+  status: "loading" | "succeeded" | "failed" | "idle";
   products: IProduct[];
   basket: {
     allProducts: IBasketProduct[];
@@ -17,7 +17,7 @@ export interface IInitialState {
 }
 
 export const initialState: IInitialState = {
-  status: null,
+  status: "idle",
   products: [],
   basket: {
     allProducts: [],

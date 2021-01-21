@@ -13,11 +13,3 @@ export const useFiltersSelector = () => {
     return state.filter;
   });
 };
-
-export const useFilteredProducts = () => {
-  return useSelector((state: RootState) => {
-    return state.filter.countries
-      .filter((country) => country.isChecked)
-      .map((item) => item.value);
-  });
-};

@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import update from "react-addons-update";
+import { RootState } from "./redux-store";
 
 export interface IInitialState {
   countries: Array<ICountries>;
-  minPrice: number;
-  maxPrice: number;
+  minPrice?: number;
+  maxPrice?: number;
   page: number;
   perPage: number;
   ProductsTotalCount: number;
@@ -15,8 +15,8 @@ export const initialState: IInitialState = {
   page: 1,
   perPage: 25,
   ProductsTotalCount: 50,
-  minPrice: 0,
-  maxPrice: 0,
+  minPrice: undefined,
+  maxPrice: undefined,
 };
 
 const filterSlice = createSlice({
@@ -31,26 +31,26 @@ const filterSlice = createSlice({
       console.log(state.countries);
     },
     changeCountriesFilter(state, action) {
-      const newState = { ...state };
-      state.countries = newState.countries.map((c) =>
+      state.countries = state.countries.map((c) =>
         c.value === action.payload
           ? {
               ...c,
-              value: c.value,
-              displayName: c.displayName,
               isChecked: !c.isChecked,
             }
-          : { ...c }
+          : c
       );
     },
     setPageOptions(state, action) {
-      state.page = action.payload.page;
-      state.perPage = action.payload.perPage;
-      state.ProductsTotalCount = action.payload.totalItems;
+      const { page, perPage, totalItems } = action.payload;
+      state.page = page;
+      state.perPage = perPage;
+      state.ProductsTotalCount = totalItems;
     },
-    addMaxMinPrice(state, action) {
-      state.minPrice = action.payload.minPrice;
-      state.maxPrice = action.payload.maxPrice;
+    addMinPrice(state, action) {
+      state.minPrice = action.payload;
+    },
+    addMaxPrice(state, action) {
+      state.maxPrice = action.payload;
     },
   },
 });
@@ -58,7 +58,8 @@ export const {
   setCountries,
   changeCountriesFilter,
   setPageOptions,
-  addMaxMinPrice,
+  addMinPrice,
+  addMaxPrice,
 } = filterSlice.actions;
 export default filterSlice.reducer;
 
@@ -67,3 +68,10 @@ export interface ICountries {
   displayName: string;
   isChecked: boolean;
 }
+
+export const selectCountries = (state: RootState) => {
+  return state.filter.countries
+    .filter((country) => country.isChecked)
+    .map((item) => item.value)
+    .join();
+};
