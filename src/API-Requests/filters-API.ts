@@ -19,10 +19,21 @@ const filtersAPI = {
     pageCount?: number,
     page?: number
   ) {
-    const url = origins
-      ? `?origins=${origins}&minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&perPage=${pageCount}`
-      : `?minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&perPage=${pageCount}`;
-    return request.get(`/products${url}`);
+    const min = minPrice! > 0 ? minPrice : "";
+    const max = maxPrice! > 0 ? maxPrice : "";
+    const url =
+      origins !== ""
+        ? `?origins=${origins}&minPrice=${min}&maxPrice=${max}&page=${page}&perPage=${pageCount}`
+        : `?minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&perPage=${pageCount}`;
+    return request
+      .get(`/products${url}`)
+      .then((res) => {
+        console.log(res);
+        return res.data;
+      })
+      .catch((error) => {
+        return "error";
+      });
   },
 };
 
