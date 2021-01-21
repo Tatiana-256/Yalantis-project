@@ -4,11 +4,7 @@ import filtersAPI from "../../API-Requests/filters-API";
 import productsAPI from "../../API-Requests/products-API";
 import { IProduct } from "../../state/entitiesTypes";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
-import {
-  useFilteredProducts,
-  useFiltersSelector,
-  useProductsSelector,
-} from "../../state/redux/state-selectors";
+import { useProductsSelector } from "../../state/redux/state-selectors";
 import { Filters } from "../Filters/1.Filters";
 import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
@@ -21,8 +17,6 @@ export const Products = () => {
   useEffect(() => {
     dispatch(setStatus("loading"));
     productsAPI.getProducts().then((data) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       if (typeof data !== "string") {
         dispatch(setProducts(data.items));
         dispatch(
@@ -42,10 +36,9 @@ export const Products = () => {
 
   const { status, products } = useProductsSelector();
 
-  const prod = useFilteredProducts();
-  console.log(prod);
-
-  if (status === "loading") return <div>loading...</div>;
+  if (status === "failed") {
+    return <div>There is some problem with loading data </div>;
+  }
 
   return (
     <div style={{ display: "flex" }}>
@@ -53,20 +46,14 @@ export const Products = () => {
       <ProductsWrap>
         <Pagination currentPage={1} />
         <div style={{ width: "100%" }} />
-        {/* eslint-disable-next-line no-nested-ternary */}
-        {status === "succeeded" ? (
-          products.length > 0 ? (
+        {status === "succeeded" &&
+          (products.length > 0 ? (
             products.map((product: IProduct) => (
               <Product product={product} key={product.id} />
             ))
           ) : (
             <div>No products found</div>
-          )
-        ) : status === "failed" ? (
-          <div>There is some problem with loading data </div>
-        ) : (
-          <div />
-        )}
+          ))}
       </ProductsWrap>
     </div>
   );
