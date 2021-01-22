@@ -44,7 +44,7 @@ export const Products = () => {
     <div style={{ display: "flex" }}>
       <Filters />
       <ProductsWrap>
-        <Pagination currentPage={1} />
+        <Pagination />
         <div style={{ width: "100%" }} />
         {status === "succeeded" &&
           (products.length > 0 ? (

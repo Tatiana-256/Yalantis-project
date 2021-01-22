@@ -8,7 +8,7 @@ const productsAPI = {
       .then((res) => {
         return res.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return "error";
       });
   },
@@ -18,7 +18,7 @@ const productsAPI = {
       .then((res) => {
         return res.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return "error";
       });
   },

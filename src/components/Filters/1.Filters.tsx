@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFiltersSelector } from "../../state/redux/state-selectors";
 import { Country } from "./2.Country";
-import { FilterWrapper } from "./Filters-style";
+import { FilterText, FilterWrapper } from "./Filters-style";
 import {
   addMaxPrice,
   addMinPrice,
@@ -18,16 +18,14 @@ export const Filters = () => {
   const dispatch = useDispatch();
 
   const { countries, minPrice, maxPrice } = useFiltersSelector();
+  const origins = useSelector(selectCountries);
 
   const [min, setMinPrice] = useState<number>();
   const [max, setMaxPrice] = useState<number>();
 
-  const origins = useSelector(selectCountries);
-
   useEffect(() => {
     dispatch(setStatus("loading"));
     filtersAPI.loadFiltersProducts(origins, minPrice, maxPrice).then((data) => {
-      console.log(data);
       if (typeof data !== "string") {
         dispatch(setProducts(data.items));
         dispatch(setStatus("succeeded"));
@@ -36,24 +34,25 @@ export const Filters = () => {
   }, [origins, dispatch, minPrice, maxPrice]);
 
   const setCountryFilter = (country: ICountries) => {
-    console.log("33, origins: ", origins);
     dispatch(changeCountriesFilter(country.value));
   };
+
   const setMaxMinFilter = () => {
-    dispatch(addMaxPrice(max));
-    dispatch(addMinPrice(min));
+    if (max === 0) {
+      dispatch(addMaxPrice(undefined));
+    } else if (max === undefined || max > 0) {
+      dispatch(addMaxPrice(max));
+    }
+    if (min === 0) {
+      dispatch(addMinPrice(undefined));
+    } else if (min === undefined || min > 0) {
+      dispatch(addMinPrice(min));
+    }
   };
 
   return (
     <FilterWrapper>
-      <div
-        style={{
-          fontSize: "2rem",
-          fontWeight: "bold",
-        }}
-      >
-        Filters:
-      </div>
+      <FilterText>Filters:</FilterText>
       {countries.map((orig) => (
         <Country
           key={Math.random().toString()}

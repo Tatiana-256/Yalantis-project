@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import { Page, PageWrap } from "./Pagination-style";
 import {
   useFiltersSelector,
@@ -10,12 +9,9 @@ import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
 import { selectCountries, setPageOptions } from "../../state/redux/filterSlise";
 import { Button, Option } from "../../common-utils/common-styles";
 import filtersAPI from "../../API-Requests/filters-API";
+import { usePageOptions } from "./pagination.utils";
 
-interface IProps {
-  currentPage: number;
-}
-
-const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
+const Pagination = () => {
   const dispatch = useDispatch();
 
   const {
@@ -29,19 +25,15 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
 
   const origins = useSelector(selectCountries);
 
-  const [value, setValue] = useState(perPage);
+  const [value, setValue] = useState<number>(perPage);
+  const [portionNumber, setPortionNumber] = useState<number>(1);
 
-  const placeholder = Math.ceil(ProductsTotalCount / perPage);
-  const pages = [];
-  for (let i = 1; i <= placeholder; i += 1) {
-    pages.push(i);
-  }
-
-  const numberPages = 5;
-  const showArrowRight = Math.ceil(placeholder / numberPages);
-  const [portionNumber, setPortionNumber] = useState(1);
-  const leftPortionPageNumber = (portionNumber - 1) * numberPages + 1;
-  const rightPortionPageNumber = portionNumber * numberPages;
+  const {
+    pages,
+    rightPortionPageNumber,
+    leftPortionPageNumber,
+    showArrowRight,
+  } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   const setNewPage = (productsCount: number, pageNumber?: number) => {
     dispatch(setStatus("loading"));
@@ -54,10 +46,7 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
         pageNumber
       )
       .then((data) => {
-        console.log(data);
         if (typeof data !== "string") {
-          console.log(data);
-
           dispatch(setProducts(data.items));
           dispatch(
             setPageOptions({
@@ -107,7 +96,7 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
           .filter(
             (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
           )
-          .map((p, index) => (
+          .map((p) => (
             <Page
               key={Math.random().toString()}
               onClick={() => onPageChange(p)}
@@ -140,7 +129,3 @@ const Pagination: React.FC<IProps> = ({ currentPage = 1 }) => {
 };
 
 export default Pagination;
-
-Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-};

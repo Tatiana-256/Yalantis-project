@@ -45,6 +45,8 @@
     "array-callback-return": "off",
     "consistent-return": "off",
     "no-return-assign": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
     "no-noninteractive-element-interactions": "off",
     "prettier/prettier": [
       "error",

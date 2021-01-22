@@ -24,11 +24,10 @@ const filterSlice = createSlice({
   initialState,
   reducers: {
     setCountries(state, action) {
-      state.countries = action.payload.map((item: any) => {
+      state.countries = action.payload.map((item: ICountries) => {
         item.isChecked = false;
         return item;
       });
-      console.log(state.countries);
     },
     changeCountriesFilter(state, action) {
       state.countries = state.countries.map((c) =>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { RouteComponentProps, useHistory } from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 import productsAPI from "../../../API-Requests/products-API";
 import { IProduct } from "../../../state/entitiesTypes";
 import productIcon from "../../../common-files/product-icon.png";

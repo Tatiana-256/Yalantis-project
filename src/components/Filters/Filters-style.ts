@@ -8,6 +8,11 @@ export const FilterWrapper = styled.div`
   margin: 13vh 0 0 3vw;
 `;
 
+export const FilterText = styled.div`
+  font-size: 2rem;
+  font-weight: bold;
+`;
+
 export const CountryWrap = styled.div`
   display: flex;
   align-items: center;

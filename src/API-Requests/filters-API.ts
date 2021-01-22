@@ -8,7 +8,7 @@ const filtersAPI = {
       .then((res) => {
         return res.data.items;
       })
-      .catch((error) => {
+      .catch(() => {
         return "error";
       });
   },
@@ -19,19 +19,21 @@ const filtersAPI = {
     pageCount?: number,
     page?: number
   ) {
-    const min = minPrice! > 0 ? minPrice : "";
-    const max = maxPrice! > 0 ? maxPrice : "";
-    const url =
-      origins !== ""
-        ? `?origins=${origins}&minPrice=${min}&maxPrice=${max}&page=${page}&perPage=${pageCount}`
-        : `?minPrice=${minPrice}&maxPrice=${maxPrice}&page=${page}&perPage=${pageCount}`;
     return request
-      .get(`/products${url}`)
+      .get(`/products`, {
+        params: {
+          origins,
+          minPrice,
+          maxPrice,
+          pageCount,
+          page,
+        },
+      })
       .then((res) => {
-        console.log(res);
+        debugger;
         return res.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return "error";
       });
   },
