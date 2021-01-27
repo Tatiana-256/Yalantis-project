@@ -25,12 +25,11 @@ const filtersAPI = {
           origins,
           minPrice,
           maxPrice,
-          pageCount,
+          perPage: pageCount,
           page,
         },
       })
       .then((res) => {
-        debugger;
         return res.data;
       })
       .catch(() => {

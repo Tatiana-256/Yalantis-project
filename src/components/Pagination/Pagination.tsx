@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Page, PageWrap } from "./Pagination-style";
 import {
@@ -26,6 +26,7 @@ const Pagination = () => {
   const origins = useSelector(selectCountries);
 
   const [value, setValue] = useState<number>(perPage);
+  const [valuePage, setValuePage] = useState<number>();
   const [portionNumber, setPortionNumber] = useState<number>(1);
 
   const {
@@ -35,18 +36,13 @@ const Pagination = () => {
     showArrowRight,
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
-  const setNewPage = (productsCount: number, pageNumber?: number) => {
+  useEffect(() => {
     dispatch(setStatus("loading"));
     filtersAPI
-      .loadFiltersProducts(
-        origins,
-        minPrice,
-        maxPrice,
-        productsCount,
-        pageNumber
-      )
+      .loadFiltersProducts(origins, minPrice, maxPrice, value, valuePage)
       .then((data) => {
         if (typeof data !== "string") {
+          debugger;
           dispatch(setProducts(data.items));
           dispatch(
             setPageOptions({
@@ -58,15 +54,10 @@ const Pagination = () => {
           dispatch(setStatus("succeeded"));
         } else if (data === "error") dispatch(setStatus("failed"));
       });
-  };
+  }, [value, page, dispatch, maxPrice, minPrice, origins, valuePage]);
 
   const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValue(Number(e.target.value));
-    setNewPage(Number(e.target.value));
-  };
-
-  const onPageChange = (p: number) => {
-    setNewPage(value, p);
   };
 
   if (status === "loading") return <div>loading...</div>;
@@ -99,7 +90,7 @@ const Pagination = () => {
           .map((p) => (
             <Page
               key={Math.random().toString()}
-              onClick={() => onPageChange(p)}
+              onClick={() => setValuePage(p)}
               prop={
                 page !== p
                   ? {
