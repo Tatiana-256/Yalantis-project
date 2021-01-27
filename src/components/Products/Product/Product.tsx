@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import productIcon from "../../../common-files/product-icon.png";
 import { ImageProd, WrapperProd } from "./Product-style";
 import { IProduct } from "../../../state/entitiesTypes";
-import { useHistory } from "react-router-dom";
-import { CountQuality } from "../../../common-components/CountQuantity";
+import CountQuality from "../../../common-components/CountQuantity";
 
 interface IProps {
   product: IProduct;
@@ -35,4 +36,9 @@ export const Product: React.FC<IProps> = ({ product }) => {
       />
     </WrapperProd>
   );
+};
+
+Product.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  product: PropTypes.any.isRequired,
 };

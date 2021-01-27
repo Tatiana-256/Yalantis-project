@@ -1,10 +1,11 @@
+// eslint-disable-next-line import/no-cycle
 import { ActionsType, AppStateType } from "./actions";
 import { IBasketProduct, IProduct } from "./entitiesTypes";
 import { addItemToBasket } from "./reducer.utils";
 
 interface InitialState {
   loading: boolean;
-  products: IProduct[];
+  products: IProduct[] | null;
   basket: {
     allProducts: IBasketProduct[];
     totalSum: number;
@@ -13,7 +14,7 @@ interface InitialState {
 
 export const initialState: InitialState = {
   loading: true,
-  products: [],
+  products: null,
   basket: {
     allProducts: [],
     totalSum: 0,
@@ -60,6 +61,3 @@ export const stateReducer = (
     }
   }
 };
-
-
-

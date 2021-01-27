@@ -1,10 +1,11 @@
-import { IProduct } from "../state/entitiesTypes";
 import React from "react";
-import { useAppState } from "../state/AppProvider";
-import { actionsProduct } from "../state/actions";
+import { useDispatch } from "react-redux";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from "prop-types";
+import { IProduct } from "../state/entitiesTypes";
 import { Count } from "../components/Products/ProductPage/ProductPage-style";
 import { Button } from "../common-utils/common-styles";
-import PropTypes  from "prop-types";
+import { addProductToBasket, addTotalSum } from "../state/redux/prosuctSlice";
 
 interface IProps {
   product: IProduct;
@@ -15,7 +16,7 @@ interface IProps {
   width?: number;
 }
 
-export const CountQuality: React.FC<IProps> = ({
+const CountQuality: React.FC<IProps> = ({
   itemQuantity,
   decrement,
   increment,
@@ -23,16 +24,16 @@ export const CountQuality: React.FC<IProps> = ({
   buttonSize,
   width,
 }) => {
-  const { dispatch } = useAppState();
+  const dispatch = useDispatch();
 
   const addItem = () => {
     dispatch(
-      actionsProduct.addProductToBasket({
-        product: product,
+      addProductToBasket({
+        product,
         quantity: itemQuantity,
       })
     );
-    dispatch(actionsProduct.addTotalSum(product.price * itemQuantity));
+    dispatch(addTotalSum(product.price * itemQuantity));
   };
 
   return (
@@ -42,6 +43,7 @@ export const CountQuality: React.FC<IProps> = ({
           width={`${buttonSize}px`}
           height={`${buttonSize}px`}
           onClick={() => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             itemQuantity > 1 && decrement();
           }}
         >
@@ -56,7 +58,7 @@ export const CountQuality: React.FC<IProps> = ({
           +
         </Button>
       </Count>
-      <Button height={"50px"} width={"70%"} onClick={addItem}>
+      <Button height="50px" width="70%" onClick={addItem}>
         Add to basket
       </Button>
     </>
@@ -64,10 +66,15 @@ export const CountQuality: React.FC<IProps> = ({
 };
 
 CountQuality.propTypes = {
+  // eslint-disable-next-line react/require-default-props,react/forbid-prop-types
   product: PropTypes.any,
   itemQuantity: PropTypes.number.isRequired,
   increment: PropTypes.func.isRequired,
   decrement: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
   buttonSize: PropTypes.number,
+  // eslint-disable-next-line react/require-default-props
   width: PropTypes.number,
 };
+
+export default CountQuality;

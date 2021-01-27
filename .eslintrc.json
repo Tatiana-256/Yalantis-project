@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
@@ -35,6 +36,18 @@
   },
   "rules": {
     "linebreak-style": "off",
+    "no-param-reassign": "off",
+    "operator-assignment": "off",
+    "import/prefer-default-export": "off",
+    "no-debugger": "off",
+    "no-cond-assign": "off",
+    "import/no-cycle": "off",
+    "array-callback-return": "off",
+    "consistent-return": "off",
+    "no-return-assign": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-noninteractive-element-interactions": "off",
     "prettier/prettier": [
       "error",
       {

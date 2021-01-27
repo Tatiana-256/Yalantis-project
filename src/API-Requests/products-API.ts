@@ -1,18 +1,14 @@
-import {
-  IProduct,
-  IProductAPI,
-  IProductAPIRequest,
-} from "../state/entitiesTypes";
-import { request } from "./API-settings";
+import { IProduct, IProductAPI } from "../state/entitiesTypes";
+import request from "./API-settings";
 
-export const productsAPI = {
+const productsAPI = {
   getProducts() {
     return request
       .get<IProductAPI>(`/products`)
       .then((res) => {
         return res.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return "error";
       });
   },
@@ -22,8 +18,10 @@ export const productsAPI = {
       .then((res) => {
         return res.data;
       })
-      .catch((error) => {
+      .catch(() => {
         return "error";
       });
   },
 };
+
+export default productsAPI;

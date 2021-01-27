@@ -1,35 +1,61 @@
-import React, { useEffect, useState } from "react";
-import { productsAPI } from "../../API-Requests/products-API";
-import { actionsProduct } from "../../state/actions";
-import { useAppState } from "../../state/AppProvider";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import filtersAPI from "../../API-Requests/filters-API";
+import productsAPI from "../../API-Requests/products-API";
+import { IProduct } from "../../state/entitiesTypes";
+import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
+import { selectProducts } from "../../state/redux/state-selectors";
+import { Filters } from "../Filters/1.Filters";
+import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
 import { ProductsWrap } from "./Products-styles";
-import { useLocation } from "react-router-dom";
+import { setCountries, setPageOptions } from "../../state/redux/filterSlise";
 
 export const Products = () => {
-  const { state, dispatch } = useAppState();
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setStatus("loading"));
     productsAPI.getProducts().then((data) => {
-      if (data === "error") {
-        setError((prevState) => !prevState);
-      } else if (typeof data !== "string") {
-        dispatch(actionsProduct.setProducts(data.items));
-      }
+      if (typeof data !== "string") {
+        dispatch(setProducts(data.items));
+        dispatch(
+          setPageOptions({
+            page: data.page,
+            perPage: data.perPage,
+            totalItems: data.totalItems,
+          })
+        );
+        dispatch(setStatus("succeeded"));
+      } else if (data === "error") dispatch(setStatus("failed"));
     });
-  }, []);
+    filtersAPI.getOriginCountries().then((data) => {
+      dispatch(setCountries(data));
+    });
+  }, [dispatch]);
 
-  if (error) {
-    return <div>Network error. Please try again later</div>;
+  const { status, products } = useSelector(selectProducts);
+
+  if (status === "failed") {
+    return <div>There is some problem with loading data </div>;
   }
 
   return (
-    <ProductsWrap>
-      <div style={{ width: "100%" }} />
-      {state.products.map((product) => (
-        <Product product={product} key={product.id} />
-      ))}
-    </ProductsWrap>
+    <div style={{ display: "flex" }}>
+      <Filters />
+      <ProductsWrap>
+        <Pagination />
+        <div style={{ width: "100%" }} />
+        {status === "succeeded" &&
+          (products.length > 0 ? (
+            products.map((product: IProduct) => (
+              <Product product={product} key={product.id} />
+            ))
+          ) : (
+            <div>No products found</div>
+          ))}
+      </ProductsWrap>
+    </div>
   );
 };

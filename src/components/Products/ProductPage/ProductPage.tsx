@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { RouteComponentProps, useHistory } from "react-router-dom";
-import { productsAPI } from "../../../API-Requests/products-API";
+import { RouteComponentProps } from "react-router-dom";
+import productsAPI from "../../../API-Requests/products-API";
 import { IProduct } from "../../../state/entitiesTypes";
 import productIcon from "../../../common-files/product-icon.png";
 import { ProdInfo, Wrapper } from "./ProductPage-style";
-import { CountQuality } from "../../../common-components/CountQuantity";
+import CountQuality from "../../../common-components/CountQuantity";
 
 interface MatchParams {
   id: string;
 }
 
-export const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
+const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
   const [product, setProduct] = useState<IProduct | null>(null);
   const [itemQuantity, setItemQuantity] = useState(1);
   const [error, setError] = useState(false);
@@ -21,7 +21,7 @@ export const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
     productsAPI.getProduct(productId).then((data) => {
       if (data === "error") {
         setError((prevState) => !prevState);
-      } else if (typeof data !== "string"){
+      } else if (typeof data !== "string") {
         setProduct(data);
       }
     });
@@ -33,7 +33,7 @@ export const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
 
   return (
     <Wrapper>
-      <img src={productIcon} style={{ height: "300px" }} alt={"Product"} />
+      <img src={productIcon} style={{ height: "300px" }} alt="Product" />
       <div
         style={{
           width: "70%",
@@ -64,3 +64,5 @@ export const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
     </Wrapper>
   );
 };
+
+export default ProductPage;
