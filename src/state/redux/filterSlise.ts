@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./redux-store";
 
-export interface IInitialState {
+export interface IInitialStateFilters {
   countries: Array<ICountries>;
   minPrice?: number;
   maxPrice?: number;
@@ -10,7 +10,7 @@ export interface IInitialState {
   ProductsTotalCount: number;
 }
 
-export const initialState: IInitialState = {
+export const initialState: IInitialStateFilters = {
   countries: [],
   page: 1,
   perPage: 25,

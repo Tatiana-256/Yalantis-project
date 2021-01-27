@@ -1,14 +1,9 @@
-import { useSelector } from "react-redux";
+import { IInitialStateProduct } from "./prosuctSlice";
 import { RootState } from "./redux-store";
+import { IInitialStateFilters } from "./filterSlise";
 
-export const useProductsSelector = () => {
-  return useSelector((state: RootState) => {
-    return state.products;
-  });
-};
+export const selectProducts = (state: RootState) =>
+  state.products as IInitialStateProduct;
 
-export const useFiltersSelector = () => {
-  return useSelector((state: RootState) => {
-    return state.filter;
-  });
-};
+export const selectFilters = (state: RootState) =>
+  state.filter as IInitialStateFilters;

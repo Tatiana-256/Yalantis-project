@@ -3,10 +3,11 @@ import { BagProd } from "./BagProd/BagProd";
 import basketImg from "../../common-files/shopping-basket.png";
 import { IBasketProduct } from "../../state/entitiesTypes";
 import { BagWrap, Item, TotalWrap } from "./Bag-styles";
-import { useProductsSelector } from "../../state/redux/state-selectors";
+import { selectProducts } from "../../state/redux/state-selectors";
+import { useSelector } from "react-redux";
 
 export const Bag = () => {
-  const { basket } = useProductsSelector();
+  const { basket } = useSelector(selectProducts);
 
   if (basket.allProducts.length === 0) {
     return (

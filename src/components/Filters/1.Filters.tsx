@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useFiltersSelector } from "../../state/redux/state-selectors";
+import { selectFilters } from "../../state/redux/state-selectors";
 import { Country } from "./2.Country";
 import { FilterText, FilterWrapper } from "./Filters-style";
 import {
@@ -17,7 +17,7 @@ import { Button, Input } from "../../common-utils/common-styles";
 export const Filters = () => {
   const dispatch = useDispatch();
 
-  const { countries, minPrice, maxPrice } = useFiltersSelector();
+  const { countries, minPrice, maxPrice } = useSelector(selectFilters);
   const origins = useSelector(selectCountries);
 
   const [min, setMinPrice] = useState<number>();

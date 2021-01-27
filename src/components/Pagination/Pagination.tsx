@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { Page, PageWrap } from "./Pagination-style";
 import {
-  useFiltersSelector,
-  useProductsSelector,
+  selectFilters,
+  selectProducts,
 } from "../../state/redux/state-selectors";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
 import { selectCountries, setPageOptions } from "../../state/redux/filterSlise";
@@ -14,14 +15,11 @@ import { usePageOptions } from "./pagination.utils";
 const Pagination = () => {
   const dispatch = useDispatch();
 
-  const {
-    page,
-    perPage,
-    ProductsTotalCount,
-    maxPrice,
-    minPrice,
-  } = useFiltersSelector();
-  const { status } = useProductsSelector();
+  const { page, perPage, ProductsTotalCount, maxPrice, minPrice } = useSelector(
+    selectFilters
+  );
+
+  const { status } = useSelector(selectProducts);
 
   const origins = useSelector(selectCountries);
 
@@ -42,7 +40,6 @@ const Pagination = () => {
       .loadFiltersProducts(origins, minPrice, maxPrice, value, valuePage)
       .then((data) => {
         if (typeof data !== "string") {
-          debugger;
           dispatch(setProducts(data.items));
           dispatch(
             setPageOptions({

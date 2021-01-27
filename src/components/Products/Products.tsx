@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import filtersAPI from "../../API-Requests/filters-API";
 import productsAPI from "../../API-Requests/products-API";
 import { IProduct } from "../../state/entitiesTypes";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
-import { useProductsSelector } from "../../state/redux/state-selectors";
+import { selectProducts } from "../../state/redux/state-selectors";
 import { Filters } from "../Filters/1.Filters";
 import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
@@ -34,7 +35,7 @@ export const Products = () => {
     });
   }, [dispatch]);
 
-  const { status, products } = useProductsSelector();
+  const { status, products } = useSelector(selectProducts);
 
   if (status === "failed") {
     return <div>There is some problem with loading data </div>;

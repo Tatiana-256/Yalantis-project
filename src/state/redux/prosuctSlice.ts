@@ -6,7 +6,7 @@ import {
   deleteItemFromBasket,
 } from "../reducer.utils";
 
-export interface IInitialState {
+export interface IInitialStateProduct {
   status: "loading" | "succeeded" | "failed" | "idle";
   products: IProduct[];
   basket: {
@@ -16,7 +16,7 @@ export interface IInitialState {
   error: string;
 }
 
-export const initialState: IInitialState = {
+export const initialState: IInitialStateProduct = {
   status: "idle",
   products: [],
   basket: {

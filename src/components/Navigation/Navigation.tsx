@@ -1,14 +1,16 @@
 import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { BagIcon, LinkWrapper, StyledLink, Wrapper } from "./Navigation-styles";
 import shoppingBag from "../../common-files/bag.png";
-import { useProductsSelector } from "../../state/redux/state-selectors";
+import { selectProducts } from "../../state/redux/state-selectors";
 
 export const Navigation: React.FunctionComponent = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const { basket } = useProductsSelector();
+  const { basket } = useSelector(selectProducts);
 
   return (
     <nav>
