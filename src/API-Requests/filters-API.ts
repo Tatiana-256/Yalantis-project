@@ -1,5 +1,6 @@
 import request from "./API-settings";
 import { ICountries } from "../state/redux/filterSlise";
+import { IFilterParameters } from "../state/redux/thunk-creators";
 
 const filtersAPI = {
   getOriginCountries() {
@@ -12,13 +13,8 @@ const filtersAPI = {
         return "error";
       });
   },
-  loadFiltersProducts(
-    origins?: string,
-    minPrice?: number,
-    maxPrice?: number,
-    pageCount?: number,
-    page?: number
-  ) {
+  loadFiltersProducts(parameters?: IFilterParameters) {
+    const { maxPrice, minPrice, origins, page, pageCount } = parameters!;
     return request
       .get(`/products`, {
         params: {

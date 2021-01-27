@@ -6,11 +6,10 @@ import {
   selectFilters,
   selectProducts,
 } from "../../state/redux/state-selectors";
-import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
-import { selectCountries, setPageOptions } from "../../state/redux/filterSlise";
+import { selectCountries } from "../../state/redux/filterSlise";
 import { Button, Option } from "../../common-utils/common-styles";
-import filtersAPI from "../../API-Requests/filters-API";
 import { usePageOptions } from "./pagination.utils";
+import { loadFilteredProducts } from "../../state/redux/thunk-creators";
 
 const Pagination = () => {
   const dispatch = useDispatch();
@@ -23,7 +22,7 @@ const Pagination = () => {
 
   const origins = useSelector(selectCountries);
 
-  const [value, setValue] = useState<number>(perPage);
+  const [value, setValue] = useState<number | undefined>(perPage);
   const [valuePage, setValuePage] = useState<number>();
   const [portionNumber, setPortionNumber] = useState<number>(1);
 
@@ -35,23 +34,21 @@ const Pagination = () => {
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   useEffect(() => {
-    dispatch(setStatus("loading"));
-    filtersAPI
-      .loadFiltersProducts(origins, minPrice, maxPrice, value, valuePage)
-      .then((data) => {
-        if (typeof data !== "string") {
-          dispatch(setProducts(data.items));
-          dispatch(
-            setPageOptions({
-              page: data.page,
-              perPage: data.perPage,
-              totalItems: data.totalItems,
-            })
-          );
-          dispatch(setStatus("succeeded"));
-        } else if (data === "error") dispatch(setStatus("failed"));
-      });
+    dispatch(
+      loadFilteredProducts({
+        origins,
+        minPrice,
+        maxPrice,
+        pageCount: value,
+        page: valuePage,
+      })
+    );
   }, [value, page, dispatch, maxPrice, minPrice, origins, valuePage]);
+
+  useEffect(() => {
+    setValuePage(1);
+    setPortionNumber(1);
+  }, [value]);
 
   const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValue(Number(e.target.value));

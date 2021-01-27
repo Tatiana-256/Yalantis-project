@@ -25,12 +25,14 @@ export const Filters = () => {
 
   useEffect(() => {
     dispatch(setStatus("loading"));
-    filtersAPI.loadFiltersProducts(origins, minPrice, maxPrice).then((data) => {
-      if (typeof data !== "string") {
-        dispatch(setProducts(data.items));
-        dispatch(setStatus("succeeded"));
-      } else if (data === "error") dispatch(setStatus("failed"));
-    });
+    filtersAPI
+      .loadFiltersProducts({ origins, minPrice, maxPrice })
+      .then((data) => {
+        if (typeof data !== "string") {
+          dispatch(setProducts(data.items));
+          dispatch(setStatus("succeeded"));
+        } else if (data === "error") dispatch(setStatus("failed"));
+      });
   }, [origins, dispatch, minPrice, maxPrice]);
 
   const setCountryFilter = (country: ICountries) => {

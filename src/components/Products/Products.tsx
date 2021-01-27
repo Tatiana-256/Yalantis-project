@@ -2,34 +2,20 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import filtersAPI from "../../API-Requests/filters-API";
-import productsAPI from "../../API-Requests/products-API";
 import { IProduct } from "../../state/entitiesTypes";
-import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
 import { selectProducts } from "../../state/redux/state-selectors";
 import { Filters } from "../Filters/1.Filters";
 import Pagination from "../Pagination/Pagination";
 import { Product } from "./Product/Product";
 import { ProductsWrap } from "./Products-styles";
-import { setCountries, setPageOptions } from "../../state/redux/filterSlise";
+import { setCountries } from "../../state/redux/filterSlise";
+import { loadFilteredProducts } from "../../state/redux/thunk-creators";
 
 export const Products = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setStatus("loading"));
-    productsAPI.getProducts().then((data) => {
-      if (typeof data !== "string") {
-        dispatch(setProducts(data.items));
-        dispatch(
-          setPageOptions({
-            page: data.page,
-            perPage: data.perPage,
-            totalItems: data.totalItems,
-          })
-        );
-        dispatch(setStatus("succeeded"));
-      } else if (data === "error") dispatch(setStatus("failed"));
-    });
+    dispatch(loadFilteredProducts());
     filtersAPI.getOriginCountries().then((data) => {
       dispatch(setCountries(data));
     });
@@ -37,7 +23,7 @@ export const Products = () => {
 
   const { status, products } = useSelector(selectProducts);
 
-  if (status === "failed") {
+  if (status === "rejected") {
     return <div>There is some problem with loading data </div>;
   }
 

@@ -17,8 +17,8 @@ export const initialState: InitialState = {
   products: null,
   basket: {
     allProducts: [],
-    totalSum: 0,
-  },
+    totalSum: 0
+  }
 };
 
 export const stateReducer = (
@@ -29,12 +29,12 @@ export const stateReducer = (
     case "SET_LOADING":
       return {
         ...state,
-        loading: !state.loading,
+        loading: !state.loading
       };
     case "SET_PRODUCTS":
       return {
         ...state,
-        products: action.products,
+        products: action.products
       };
     case "ADD_PRODUCTS":
       return {
@@ -44,16 +44,16 @@ export const stateReducer = (
           allProducts: addItemToBasket(
             state.basket.allProducts,
             action.product
-          ),
-        },
+          )
+        }
       };
     case "ADD_TOTAL_SUM":
       return {
         ...state,
         basket: {
           ...state.basket,
-          totalSum: state.basket.totalSum + action.number,
-        },
+          totalSum: state.basket.totalSum + action.number
+        }
       };
     default: {
       console.error(new Error("Action is not supported"));

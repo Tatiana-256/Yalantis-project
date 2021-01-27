@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./redux-store";
+import { loadFilteredProducts } from "./thunk-creators";
 
 export interface IInitialStateFilters {
   countries: Array<ICountries>;
@@ -8,6 +9,7 @@ export interface IInitialStateFilters {
   page: number;
   perPage: number;
   ProductsTotalCount: number;
+  loading: "idle" | "loading" | "succeeded" | "rejected";
 }
 
 export const initialState: IInitialStateFilters = {
@@ -17,6 +19,7 @@ export const initialState: IInitialStateFilters = {
   ProductsTotalCount: 50,
   minPrice: undefined,
   maxPrice: undefined,
+  loading: "idle",
 };
 
 const filterSlice = createSlice({
@@ -39,12 +42,6 @@ const filterSlice = createSlice({
           : c
       );
     },
-    setPageOptions(state, action) {
-      const { page, perPage, totalItems } = action.payload;
-      state.page = page;
-      state.perPage = perPage;
-      state.ProductsTotalCount = totalItems;
-    },
     addMinPrice(state, action) {
       state.minPrice = action.payload;
     },
@@ -52,11 +49,25 @@ const filterSlice = createSlice({
       state.maxPrice = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(loadFilteredProducts.fulfilled, (state, action) => {
+      const { page, perPage, totalItems } = action.payload;
+      state.page = page;
+      state.perPage = perPage;
+      state.ProductsTotalCount = totalItems;
+      state.loading = "succeeded";
+    });
+    builder.addCase(loadFilteredProducts.pending, (state) => {
+      state.loading = "loading";
+    });
+    builder.addCase(loadFilteredProducts.rejected, (state) => {
+      state.loading = "rejected";
+    });
+  },
 });
 export const {
   setCountries,
   changeCountriesFilter,
-  setPageOptions,
   addMinPrice,
   addMaxPrice,
 } = filterSlice.actions;

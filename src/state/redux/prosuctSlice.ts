@@ -5,9 +5,10 @@ import {
   decreaseProduct,
   deleteItemFromBasket,
 } from "../reducer.utils";
+import { loadFilteredProducts } from "./thunk-creators";
 
 export interface IInitialStateProduct {
-  status: "loading" | "succeeded" | "failed" | "idle";
+  status: "loading" | "succeeded" | "rejected" | "idle";
   products: IProduct[];
   basket: {
     allProducts: IBasketProduct[];
@@ -60,6 +61,18 @@ const productsSlice = createSlice({
     deleteFromTotalSum(state, action) {
       state.basket.totalSum = state.basket.totalSum - action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadFilteredProducts.fulfilled, (state, action) => {
+      state.products = action.payload.items;
+      state.status = "succeeded";
+    });
+    builder.addCase(loadFilteredProducts.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(loadFilteredProducts.rejected, (state) => {
+      state.status = "rejected";
+    });
   },
 });
 
