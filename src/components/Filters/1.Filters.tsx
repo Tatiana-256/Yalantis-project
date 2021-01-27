@@ -13,8 +13,13 @@ import {
 import filtersAPI from "../../API-Requests/filters-API";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
 import { Button, Input } from "../../common-utils/common-styles";
+import PropTypes from "prop-types";
 
-export const Filters = () => {
+interface IProps {
+  isEditable?: "true" | "false";
+}
+
+export const Filters: React.FC<IProps> = ({isEditable}) => {
   const dispatch = useDispatch();
 
   const { countries, minPrice, maxPrice } = useSelector(selectFilters);
@@ -26,7 +31,7 @@ export const Filters = () => {
   useEffect(() => {
     dispatch(setStatus("loading"));
     filtersAPI
-      .loadFiltersProducts({ origins, minPrice, maxPrice })
+      .loadFiltersProducts({ origins, minPrice, maxPrice, editable: isEditable })
       .then((data) => {
         if (typeof data !== "string") {
           dispatch(setProducts(data.items));
@@ -87,4 +92,13 @@ export const Filters = () => {
       </Button>
     </FilterWrapper>
   );
+};
+
+Filters.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  isEditable: PropTypes.any,
+};
+
+Filters.defaultProps = {
+  isEditable: "false",
 };

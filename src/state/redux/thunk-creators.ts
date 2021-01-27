@@ -4,7 +4,6 @@ import filtersAPI from "../../API-Requests/filters-API";
 export const loadFilteredProducts = createAsyncThunk(
   "loadFilteredProducts/addNewProduct/addPageInfo",
   async (parameters?: IFilterParameters) => {
-    debugger;
     const response = await filtersAPI.loadFiltersProducts(parameters);
     console.log(response);
     return response;
@@ -17,4 +16,5 @@ export interface IFilterParameters {
   maxPrice?: number;
   pageCount?: number;
   page?: number;
+  editable?: string;
 }

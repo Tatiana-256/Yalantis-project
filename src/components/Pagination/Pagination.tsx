@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import { Page, PageWrap } from "./Pagination-style";
 import {
@@ -11,7 +12,11 @@ import { Button, Option } from "../../common-utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadFilteredProducts } from "../../state/redux/thunk-creators";
 
-const Pagination = () => {
+interface IProps {
+  isEditable?: "true" | "false";
+}
+
+const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
 
   const { page, perPage, ProductsTotalCount, maxPrice, minPrice } = useSelector(
@@ -41,9 +46,19 @@ const Pagination = () => {
         maxPrice,
         pageCount: value,
         page: valuePage,
+        editable: isEditable,
       })
     );
-  }, [value, page, dispatch, maxPrice, minPrice, origins, valuePage]);
+  }, [
+    value,
+    page,
+    dispatch,
+    maxPrice,
+    minPrice,
+    origins,
+    valuePage,
+    isEditable,
+  ]);
 
   useEffect(() => {
     setValuePage(1);
@@ -114,3 +129,12 @@ const Pagination = () => {
 };
 
 export default Pagination;
+
+Pagination.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  isEditable: PropTypes.any,
+};
+
+Pagination.defaultProps = {
+  isEditable: "false",
+};
