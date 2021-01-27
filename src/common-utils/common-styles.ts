@@ -1,8 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+export const FlexStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 interface IButton {
   width?: string | undefined;
   height?: string | undefined;
+  disabled?: boolean;
 }
 
 export const Button = styled.button<IButton>`
@@ -21,6 +28,14 @@ export const Button = styled.button<IButton>`
     color: white;
     background-color: #2f3445;
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      &:disabled {
+        background-color: #a0a0a0;
+      }
+    `}
 `;
 
 export const Input = styled.input<IButton>`
