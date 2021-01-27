@@ -2,9 +2,9 @@ import { IProduct, IProductAPI } from "../state/entitiesTypes";
 import request from "./API-settings";
 
 const productsAPI = {
-  getProducts(pageCount = 25, page = 1) {
+  getProducts() {
     return request
-      .get<IProductAPI>(`/products?page=${page}&perPage=${pageCount}`)
+      .get<IProductAPI>(`/products`)
       .then((res) => {
         return res.data;
       })
