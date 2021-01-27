@@ -13,12 +13,10 @@ import { AddProduct } from "./components/AddProduct/AddProduct";
 import { MyProducts } from "./components/MyProducts/MyProducts";
 
 function App() {
-  const { open } = useSelector((state: RootState) => state.ui);
 
   return (
     <BrowserRouter>
       <Navigation />
-      {open && <AddProduct />}
       <Switch>
         <Route exact path="/">
           <Redirect to="/products" />

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+
 import { selectFilters } from "../../state/redux/state-selectors";
 import { Country } from "./2.Country";
 import { FilterText, FilterWrapper } from "./Filters-style";
@@ -13,13 +15,12 @@ import {
 import filtersAPI from "../../API-Requests/filters-API";
 import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
 import { Button, Input } from "../../common-utils/common-styles";
-import PropTypes from "prop-types";
 
 interface IProps {
   isEditable?: "true" | "false";
 }
 
-export const Filters: React.FC<IProps> = ({isEditable}) => {
+export const Filters: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
 
   const { countries, minPrice, maxPrice } = useSelector(selectFilters);
@@ -31,14 +32,19 @@ export const Filters: React.FC<IProps> = ({isEditable}) => {
   useEffect(() => {
     dispatch(setStatus("loading"));
     filtersAPI
-      .loadFiltersProducts({ origins, minPrice, maxPrice, editable: isEditable })
+      .loadFiltersProducts({
+        origins,
+        minPrice,
+        maxPrice,
+        editable: isEditable,
+      })
       .then((data) => {
         if (typeof data !== "string") {
           dispatch(setProducts(data.items));
           dispatch(setStatus("succeeded"));
         } else if (data === "error") dispatch(setStatus("failed"));
       });
-  }, [origins, dispatch, minPrice, maxPrice]);
+  }, [origins, dispatch, minPrice, maxPrice, isEditable]);
 
   const setCountryFilter = (country: ICountries) => {
     dispatch(changeCountriesFilter(country.value));

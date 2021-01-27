@@ -9,10 +9,22 @@ import { Button } from "../../common-utils/common-styles";
 interface IProps {
   headline: string;
   children: ReactNode;
+  handler?: () => void;
 }
 
-export const ModalWrapper: React.FC<IProps> = ({ headline, children }) => {
+export const ModalWrapper: React.FC<IProps> = ({
+  headline,
+  children,
+  handler,
+}) => {
   const dispatch = useDispatch();
+
+  const closeModal = () => {
+    if (handler) {
+      handler();
+    }
+    dispatch(uiActions.modal.close());
+  };
 
   return (
     <Wrapper>
@@ -22,7 +34,7 @@ export const ModalWrapper: React.FC<IProps> = ({ headline, children }) => {
           width="30px"
           height="30px"
           onKeyPress={() => {}}
-          onClick={() => dispatch(uiActions.modal.close())}
+          onClick={closeModal}
           role="button"
           tabIndex={0}
         >
@@ -38,4 +50,5 @@ export const ModalWrapper: React.FC<IProps> = ({ headline, children }) => {
 ModalWrapper.propTypes = {
   headline: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  handler: PropTypes.func,
 };

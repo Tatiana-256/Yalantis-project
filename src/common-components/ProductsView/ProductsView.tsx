@@ -27,7 +27,11 @@ export const ProductsView: React.FC<IProps> = ({
         {status === "succeeded" &&
           (products.length > 0 ? (
             products.map((product: IProduct) => (
-              <Product product={product} key={product.id} />
+              <Product
+                isEditable={isEditable}
+                product={product}
+                key={product.id}
+              />
             ))
           ) : (
             <div>No products found</div>

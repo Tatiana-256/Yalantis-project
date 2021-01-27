@@ -11,7 +11,6 @@ import Portal from "../../common-components/Modal";
 import { ModalWrapper } from "../../common-components/ModalsWrapper/ModalsWrapper";
 import { Input } from "../../common-components/CommonInput/CommonInput";
 import { Button, FlexStyle } from "../../common-utils/common-styles";
-import { loadFilteredProducts } from "../../state/redux/thunk-creators";
 
 export const AddProduct = () => {
   const options = useOriginsOptions();
