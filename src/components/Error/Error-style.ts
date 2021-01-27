@@ -1,10 +1,5 @@
 import styled from "styled-components";
-
-const FlexStyle = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { FlexStyle } from "../../common-utils/common-styles";
 
 export const Wrapper = styled(FlexStyle)`
   height: 60vh;

@@ -1,10 +1,11 @@
 import React from "react";
+import { useSelector } from "react-redux";
+
 import { BagProd } from "./BagProd/BagProd";
 import basketImg from "../../common-files/shopping-basket.png";
 import { IBasketProduct } from "../../state/entitiesTypes";
 import { BagWrap, Item, TotalWrap } from "./Bag-styles";
 import { selectProducts } from "../../state/redux/state-selectors";
-import { useSelector } from "react-redux";
 
 export const Bag = () => {
   const { basket } = useSelector(selectProducts);
