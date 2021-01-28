@@ -1,5 +1,5 @@
 import request, { authKey } from "./API-settings";
-import { ICountries } from "../state/redux/filterSlise";
+import { ICountries } from "../state/redux/slices/filterSlise";
 import { IFilterParameters } from "../state/redux/thunk-creators";
 
 const filtersAPI = {

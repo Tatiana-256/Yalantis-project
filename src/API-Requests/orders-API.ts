@@ -1,14 +1,21 @@
 import request, { authKey } from "./API-settings";
 
 export const ordersAPI = {
-  getOrders(orderId?: string) {
-    return request.post(`/orders/${orderId}`, {
+  getOrders() {
+    return request.get(`/orders`, {
       headers: {
         Authorization: authKey,
       },
     });
   },
-  addOrder(order: any) {
+  getOrderDetails(orderId: string) {
+    return request.get(`/orders/${orderId}`, {
+      headers: {
+        Authorization: authKey,
+      },
+    });
+  },
+  addOrder(order: IOrderPostAPI) {
     return request.post(`/orders`, order, {
       headers: {
         Authorization: authKey,
@@ -16,3 +23,12 @@ export const ordersAPI = {
     });
   },
 };
+
+export interface IOrderPostAPI {
+  order: { pieces: Array<IProductOrder> };
+}
+
+export interface IProductOrder {
+  productId: string;
+  count: number;
+}
