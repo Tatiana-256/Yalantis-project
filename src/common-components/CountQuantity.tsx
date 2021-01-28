@@ -5,7 +5,10 @@ import PropTypes from "prop-types";
 import { IProduct } from "../state/entitiesTypes";
 import { Count } from "../components/Products/ProductPage/ProductPage-style";
 import { Button } from "../common-utils/common-styles";
-import { addProductToBasket, addTotalSum } from "../state/redux/prosuctSlice";
+import {
+  addProductToBasket,
+  addTotalSum,
+} from "../state/redux/slices/prosuctSlice";
 
 interface IProps {
   product: IProduct;

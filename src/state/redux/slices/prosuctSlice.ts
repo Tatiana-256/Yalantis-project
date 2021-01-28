@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IBasketProduct, IProduct } from "../entitiesTypes";
+import { IBasketProduct, IProduct } from "../../entitiesTypes";
 import {
   addItemToBasket,
   decreaseProduct,
   deleteItemFromBasket,
-} from "../reducer.utils";
-import { loadFilteredProducts } from "./thunk-creators";
+} from "../../reducer.utils";
+import { loadFilteredProducts } from "../thunk-creators";
+import { addOrder } from "./ordersSlice";
 
 export interface IInitialStateProduct {
   status: "loading" | "succeeded" | "rejected" | "idle";
@@ -71,6 +72,17 @@ const productsSlice = createSlice({
       state.status = "loading";
     });
     builder.addCase(loadFilteredProducts.rejected, (state) => {
+      state.status = "rejected";
+    });
+    builder.addCase(addOrder.fulfilled, (state, action) => {
+      state.basket.allProducts = [];
+      state.basket.totalSum = 0;
+      state.status = "succeeded";
+    });
+    builder.addCase(addOrder.pending, (state) => {
+      state.status = "loading";
+    });
+    builder.addCase(addOrder.rejected, (state) => {
       state.status = "rejected";
     });
   },

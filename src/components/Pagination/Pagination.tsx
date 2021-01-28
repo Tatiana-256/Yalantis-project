@@ -7,7 +7,7 @@ import {
   selectFilters,
   selectProducts,
 } from "../../state/redux/state-selectors";
-import { selectCountries } from "../../state/redux/filterSlise";
+import { selectCountries } from "../../state/redux/slices/filterSlise";
 import { Button, Option } from "../../common-utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadFilteredProducts } from "../../state/redux/thunk-creators";

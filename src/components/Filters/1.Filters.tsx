@@ -11,9 +11,9 @@ import {
   changeCountriesFilter,
   ICountries,
   selectCountries,
-} from "../../state/redux/filterSlise";
+} from "../../state/redux/slices/filterSlise";
 import filtersAPI from "../../API-Requests/filters-API";
-import { setProducts, setStatus } from "../../state/redux/prosuctSlice";
+import { setProducts, setStatus } from "../../state/redux/slices/prosuctSlice";
 import { Button, Input } from "../../common-utils/common-styles";
 
 interface IProps {

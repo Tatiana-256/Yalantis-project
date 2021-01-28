@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectProducts } from "../../state/redux/state-selectors";
 import { ProductsView } from "../../common-components/ProductsView/ProductsView";
 import filtersAPI from "../../API-Requests/filters-API";
-import { setCountries } from "../../state/redux/filterSlise";
+import { setCountries } from "../../state/redux/slices/filterSlise";
 import { AddProduct } from "../AddProduct/AddProduct";
 import { RootState } from "../../state/redux/redux-store";
 

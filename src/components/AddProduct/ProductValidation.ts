@@ -1,7 +1,7 @@
 import { object, string } from "yup";
 import { useSelector } from "react-redux";
 import { selectFilters } from "../../state/redux/state-selectors";
-import { ICountries } from "../../state/redux/filterSlise";
+import { ICountries } from "../../state/redux/slices/filterSlise";
 
 export const newProduct = {
   shape: {

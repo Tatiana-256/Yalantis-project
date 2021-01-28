@@ -4,7 +4,7 @@ import { selectProducts } from "../../state/redux/state-selectors";
 import { loadFilteredProducts } from "../../state/redux/thunk-creators";
 import { ProductsView } from "../../common-components/ProductsView/ProductsView";
 import filtersAPI from "../../API-Requests/filters-API";
-import { setCountries } from "../../state/redux/filterSlise";
+import { setCountries } from "../../state/redux/slices/filterSlise";
 
 export const MyProducts = () => {
   const dispatch = useDispatch();

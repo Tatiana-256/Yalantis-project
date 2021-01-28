@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { CountryWrap, TextCountry } from "./Filters-style";
-import { ICountries } from "../../state/redux/filterSlise";
+import { ICountries } from "../../state/redux/slices/filterSlise";
 
 interface IProps {
   country: ICountries;

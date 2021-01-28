@@ -5,7 +5,10 @@ import { useDispatch } from "react-redux";
 
 import { newProduct, useOriginsOptions } from "./ProductValidation";
 import { FormWrap } from "./AddFile";
-import { addNewProduct, INewProduct } from "../../state/redux/OwnProductsSlice";
+import {
+  addNewProduct,
+  INewProduct,
+} from "../../state/redux/slices/OwnProductsSlice";
 import { uiActions } from "../../state/redux/UI-handling/ui-actions";
 import Portal from "../../common-components/Modal";
 import { ModalWrapper } from "../../common-components/ModalsWrapper/ModalsWrapper";

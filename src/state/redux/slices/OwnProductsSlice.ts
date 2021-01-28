@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { OwnProductsAPI } from "../../API-Requests/OwnProducts-API";
-import { IProduct } from "../entitiesTypes";
+import { OwnProductsAPI } from "../../../API-Requests/OwnProducts-API";
+import { IProduct } from "../../entitiesTypes";
 import { initialStateProducts } from "./prosuctSlice";
 
 export interface INewProduct {
@@ -35,7 +35,6 @@ export const addNewProduct = createAsyncThunk(
 export const editProduct = createAsyncThunk(
   "newProduct/editProduct",
   async (product: { product: INewProduct; productId: string }) => {
-    debugger;
     const response = await OwnProductsAPI.editProduct(product);
     return response.data;
   }
@@ -57,10 +56,8 @@ const newProductSlice = createSlice({
       state.status = "rejected";
     });
     builder.addCase(editProduct.fulfilled, (state, action) => {
-      debugger;
-      state.products = state.products.map((product: IProduct) => {
+      state.products.map((product: IProduct) => {
         console.log(action.payload);
-        debugger;
         if (product.id !== action.payload.id) {
           return product;
         }

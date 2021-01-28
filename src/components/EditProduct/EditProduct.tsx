@@ -9,8 +9,11 @@ import Portal from "../../common-components/Modal";
 import { IProduct } from "../../state/entitiesTypes";
 import { useOriginsOptions } from "../AddProduct/ProductValidation";
 import { Input } from "../../common-components/CommonInput/CommonInput";
-import { Button, FlexStyle } from "../../common-utils/common-styles";
-import { editProduct, INewProduct } from "../../state/redux/OwnProductsSlice";
+import { Button } from "../../common-utils/common-styles";
+import {
+  editProduct,
+  INewProduct,
+} from "../../state/redux/slices/OwnProductsSlice";
 import { editProductSchema } from "./EditValidation";
 
 interface IProps {

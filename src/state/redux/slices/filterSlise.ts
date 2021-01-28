@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./redux-store";
-import { loadFilteredProducts } from "./thunk-creators";
+import { RootState } from "../redux-store";
+import { loadFilteredProducts } from "../thunk-creators";
 
 export interface IInitialStateFilters {
   countries: Array<ICountries>;
