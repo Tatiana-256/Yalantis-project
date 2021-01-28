@@ -1,15 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BagProd } from "./BagProd/BagProd";
 import basketImg from "../../common-files/shopping-basket.png";
 import { IBasketProduct } from "../../state/entitiesTypes";
 import { BagWrap, ButtonWrap, Item, TotalWrap } from "./Bag-styles";
-import { selectProducts } from "../../state/redux/state-selectors";
+import {
+  selectBagProducts,
+  selectProducts,
+} from "../../state/redux/state-selectors";
 import { Button } from "../../common-utils/common-styles";
+import { addOrder } from "../../state/redux/slices/ordersSlice";
 
 export const Bag = () => {
   const { basket } = useSelector(selectProducts);
+  const dispatch = useDispatch();
+
+  const bagProdAPI = useSelector(selectBagProducts);
+  console.log(bagProdAPI);
+
+  const orderProducts = () => {
+    dispatch(addOrder({ order: { pieces: bagProdAPI } }));
+  };
 
   if (basket.allProducts.length === 0) {
     return (
@@ -37,7 +49,12 @@ export const Bag = () => {
         <BagProd productItem={product} key={product.product.id} />
       ))}
       <ButtonWrap>
-        <Button height="60px" width="310px" fontSize="1.7rem">
+        <Button
+          height="60px"
+          width="310px"
+          fontSize="1.7rem"
+          onClick={orderProducts}
+        >
           Buy now
         </Button>
       </ButtonWrap>

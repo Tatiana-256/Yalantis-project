@@ -15,7 +15,7 @@ import {
   decreaseProductInBasket,
   deleteFromTotalSum,
   deleteProductFromBasket,
-} from "../../../state/redux/prosuctSlice";
+} from "../../../state/redux/slices/prosuctSlice";
 
 interface IProd {
   productItem: IBasketProduct;
