@@ -36,6 +36,9 @@ export const Navigation: React.FunctionComponent = () => {
           <li style={{ display: "flex", margin: "0 3.5rem" }}>
             <StyledLink to="/products">Main page</StyledLink>
           </li>
+          <li style={{ display: "flex", margin: "0 3.5rem" }}>
+            <StyledLink to="/myProducts">My products</StyledLink>
+          </li>
           <li
             style={{ display: "flex", margin: "0 3.5rem" }}
             onClick={() => dispatch(uiActions.modal.open())}
@@ -43,7 +46,7 @@ export const Navigation: React.FunctionComponent = () => {
             <StyledLink to="/products">Add product</StyledLink>
           </li>
           <li style={{ display: "flex", margin: "0 3.5rem" }}>
-            <StyledLink to="/myProducts">My products</StyledLink>
+            <StyledLink to="/myOrders">My orders</StyledLink>
           </li>
           {location.pathname === "/bag" ? (
             <div />

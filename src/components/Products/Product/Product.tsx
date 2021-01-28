@@ -66,5 +66,5 @@ Product.propTypes = {
 };
 
 Product.defaultProps = {
-  isEditable: "false",
+  isEditable: undefined,
 };

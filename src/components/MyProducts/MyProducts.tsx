@@ -8,14 +8,14 @@ import { setCountries } from "../../state/redux/filterSlise";
 
 export const MyProducts = () => {
   const dispatch = useDispatch();
+  const { status, products } = useSelector(selectProducts);
+
   useEffect(() => {
     dispatch(loadFilteredProducts({ editable: "true" }));
     filtersAPI.getOriginCountries().then((data) => {
       dispatch(setCountries(data));
     });
   }, [dispatch]);
-
-  const { status, products } = useSelector(selectProducts);
 
   console.log(products);
 

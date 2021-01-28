@@ -4,8 +4,9 @@ import { useSelector } from "react-redux";
 import { BagProd } from "./BagProd/BagProd";
 import basketImg from "../../common-files/shopping-basket.png";
 import { IBasketProduct } from "../../state/entitiesTypes";
-import { BagWrap, Item, TotalWrap } from "./Bag-styles";
+import { BagWrap, ButtonWrap, Item, TotalWrap } from "./Bag-styles";
 import { selectProducts } from "../../state/redux/state-selectors";
+import { Button } from "../../common-utils/common-styles";
 
 export const Bag = () => {
   const { basket } = useSelector(selectProducts);
@@ -35,6 +36,11 @@ export const Bag = () => {
       {basket.allProducts.map((product) => (
         <BagProd productItem={product} key={product.product.id} />
       ))}
+      <ButtonWrap>
+        <Button height="60px" width="310px" fontSize="1.7rem">
+          Buy now
+        </Button>
+      </ButtonWrap>
     </div>
   );
 };

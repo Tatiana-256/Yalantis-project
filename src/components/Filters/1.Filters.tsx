@@ -106,5 +106,5 @@ Filters.propTypes = {
 };
 
 Filters.defaultProps = {
-  isEditable: "false",
+  isEditable: undefined,
 };

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexStyle } from "../../common-utils/common-styles";
 
 export const BagWrap = styled.div`
   display: flex;
@@ -42,4 +43,10 @@ export const Input = styled.input`
   border: 2px solid #363b4d;
   border-radius: 13px;
   outline: none;
+`;
+
+export const ButtonWrap = styled(FlexStyle)`
+  justify-content: flex-end;
+  width: 90%;
+  margin-top: 5vh;
 `;

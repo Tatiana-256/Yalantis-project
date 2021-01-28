@@ -136,5 +136,5 @@ Pagination.propTypes = {
 };
 
 Pagination.defaultProps = {
-  isEditable: "false",
+  isEditable: undefined,
 };
