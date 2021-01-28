@@ -8,7 +8,7 @@ import ProductPage from "./components/Products/ProductPage/ProductPage";
 import { Bag } from "./components/Bag/Bag";
 import { MyProducts } from "./components/MyProducts/MyProducts";
 import { MyOrders } from "./components/Orders/MyOrders/MyOrders";
-import { Order } from "./components/Orders/Order/Order";
+import { OrderDetails } from "./components/Orders/Order/OrderDetails";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/myProducts" component={MyProducts} />
         <Route exact path="/products/:id" component={ProductPage} />
         <Route exact path="/myOrders" component={MyOrders} />
-        <Route exact path="/myOrders/:id" component={Order} />
+        <Route exact path="/orders/:id" component={OrderDetails} />
         <Route exact path="/bag" component={Bag} />
         <Route path="*">
           <Error404 />
