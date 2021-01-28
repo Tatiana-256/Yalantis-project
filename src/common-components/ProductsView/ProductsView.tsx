@@ -51,5 +51,5 @@ ProductsView.propTypes = {
 
 ProductsView.defaultProps = {
   status: "succeeded",
-  isEditable: "false",
+  isEditable: undefined,
 };

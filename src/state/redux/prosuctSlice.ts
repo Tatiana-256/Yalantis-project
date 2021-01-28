@@ -17,7 +17,7 @@ export interface IInitialStateProduct {
   error: string;
 }
 
-export const initialState: IInitialStateProduct = {
+export const initialStateProducts: IInitialStateProduct = {
   status: "idle",
   products: [],
   basket: {
@@ -29,7 +29,7 @@ export const initialState: IInitialStateProduct = {
 
 const productsSlice = createSlice({
   name: "products",
-  initialState,
+  initialState: initialStateProducts,
   reducers: {
     setProducts(state, action) {
       state.products = action.payload;

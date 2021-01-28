@@ -10,6 +10,7 @@ interface IButton {
   width?: string | undefined;
   height?: string | undefined;
   disabled?: boolean;
+  fontSize?: string | undefined
 }
 
 export const Button = styled.button<IButton>`
@@ -17,7 +18,7 @@ export const Button = styled.button<IButton>`
   outline: none;
   width: ${({ width }) => width || "50%"};
   height: ${({ height }) => height || "40px"};
-  font-size: 1rem;
+  font-size: ${({ fontSize }) => fontSize || "1rem"} ;
   color: #cfcfcf;
   border-radius: 13px;
   border: none;
