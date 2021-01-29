@@ -59,25 +59,21 @@ const productsSlice = createSlice({
         state.basket.allProducts,
         action.payload
       );
-      // state.basket.totalSum = state.basket.totalSum + action.payload.sum;
+      state.basket.totalSum = state.basket.totalSum + action.payload.sum;
     },
     decreaseProductInBasket(state, action) {
       state.basket.allProducts = decreaseProduct(
         state.basket.allProducts,
-        action.payload
+        action.payload.id
       );
-    },
-    addTotalSum(state, action) {
-      state.basket.totalSum = state.basket.totalSum + action.payload;
+      state.basket.totalSum = state.basket.totalSum - action.payload.sum;
     },
     deleteProductFromBasket(state, action) {
       state.basket.allProducts = deleteItemFromBasket(
         state.basket.allProducts,
-        action.payload
+        action.payload.id
       );
-    },
-    deleteFromTotalSum(state, action) {
-      state.basket.totalSum = state.basket.totalSum - action.payload;
+      state.basket.totalSum = state.basket.totalSum - action.payload.sum;
     },
   },
   extraReducers: (builder) => {
@@ -133,9 +129,7 @@ export const {
   setProducts,
   setStatus,
   addProductToBasket,
-  addTotalSum,
   deleteProductFromBasket,
-  deleteFromTotalSum,
   decreaseProductInBasket,
 } = productsSlice.actions;
 

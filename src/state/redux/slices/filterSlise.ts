@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../redux-store";
 import { loadFilteredProducts } from "../thunk-creators";
+import filtersAPI from "../../../API-Requests/filters-API";
 
 export interface IInitialStateFilters {
   countries: Array<ICountries>;
@@ -22,16 +23,19 @@ export const initialState: IInitialStateFilters = {
   loading: "idle",
 };
 
+export const setCountries = createAsyncThunk(
+  "filters/setCountries",
+  async () => {
+    const response = await filtersAPI.getOriginCountries();
+    debugger;
+    return response as Array<ICountries>;
+  }
+);
+
 const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setCountries(state, action) {
-      state.countries = action.payload.map((item: ICountries) => {
-        item.isChecked = false;
-        return item;
-      });
-    },
     changeCountriesFilter(state, action) {
       state.countries = state.countries.map((c) =>
         c.value === action.payload
@@ -63,10 +67,22 @@ const filterSlice = createSlice({
     builder.addCase(loadFilteredProducts.rejected, (state) => {
       state.loading = "rejected";
     });
+    builder.addCase(setCountries.fulfilled, (state, action) => {
+      state.countries = action.payload.map((item: ICountries) => {
+        item.isChecked = false;
+        return item;
+      });
+      state.loading = "succeeded";
+    });
+    builder.addCase(setCountries.pending, (state) => {
+      state.loading = "loading";
+    });
+    builder.addCase(setCountries.rejected, (state) => {
+      state.loading = "rejected";
+    });
   },
 });
 export const {
-  setCountries,
   changeCountriesFilter,
   addMinPrice,
   addMaxPrice,

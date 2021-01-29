@@ -10,9 +10,7 @@ import trash from "../../../common-files/trash-icon.png";
 import productIcon from "../../../common-files/product-icon.png";
 import {
   addProductToBasket,
-  addTotalSum,
   decreaseProductInBasket,
-  deleteFromTotalSum,
   deleteProductFromBasket,
 } from "../../../state/redux/slices/prosuctSlice";
 
@@ -37,21 +35,23 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
 
   const addOneMoreItem = () => {
     setInputQuantity((prevState) => prevState + 1);
-    dispatch(addProductToBasket({ product, quantity: 1 }));
-    dispatch(addTotalSum(Number(product.price)));
+    dispatch(
+      addProductToBasket({ product, quantity: 1, sum: Number(product.price) })
+    );
   };
 
   const decreaseProduct = () => {
     if (inputQuantity > 1) {
       setInputQuantity((prevState) => prevState - 1);
-      dispatch(decreaseProductInBasket(product.id));
-      dispatch(deleteFromTotalSum(product.price));
+      dispatch(
+        decreaseProductInBasket({ id: product.id, sum: Number(product.price) })
+      );
     }
   };
 
   const deleteItem = () => {
-    dispatch(deleteProductFromBasket(product.id));
-    dispatch(deleteFromTotalSum(product.price * inputQuantity));
+    const sum = Number(product.price * inputQuantity);
+    dispatch(deleteProductFromBasket({ id: product.id, sum }));
   };
   return (
     <Wrap>

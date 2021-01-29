@@ -4,11 +4,7 @@ import { useDispatch } from "react-redux";
 import { IProduct } from "../state/entitiesTypes";
 import { Count } from "../components/Products/ProductPage/ProductPage-style";
 import { Button } from "../common-utils/common-styles";
-import {
-  addProductToBasket,
-  addTotalSum,
-  // addTotalSum,
-} from "../state/redux/slices/prosuctSlice";
+import { addProductToBasket } from "../state/redux/slices/prosuctSlice";
 
 interface IProps {
   product: IProduct;
@@ -30,15 +26,14 @@ const CountQuality: React.FC<IProps> = ({
   const dispatch = useDispatch();
 
   const addItem = () => {
-    // const sum = product.price * itemQuantity;
+    const sum = product.price * itemQuantity;
     dispatch(
       addProductToBasket({
         product,
         quantity: itemQuantity,
-        // sum,
+        sum,
       })
     );
-    dispatch(addTotalSum(product.price * itemQuantity));
   };
 
   return (

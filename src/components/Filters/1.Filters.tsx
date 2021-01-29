@@ -11,9 +11,8 @@ import {
   ICountries,
   selectCountries,
 } from "../../state/redux/slices/filterSlise";
-import filtersAPI from "../../API-Requests/filters-API";
-import { setProducts, setStatus } from "../../state/redux/slices/prosuctSlice";
 import { Button, Input } from "../../common-utils/common-styles";
+import { loadFilteredProducts } from "../../state/redux/thunk-creators";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -29,20 +28,14 @@ export const Filters: React.FC<IProps> = ({ isEditable }) => {
   const [max, setMaxPrice] = useState<number>();
 
   useEffect(() => {
-    dispatch(setStatus("loading"));
-    filtersAPI
-      .loadFiltersProducts({
+    dispatch(
+      loadFilteredProducts({
         origins,
         minPrice,
         maxPrice,
         editable: isEditable,
       })
-      .then((data) => {
-        if (typeof data !== "string") {
-          dispatch(setProducts(data.items));
-          dispatch(setStatus("succeeded"));
-        } else if (data === "error") dispatch(setStatus("failed"));
-      });
+    );
   }, [origins, dispatch, minPrice, maxPrice, isEditable]);
 
   const setCountryFilter = (country: ICountries) => {
