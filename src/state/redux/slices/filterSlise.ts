@@ -27,7 +27,6 @@ export const setCountries = createAsyncThunk(
   "filters/setCountries",
   async () => {
     const response = await filtersAPI.getOriginCountries();
-    debugger;
     return response as Array<ICountries>;
   }
 );
