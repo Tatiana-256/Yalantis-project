@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import PropTypes from "prop-types";
+
 import { IProduct } from "../state/entitiesTypes";
 import { Count } from "../components/Products/ProductPage/ProductPage-style";
 import { Button } from "../common-utils/common-styles";
 import {
   addProductToBasket,
   addTotalSum,
+  // addTotalSum,
 } from "../state/redux/slices/prosuctSlice";
 
 interface IProps {
@@ -30,10 +30,12 @@ const CountQuality: React.FC<IProps> = ({
   const dispatch = useDispatch();
 
   const addItem = () => {
+    // const sum = product.price * itemQuantity;
     dispatch(
       addProductToBasket({
         product,
         quantity: itemQuantity,
+        // sum,
       })
     );
     dispatch(addTotalSum(product.price * itemQuantity));
@@ -66,18 +68,6 @@ const CountQuality: React.FC<IProps> = ({
       </Button>
     </>
   );
-};
-
-CountQuality.propTypes = {
-  // eslint-disable-next-line react/require-default-props,react/forbid-prop-types
-  product: PropTypes.any,
-  itemQuantity: PropTypes.number.isRequired,
-  increment: PropTypes.func.isRequired,
-  decrement: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/require-default-props
-  buttonSize: PropTypes.number,
-  // eslint-disable-next-line react/require-default-props
-  width: PropTypes.number,
 };
 
 export default CountQuality;

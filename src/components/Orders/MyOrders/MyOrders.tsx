@@ -12,14 +12,17 @@ export const MyOrders = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const orders = useSelector(selectOrders);
-  console.log(orders);
+  const { orders, status } = useSelector(selectOrders);
 
   useEffect(() => {
     dispatch(getOrders());
   }, [dispatch]);
 
-  if (!orders.orders) {
+  if (status === "loading") {
+    return <div>...loading</div>;
+  }
+
+  if (!orders) {
     return <div>No orders</div>;
   }
 
@@ -35,15 +38,14 @@ export const MyOrders = () => {
       >
         My orders
       </h1>
-      {orders.orders.map((order: IOrder) => (
+      {orders.map((order: IOrder) => (
         <OrdersWrap>
           <div>
             <div>Your order created at:</div>
-            <div>{order.createdAt}</div>
+            <div> {order.createdAt}</div>
           </div>
           <ProductWrap>
             {order.pieces.map((prod) => (
-              // <OrderDetails product={prod.product} />
               <OrderInfo product={prod.product} />
             ))}
           </ProductWrap>

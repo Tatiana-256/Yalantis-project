@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import Select from "react-select";
@@ -10,11 +9,11 @@ import { IProduct } from "../../state/entitiesTypes";
 import { useOriginsOptions } from "../AddProduct/ProductValidation";
 import { Input } from "../../common-components/CommonInput/CommonInput";
 import { Button } from "../../common-utils/common-styles";
+import { editProductSchema } from "./EditValidation";
 import {
   editProduct,
   INewProduct,
-} from "../../state/redux/slices/OwnProductsSlice";
-import { editProductSchema } from "./EditValidation";
+} from "../../state/redux/slices/prosuctSlice";
 
 interface IProps {
   product: IProduct;
@@ -30,7 +29,6 @@ export const EditProduct: React.FC<IProps> = ({ product, closeFunk }) => {
     initialValues: product,
     validationSchema: editProductSchema.schema,
     onSubmit: () => {
-      console.log("done");
       const newProd: { product: INewProduct; productId: string } = {
         product: {
           name: formik.values.name,
@@ -86,10 +84,4 @@ export const EditProduct: React.FC<IProps> = ({ product, closeFunk }) => {
       </ModalWrapper>
     </Portal>
   );
-};
-
-EditProduct.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  product: PropTypes.any.isRequired,
-  closeFunk: PropTypes.func.isRequired,
 };

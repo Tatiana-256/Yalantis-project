@@ -56,6 +56,7 @@ const ordersSlice = createSlice({
     builder.addCase(addOrder.fulfilled, (state, action) => {
       state.orders.push(action.payload);
       state.status = "succeeded";
+      // push("/myOrders");
     });
     builder.addCase(addOrder.pending, (state) => {
       state.status = "loading";

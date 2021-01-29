@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { CountryWrap, TextCountry } from "./Filters-style";
 import { ICountries } from "../../state/redux/slices/filterSlise";
 
@@ -21,10 +20,4 @@ export const Country: React.FC<IProps> = ({ country, setCountryFilter }) => {
       </CountryWrap>
     </>
   );
-};
-
-Country.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  country: PropTypes.any.isRequired,
-  setCountryFilter: PropTypes.func.isRequired,
 };

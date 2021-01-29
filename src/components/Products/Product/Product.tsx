@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 
 import productIcon from "../../../common-files/product-icon.png";
@@ -56,15 +55,4 @@ export const Product: React.FC<IProps> = ({ product, isEditable }) => {
       )}
     </WrapperProd>
   );
-};
-
-Product.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  product: PropTypes.any.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  isEditable: PropTypes.any,
-};
-
-Product.defaultProps = {
-  isEditable: undefined,
 };

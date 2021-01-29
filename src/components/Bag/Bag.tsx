@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import { BagProd } from "./BagProd/BagProd";
 import basketImg from "../../common-files/shopping-basket.png";
@@ -15,12 +16,13 @@ import { addOrder } from "../../state/redux/slices/ordersSlice";
 export const Bag = () => {
   const { basket } = useSelector(selectProducts);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const bagProdAPI = useSelector(selectBagProducts);
-  console.log(bagProdAPI);
 
-  const orderProducts = () => {
-    dispatch(addOrder({ order: { pieces: bagProdAPI } }));
+  const orderProducts = async () => {
+    await dispatch(addOrder({ order: { pieces: bagProdAPI } }));
+    history.push("/myOrders");
   };
 
   if (basket.allProducts.length === 0) {

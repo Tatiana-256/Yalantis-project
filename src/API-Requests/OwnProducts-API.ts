@@ -1,5 +1,5 @@
+import { INewProduct } from "../state/redux/slices/prosuctSlice";
 import request, { authKey } from "./API-settings";
-import { INewProduct } from "../state/redux/slices/OwnProductsSlice";
 
 export const OwnProductsAPI = {
   setNewProduct(product: { product: INewProduct }) {

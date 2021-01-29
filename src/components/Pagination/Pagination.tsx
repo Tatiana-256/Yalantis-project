@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
 import { Page, PageWrap } from "./Pagination-style";
 import {
@@ -129,12 +128,3 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
 };
 
 export default Pagination;
-
-Pagination.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  isEditable: PropTypes.any,
-};
-
-Pagination.defaultProps = {
-  isEditable: undefined,
-};

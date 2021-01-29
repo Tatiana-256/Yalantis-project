@@ -5,7 +5,6 @@ export const loadFilteredProducts = createAsyncThunk(
   "loadFilteredProducts/addNewProduct/addPageInfo",
   async (parameters?: IFilterParameters) => {
     const response = await filtersAPI.loadFiltersProducts(parameters);
-    console.log(response);
     return response;
   }
 );

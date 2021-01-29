@@ -17,8 +17,6 @@ export const MyProducts = () => {
     });
   }, [dispatch]);
 
-  console.log(products);
-
   return (
     <div>
       <ProductsView status={status} products={products} isEditable="true" />

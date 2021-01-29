@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
 import { IBasketProduct } from "../../../state/entitiesTypes";
 import { ImageProd } from "../../Products/Product/Product-style";
 import { Info, Wrap } from "../Bag-styles";
@@ -39,7 +38,7 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
   const addOneMoreItem = () => {
     setInputQuantity((prevState) => prevState + 1);
     dispatch(addProductToBasket({ product, quantity: 1 }));
-    dispatch(addTotalSum(product.price));
+    dispatch(addTotalSum(Number(product.price)));
   };
 
   const decreaseProduct = () => {
@@ -98,9 +97,4 @@ export const BagProd: React.FC<IProd> = ({ productItem }) => {
       </Info>
     </Wrap>
   );
-};
-
-BagProd.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  productItem: PropTypes.any.isRequired,
 };

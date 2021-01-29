@@ -1,6 +1,5 @@
 import React, { ReactNode } from "react";
 import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
 
 import { ButtonWrap, Wrapper } from "./Modal-styles";
 import { uiActions } from "../../state/redux/UI-handling/ui-actions";
@@ -45,10 +44,4 @@ export const ModalWrapper: React.FC<IProps> = ({
       {children}
     </Wrapper>
   );
-};
-
-ModalWrapper.propTypes = {
-  headline: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
-  handler: PropTypes.func,
 };

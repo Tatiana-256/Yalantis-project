@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
 import { selectFilters } from "../../state/redux/state-selectors";
 import { Country } from "./2.Country";
@@ -98,13 +97,4 @@ export const Filters: React.FC<IProps> = ({ isEditable }) => {
       </Button>
     </FilterWrapper>
   );
-};
-
-Filters.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  isEditable: PropTypes.any,
-};
-
-Filters.defaultProps = {
-  isEditable: undefined,
 };

@@ -1,7 +1,7 @@
 import { IInitialStateProduct } from "./slices/prosuctSlice";
 import { RootState } from "./redux-store";
 import { IInitialStateFilters } from "./slices/filterSlise";
-import { IInitialStateOrders, IOrder } from "./slices/ordersSlice";
+import { IOrder } from "./slices/ordersSlice";
 
 export const selectProducts = (state: RootState) =>
   state.products as IInitialStateProduct;
@@ -17,7 +17,7 @@ export const selectBagProducts = (state: RootState) =>
     };
   });
 
-export const selectOrders = (state: RootState) =>
-  state.orders as IInitialStateOrders;
+export const selectOrders = (state: RootState) => state.orders;
 
-export const selectOrder = (state: RootState) => state.orders.orderDetails as IOrder;
+export const selectOrder = (state: RootState) =>
+  state.orders.orderDetails as IOrder;

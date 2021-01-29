@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import PropTypes from "prop-types";
 
 import styles from "./Modal.module.css";
 
@@ -30,12 +29,6 @@ const Portal: React.FC<IPortal> = ({
   }, [container]);
 
   return createPortal(children, container);
-};
-
-Portal.propTypes = {
-  el: PropTypes.string,
-  className: PropTypes.string,
-  children: PropTypes.element.isRequired,
 };
 
 export default Portal;

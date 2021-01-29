@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useMemo } from "react";
-import PropTypes from "prop-types";
 import { InputStyle } from "./CommonInput-style";
 
 interface IProps {
@@ -29,7 +28,6 @@ export const Input: React.FC<IProps> = ({
   error,
   value,
   touched,
-  onReset,
   onChange,
   placeholder,
   type = "text",
@@ -52,28 +50,4 @@ export const Input: React.FC<IProps> = ({
       {hasError && <div style={{ color: "red" }}>{error}</div>}
     </div>
   );
-};
-
-Input.propTypes = {
-  type: PropTypes.string,
-  name: PropTypes.string,
-  touched: PropTypes.bool,
-  error: PropTypes.string,
-  onReset: PropTypes.func,
-  value: PropTypes.string,
-  onChange: PropTypes.func,
-  onBlur: PropTypes.func,
-  placeholder: PropTypes.string,
-};
-
-Input.defaultProps = {
-  error: "",
-  value: "",
-  touched: false,
-  onReset: () => {},
-  onChange: () => {},
-  placeholder: "",
-  type: "text",
-  name: "",
-  onBlur: () => {},
 };

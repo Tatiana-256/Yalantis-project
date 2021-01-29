@@ -9,6 +9,5 @@ export const editProductSchema = {
     price: string()
       .matches(/^[1-9][0-9]*$/, "Price must be more than 0")
       .required("Price is required"),
-    origins: string().required("Origins is required"),
   }),
 };

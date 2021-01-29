@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { Filters } from "../../components/Filters/1.Filters";
 import { ProductsWrap } from "../../components/Products/Products-styles";
@@ -39,17 +38,4 @@ export const ProductsView: React.FC<IProps> = ({
       </ProductsWrap>
     </div>
   );
-};
-
-ProductsView.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  products: PropTypes.any.isRequired,
-  status: PropTypes.string,
-  // eslint-disable-next-line react/forbid-prop-types
-  isEditable: PropTypes.any,
-};
-
-ProductsView.defaultProps = {
-  status: "succeeded",
-  isEditable: undefined,
 };

@@ -25,7 +25,6 @@ export const OrderDetails = ({ match }: RouteComponentProps<MatchParams>) => {
     return acc + val.product.price * val.count;
   }, 0);
 
-  console.log("order page detail", order);
   return (
     <OrderWrap>
       <h2>

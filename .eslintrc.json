@@ -52,6 +52,7 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "react/require-default-props": "off",
     "react/prop-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "prettier/prettier": [
       "error",
       {
