@@ -36,7 +36,6 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   useEffect(() => {
-
     dispatch(
       loadFilteredProducts({
         origins,

@@ -26,36 +26,45 @@ export const Form: React.FC<IProps> = ({
     <Portal>
       <ModalWrapper headline={headline} handler={closeFunk}>
         <form onSubmit={formik.handleSubmit}>
-          1. Product name
-          <Input
-            name="name"
-            onBlur={formik.handleBlur}
-            placeholder="Product name"
-            error={formik.errors.name}
-            value={formik.values.name}
-            onChange={formik.handleChange}
-            touched={formik.touched.name}
-          />
-          2. Price
-          <Input
-            type="number"
-            name="price"
-            onBlur={formik.handleBlur}
-            placeholder="Price"
-            error={formik.errors.price}
-            value={formik.values.price.toString()}
-            onChange={formik.handleChange}
-            touched={formik.touched.price}
-          />
-          3. Origin
-          <Select
-            name="role"
-            options={options}
-            onChange={(option) => formik.setFieldValue("origin", option!.value)}
-            value={options.find(
-              (option) => option.value === formik.values.origin
-            )}
-          />
+          <label>
+            {" "}
+            1. Product name
+            <Input
+              name="name"
+              onBlur={formik.handleBlur}
+              placeholder="Product name"
+              error={formik.errors.name}
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              touched={formik.touched.name}
+            />
+          </label>
+          <label>
+            2. Price
+            <Input
+              type="number"
+              name="price"
+              onBlur={formik.handleBlur}
+              placeholder="Price"
+              error={formik.errors.price}
+              value={formik.values.price.toString()}
+              onChange={formik.handleChange}
+              touched={formik.touched.price}
+            />
+          </label>
+          <label>
+            3. Origin
+            <Select
+              name="role"
+              options={options}
+              onChange={(option) =>
+                formik.setFieldValue("origin", option!.value)
+              }
+              value={options.find(
+                (option) => option.value === formik.values.origin
+              )}
+            />
+          </label>
           {children}
         </form>
       </ModalWrapper>

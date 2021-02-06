@@ -36,7 +36,7 @@ export const EditProduct: React.FC<IProps> = ({ product, closeFunk }) => {
   });
 
   return (
-    <Form formik={formik} headline="Edit product">
+    <Form formik={formik} headline="Edit product" closeFunk={closeFunk}>
       <Button type="submit">Save</Button>
       <Button type="reset" onClick={() => formik.resetForm()}>
         Reset
