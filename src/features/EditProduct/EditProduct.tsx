@@ -16,7 +16,6 @@ interface IProps {
 }
 
 export const EditProduct: React.FC<IProps> = ({ product, closeFunk }) => {
-
   const dispatch = useDispatch();
 
   const formik = useFormik({

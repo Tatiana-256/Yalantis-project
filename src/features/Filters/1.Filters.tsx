@@ -16,7 +16,7 @@ interface IProps {
   isEditable?: "true" | "false";
 }
 
-export const Filters: React.FC<IProps> = ({ isEditable }) => {
+export const Filters: React.FC<IProps> = () => {
   const dispatch = useDispatch();
 
   const { countries } = useSelector(selectFilters);

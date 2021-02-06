@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 import styles from "./Modal.module.css";
@@ -18,7 +18,6 @@ const Portal: React.FC<IPortal> = ({
 
   container.classList.add(className);
 
-  const a = useRef()
   useEffect(() => {
     document.body.appendChild(container);
     container.setAttribute("class", styles.wrapper);
