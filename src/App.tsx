@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import { Navigation } from "./components/Navigation/Navigation";
-import { Error404 } from "./components/Error/Error";
-import { Products } from "./components/Products/Products";
-import ProductPage from "./components/Products/ProductPage/ProductPage";
-import { Bag } from "./components/Bag/Bag";
-import { MyProducts } from "./components/MyProducts/MyProducts";
-import { MyOrders } from "./components/Orders/MyOrders/MyOrders";
-import { OrderDetails } from "./components/Orders/Order/OrderDetails";
+import { Navigation } from "./features/Navigation/Navigation";
+import { Error404 } from "./features/Error/Error";
+import { Products } from "./features/Products/Products";
+import ProductPage from "./features/Products/ProductPage/ProductPage";
+import { Bag } from "./features/Bag/Bag";
+import { MyProducts } from "./features/MyProducts/MyProducts";
+import { MyOrders } from "./features/Orders/MyOrders/MyOrders";
+import { OrderDetails } from "./features/Orders/Order/OrderDetails";
 
 function App() {
   return (
