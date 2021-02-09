@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IProduct } from "../../entitiesTypes";
+import { IProduct } from "../../common/entitiesTypes";
 import { IOrderPostAPI, ordersAPI } from "../../../API/orders-API";
 
 export interface IInitialStateOrders {

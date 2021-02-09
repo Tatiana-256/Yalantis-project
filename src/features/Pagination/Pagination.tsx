@@ -6,14 +6,13 @@ import qs from "query-string";
 
 import { Page, PageWrap } from "./PaginationStyles";
 import {
-  selectFilters,
+  selectCountries,
   selectProducts,
 } from "../../store/redux/state-selectors";
-import { selectCountries } from "../../store/redux/slices/filterSlice";
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
-import { loadFilteredProducts } from "../../store/redux/thunk-creators";
 import { useURLPut } from "../../utils/url_hook";
+import { loadProducts } from "../../store/redux/slices/productSlice";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -23,10 +22,14 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { page, perPage, ProductsTotalCount, maxPrice, minPrice } = useSelector(
-    selectFilters
-  );
-  const { status } = useSelector(selectProducts);
+  const {
+    status,
+    page,
+    perPage,
+    ProductsTotalCount,
+    maxPrice,
+    minPrice,
+  } = useSelector(selectProducts);
   const origins = useSelector(selectCountries);
 
   const [value, setValue] = useState<number | undefined>(perPage);
@@ -42,7 +45,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
 
   useEffect(() => {
     dispatch(
-      loadFilteredProducts({
+      loadProducts({
         origins,
         minPrice,
         maxPrice,

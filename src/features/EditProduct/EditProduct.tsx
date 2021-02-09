@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { IProduct } from "../../store/entitiesTypes";
+import { IProduct } from "../../store/common/entitiesTypes";
 import { Button } from "../../utils/common-styles";
 import { editProductSchema } from "./EditValidation";
 import {
   editProduct,
   INewProduct,
-} from "../../store/redux/slices/prosuctSlice";
+} from "../../store/redux/slices/productSlice";
 import { Form } from "../../components/Form/Form";
 
 interface IProps {

@@ -1,5 +1,5 @@
 import React from "react";
-import { IProduct } from "../../../store/entitiesTypes";
+import { IProduct } from "../../../store/common/entitiesTypes";
 
 interface IProps {
   product: IProduct;

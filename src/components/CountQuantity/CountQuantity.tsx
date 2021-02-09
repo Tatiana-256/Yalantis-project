@@ -1,10 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { IProduct } from "../../store/entitiesTypes";
+import { IProduct } from "../../store/common/entitiesTypes";
 import { Count } from "../../features/Products/ProductPage/ProductPageStyles";
 import { Button } from "../../utils/common-styles";
-import { addProductToBasket } from "../../store/redux/slices/prosuctSlice";
+import { addProductToBasket } from "../../store/redux/slices/productSlice";
 
 interface IProps {
   product: IProduct;

@@ -1,5 +1,5 @@
 import request from "./API-settings";
-import { IProduct } from "../store/entitiesTypes";
+import { IProduct } from "../store/common/entitiesTypes";
 
 export const productsAPI = {
   getProduct(productId: string) {

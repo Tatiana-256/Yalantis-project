@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { productsAPI } from "../../../API/products-API";
-import { IProduct } from "../../../store/entitiesTypes";
+import { IProduct } from "../../../store/common/entitiesTypes";
 import productIcon from "../../../assets/product-icon.png";
 import { ProdInfo, Wrapper } from "./ProductPageStyles";
 import CountQuality from "../../../components/CountQuantity/CountQuantity";

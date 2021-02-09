@@ -3,7 +3,7 @@ import React from "react";
 import { Filters } from "../../features/Filters/1.Filters";
 import { ProductsWrap } from "../../features/Products/ProductsStyles";
 import Pagination from "../../features/Pagination/Pagination";
-import { IProduct } from "../../store/entitiesTypes";
+import { IProduct } from "../../store/common/entitiesTypes";
 import { Product } from "../../features/Products/Product/Product";
 
 interface IProps {

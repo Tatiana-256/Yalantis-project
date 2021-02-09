@@ -8,7 +8,7 @@ import { Button, FlexStyle } from "../../utils/common-styles";
 import {
   addNewProduct,
   INewProduct,
-} from "../../store/redux/slices/prosuctSlice";
+} from "../../store/redux/slices/productSlice";
 import { Form } from "../../components/Form/Form";
 
 export const AddProduct = () => {

@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import { BagProd } from "./BagProd/BagProd";
 import basketImg from "../../assets/shopping-basket.png";
-import { IBasketProduct } from "../../store/entitiesTypes";
+import { IBasketProduct } from "../../store/common/entitiesTypes";
 import { BagWrap, ButtonWrap, Item, TotalWrap } from "./BagStyles";
 import {
   selectBagProducts,

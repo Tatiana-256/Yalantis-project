@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import qs from "query-string";
-import { selectFilters } from "../store/redux/state-selectors";
-import { selectCountries } from "../store/redux/slices/filterSlice";
+import {
+  selectCountries,
+  selectProducts,
+} from "../store/redux/state-selectors";
 
 export const useURLPut = () => {
-  const { page, perPage, maxPrice, minPrice } = useSelector(selectFilters);
+  const { page, perPage, maxPrice, minPrice } = useSelector(selectProducts);
   const origins = useSelector(selectCountries);
 
   const location = useLocation();

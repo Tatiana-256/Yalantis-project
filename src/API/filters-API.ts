@@ -1,6 +1,6 @@
 import request, { authKey } from "./API-settings";
 import { ICountries } from "../store/redux/slices/filterSlice";
-import { IFilterParameters } from "../store/redux/thunk-creators";
+import { IFilterParameters } from "../store/common/entitiesTypes";
 
 const filtersAPI = {
   getOriginCountries() {

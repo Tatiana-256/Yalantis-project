@@ -1,4 +1,4 @@
-import { IInitialStateProduct } from "./slices/prosuctSlice";
+import { IInitialStateProduct } from "./slices/productSlice";
 import { RootState } from "./redux-store";
 import { IInitialStateFilters } from "./slices/filterSlice";
 import { IOrder } from "./slices/ordersSlice";
@@ -16,6 +16,13 @@ export const selectBagProducts = (state: RootState) =>
       count: product.quantity,
     };
   });
+
+export const selectCountries = (state: RootState) => {
+  return state.filter.countries
+    .filter((country) => country.isChecked)
+    .map((item) => item.value)
+    .join();
+};
 
 export const selectOrders = (state: RootState) => state.orders;
 

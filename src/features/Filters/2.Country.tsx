@@ -11,29 +11,27 @@ interface IProps {
   newQueryParam?: any;
 }
 
-export const Country = React.memo<IProps>(
-  ({ country, setCountryFilter, newQueryParam }) => {
-    const history = useHistory();
+export const Country = React.memo<IProps>(({ country, setCountryFilter }) => {
+  const history = useHistory();
 
-    const url = useURLPut();
+  const url = useURLPut();
 
-    const setFilter = () => {
-      setCountryFilter(country);
-      history.push(`/products?${qs.stringify(url)}`);
-    };
+  const setFilter = () => {
+    setCountryFilter(country);
+    history.push(`/products?${qs.stringify(url)}`);
+  };
 
-    return (
-      <>
-        <CountryWrap>
-          <input
-            type="checkbox"
-            checked={country.isChecked}
-            onChange={setFilter}
-          />
+  return (
+    <>
+      <CountryWrap>
+        <input
+          type="checkbox"
+          checked={country.isChecked}
+          onChange={setFilter}
+        />
 
-          <TextCountry> {country.displayName}</TextCountry>
-        </CountryWrap>
-      </>
-    );
-  }
-);
+        <TextCountry> {country.displayName}</TextCountry>
+      </CountryWrap>
+    </>
+  );
+});

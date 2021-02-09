@@ -30,8 +30,12 @@ export interface IBasketProduct {
   quantity: number;
 }
 
-export interface IProductAPIRequest {
-  name: string;
-  price: number;
-  origin: string;
+
+export interface IFilterParameters {
+  origins?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  pageCount?: number;
+  page?: number;
+  editable?: string;
 }

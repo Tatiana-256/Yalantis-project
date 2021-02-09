@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import qs from "query-string";
 
@@ -8,14 +8,15 @@ import { selectFilters } from "../../store/redux/state-selectors";
 import { Country } from "./2.Country";
 import { FilterText, FilterWrapper } from "./FiltersStyles";
 import {
-  addMaxPrice,
-  addMinPrice,
   changeCountriesFilter,
   ICountries,
-  selectCountries,
 } from "../../store/redux/slices/filterSlice";
 import { Button, Input } from "../../utils/common-styles";
 import { useURLPut } from "../../utils/url_hook";
+import {
+  addMaxPrice,
+  addMinPrice,
+} from "../../store/redux/slices/productSlice";
 
 interface IProps {
   isEditable?: "true" | "false";
