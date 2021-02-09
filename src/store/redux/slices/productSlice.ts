@@ -5,7 +5,6 @@ import {
   decreaseProduct,
   deleteItemFromBasket,
 } from "../../common/reducer.utils";
-import { addOrder } from "./ordersSlice";
 
 export interface IInitialStateProduct {
   status: "loading" | "succeeded" | "rejected" | "idle";
@@ -136,20 +135,10 @@ const productsSlice = createSlice({
       state.perPage = action.payload.perPage;
       state.page = action.payload.page;
     },
-  },
-
-  extraReducers: (builder) => {
-    builder.addCase(addOrder.fulfilled, (state) => {
+    addNewOrder(state) {
       state.basket.allProducts = [];
       state.basket.totalSum = 0;
-      state.status = "succeeded";
-    });
-    builder.addCase(addOrder.pending, (state) => {
-      state.status = "loading";
-    });
-    builder.addCase(addOrder.rejected, (state) => {
-      state.status = "rejected";
-    });
+    },
   },
 });
 
@@ -172,6 +161,7 @@ export const {
   addNewProduct,
   addNewProductRejected,
   addNewProductSuccess,
+  addNewOrder,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

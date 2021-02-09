@@ -19,7 +19,7 @@ export const Wrapper = styled.ul`
 `;
 
 export const LinkWrapper = styled.div`
-  width: 55%;
+  width: 75%;
   display: flex;
   justify-content: space-around;
   align-items: center;

@@ -1,5 +1,10 @@
 import { all } from "redux-saga/effects";
 import countriesSaga from "../sagas/countriesSaga";
+import {
+  addOrderSaga,
+  onGetOrdersSaga,
+  showOrderDetailsSaga,
+} from "../sagas/ordersSaga";
 import productSaga, {
   addNewProductSaga,
   editProductSaga,
@@ -11,5 +16,8 @@ export default function* rootSaga() {
     countriesSaga(),
     editProductSaga(),
     addNewProductSaga(),
+    onGetOrdersSaga(),
+    addOrderSaga(),
+    showOrderDetailsSaga(),
   ]);
 }
