@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import productReducer from "./slices/prosuctSlice";
 import filterSlice from "./slices/filterSlice";
 import { uiReducer } from "./UI-handling/ui-reduser";
@@ -11,6 +11,13 @@ const store = configureStore({
     orders: ordersSlice,
     ui: uiReducer,
   },
+});
+
+export const rootReducer = combineReducers({
+  products: productReducer,
+  filter: filterSlice,
+  orders: ordersSlice,
+  ui: uiReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

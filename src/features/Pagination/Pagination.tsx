@@ -1,5 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+
+import qs from "query-string";
 
 import { Page, PageWrap } from "./PaginationStyles";
 import {
@@ -10,6 +13,7 @@ import { selectCountries } from "../../store/redux/slices/filterSlice";
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadFilteredProducts } from "../../store/redux/thunk-creators";
+import { useURLPut } from "../../utils/url_hook";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -17,6 +21,7 @@ interface IProps {
 
 const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { page, perPage, ProductsTotalCount, maxPrice, minPrice } = useSelector(
     selectFilters
@@ -46,16 +51,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
         editable: isEditable,
       })
     );
-  }, [
-    dispatch,
-    value,
-    page,
-    maxPrice,
-    minPrice,
-    origins,
-    valuePage,
-    isEditable,
-  ]);
+  }, [dispatch, value, maxPrice, minPrice, origins, valuePage, isEditable]);
 
   useEffect(() => {
     setValuePage(1);
@@ -65,6 +61,8 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setValue(Number(e.target.value));
   };
+
+  const url = useURLPut();
 
   if (status === "loading") return <div>loading...</div>;
 
@@ -96,7 +94,10 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
           .map((p) => (
             <Page
               key={Math.random().toString()}
-              onClick={() => setValuePage(p)}
+              onClick={() => {
+                setValuePage(p);
+                history.push(`/products?${qs.stringify(url)}`);
+              }}
               prop={
                 page !== p
                   ? {
