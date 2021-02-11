@@ -1,8 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-
-import qs from "query-string";
 
 import { Page, PageWrap } from "./PaginationStyles";
 import {
@@ -11,7 +8,6 @@ import {
 } from "../../store/redux/state-selectors";
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
-import { useURLPut } from "../../utils/url_hook";
 import { loadProducts } from "../../store/redux/slices/productSlice";
 
 interface IProps {
@@ -20,7 +16,6 @@ interface IProps {
 
 const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const {
     status,
@@ -65,8 +60,6 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     setValue(Number(e.target.value));
   };
 
-  const url = useURLPut();
-
   if (status === "loading") return <div>loading...</div>;
 
   return (
@@ -99,7 +92,6 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
               key={Math.random().toString()}
               onClick={() => {
                 setValuePage(p);
-                history.push(`/products?${qs.stringify(url)}`);
               }}
               prop={
                 page !== p

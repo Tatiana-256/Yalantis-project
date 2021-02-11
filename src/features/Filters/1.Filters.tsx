@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-
-import qs from "query-string";
 
 import { selectFilters } from "../../store/redux/state-selectors";
 import { Country } from "./2.Country";
@@ -12,7 +9,6 @@ import {
   ICountries,
 } from "../../store/redux/slices/filterSlice";
 import { Button, Input } from "../../utils/common-styles";
-import { useURLPut } from "../../utils/url_hook";
 import {
   addMaxPrice,
   addMinPrice,
@@ -34,7 +30,6 @@ export const Filters: React.FC<IProps> = () => {
     dispatch(changeCountriesFilter(country.value));
   };
 
-  const url = useURLPut();
 
   const setMaxMinFilter = () => {
     if (max === 0) {
@@ -57,7 +52,6 @@ export const Filters: React.FC<IProps> = () => {
           key={Math.random().toString()}
           country={orig}
           setCountryFilter={setCountryFilter}
-          newQueryParam={url}
         />
       ))}
       <div>
@@ -80,11 +74,9 @@ export const Filters: React.FC<IProps> = () => {
           }}
         />
       </div>
-      <Link to={{ pathname: "/products", search: qs.stringify(url) }}>
-        <Button width="90%" onClick={setMaxMinFilter} type="button">
-          Add filters
-        </Button>
-      </Link>
+      <Button width="90%" onClick={setMaxMinFilter} type="button">
+        Add filters
+      </Button>
     </FilterWrapper>
   );
 };

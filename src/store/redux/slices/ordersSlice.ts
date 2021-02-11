@@ -26,7 +26,6 @@ const ordersSlice = createSlice({
       state.status = "loading";
     },
     getOrdersSuccess(state, action) {
-      debugger;
       state.orders = action.payload;
       state.status = "succeeded";
     },

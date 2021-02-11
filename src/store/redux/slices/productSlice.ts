@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBasketProduct, IProduct } from "../../common/entitiesTypes";
 import {
   addItemToBasket,
@@ -75,6 +75,7 @@ const productsSlice = createSlice({
     },
     // ____________ load product _______________
 
+    //  PayloadAction, generic
     loadProductsSuccess(state, action) {
       const { page, perPage, totalItems } = action.payload;
       state.page = page;
@@ -129,7 +130,6 @@ const productsSlice = createSlice({
       state.perPage = action.payload;
     },
     setURLParameters(state, action) {
-      debugger;
       state.maxPrice = action.payload.maxPrice;
       state.minPrice = action.payload.minPrice;
       state.perPage = action.payload.perPage;

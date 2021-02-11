@@ -1,4 +1,4 @@
-import { call, debounce, put } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { ordersAPI } from "../../../API/orders-API";
 import {
   addOrder,
@@ -18,7 +18,6 @@ import { addNewOrder } from "../../redux/slices/productSlice";
 function* onGetOrders() {
   try {
     const orders = yield call(ordersAPI.getOrders);
-    debugger;
     yield put(getOrdersSuccess(orders.data.items));
     yield put(addNewOrder());
   } catch (e) {
@@ -27,7 +26,7 @@ function* onGetOrders() {
 }
 
 export function* onGetOrdersSaga() {
-  yield debounce(1000, getOrders.type, onGetOrders);
+  yield takeEvery(getOrders.type, onGetOrders);
 }
 
 // __________ add orders ______________
@@ -35,7 +34,6 @@ export function* onGetOrdersSaga() {
 function* onAddOrder(action: any) {
   try {
     const product = yield call(ordersAPI.addOrder, action.payload);
-    debugger;
     yield put(addOrderSuccess(product.data));
   } catch (e) {
     yield put(addOrderRejected);
@@ -43,7 +41,7 @@ function* onAddOrder(action: any) {
 }
 
 export function* addOrderSaga() {
-  yield debounce(1000, addOrder.type, onAddOrder);
+  yield takeEvery(addOrder.type, onAddOrder);
 }
 
 // __________ show order details______________
@@ -51,7 +49,6 @@ export function* addOrderSaga() {
 function* showOrderDetails(action: any) {
   try {
     const product = yield call(ordersAPI.getOrderDetails, action.payload);
-    debugger;
     yield put(showDetailsSuccess(product.data));
   } catch (e) {
     yield put(showDetailsRejected);
@@ -59,5 +56,5 @@ function* showOrderDetails(action: any) {
 }
 
 export function* showOrderDetailsSaga() {
-  yield debounce(1000, showDetails.type, showOrderDetails);
+  yield takeEvery(showDetails.type, showOrderDetails);
 }

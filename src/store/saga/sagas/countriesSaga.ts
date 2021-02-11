@@ -11,7 +11,7 @@ function* onGetCountries() {
     const countries = yield call(filtersAPI.getOriginCountries);
     yield put(setCountriesSuccess(countries));
   } catch (e) {
-    yield put(setCountriesRejected);
+    yield put(setCountriesRejected());
   }
 }
 

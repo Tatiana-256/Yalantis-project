@@ -1,14 +1,21 @@
-import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import qs from "query-string";
-import {
-  selectCountries,
-  selectProducts,
-} from "../store/redux/state-selectors";
 
-export const useURLPut = () => {
-  const { page, perPage, maxPrice, minPrice } = useSelector(selectProducts);
-  const origins = useSelector(selectCountries);
+interface IProps {
+  origins: string;
+  minPrice: string;
+  maxPrice: string;
+  page: string;
+  perPage: string;
+}
+
+export const useURLPut = ({
+  maxPrice,
+  minPrice,
+  origins,
+  page,
+  perPage,
+}: IProps) => {
 
   const location = useLocation();
 

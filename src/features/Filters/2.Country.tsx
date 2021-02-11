@@ -1,8 +1,9 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
+
 import qs from "query-string";
 import { ICountries } from "../../store/redux/slices/filterSlice";
-import { useURLPut } from "../../utils/url_hook";
+import { useURLGet, useURLPut } from "../../utils/url_hook";
 import { CountryWrap, TextCountry } from "./FiltersStyles";
 
 interface IProps {
@@ -12,13 +13,8 @@ interface IProps {
 }
 
 export const Country = React.memo<IProps>(({ country, setCountryFilter }) => {
-  const history = useHistory();
-
-  const url = useURLPut();
-
   const setFilter = () => {
     setCountryFilter(country);
-    history.push(`/products?${qs.stringify(url)}`);
   };
 
   return (

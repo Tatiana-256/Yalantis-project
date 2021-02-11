@@ -1,9 +1,9 @@
-import { call, debounce, put } from "redux-saga/effects";
+import { call, debounce, put, takeEvery } from "redux-saga/effects";
 import filtersAPI from "../../../API/filters-API";
 import {
   addNewProduct,
-  addNewProductSuccess,
   addNewProductRejected,
+  addNewProductSuccess,
   editProduct,
   editProductRejected,
   editProductSuccess,
@@ -12,12 +12,15 @@ import {
   loadProductsSuccess,
 } from "../../redux/slices/productSlice";
 import { OwnProductsAPI } from "../../../API/OwnProducts-API";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { IFilterParameters, IProduct } from "../../common/entitiesTypes";
 
 // ____________ load product _______________
 
-function* onGetProducts(action: any) {
+// action: PayloadAction
+function* onGetProducts(action: PayloadAction<IFilterParameters>) {
   try {
-    const products = yield call(filtersAPI.loadFiltersProducts, action.payload);
+    const products: IProduct[] = yield call(filtersAPI.loadFiltersProducts, action.payload);
     yield put(loadProductsSuccess(products));
   } catch (e) {
     yield put(loadProductsRejected);
@@ -40,7 +43,7 @@ function* onEditProducts(action: any) {
 }
 
 export function* editProductSaga() {
-  yield debounce(1000, editProduct.type, onEditProducts);
+  yield takeEvery(editProduct.type, onEditProducts);
 }
 
 // _______________ add new product _______________
@@ -48,7 +51,6 @@ export function* editProductSaga() {
 function* onAddNewProducts(action: any) {
   try {
     const product = yield call(OwnProductsAPI.setNewProduct, action.payload);
-    debugger;
     yield put(addNewProductSuccess(product.data));
   } catch (e) {
     yield put(addNewProductRejected);
@@ -56,5 +58,5 @@ function* onAddNewProducts(action: any) {
 }
 
 export function* addNewProductSaga() {
-  yield debounce(1000, addNewProduct.type, onAddNewProducts);
+  yield takeEvery(addNewProduct.type, onAddNewProducts);
 }
