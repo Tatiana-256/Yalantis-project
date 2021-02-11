@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import { Button } from "../../../utils/common-styles";
-import { getOrders, IOrder } from "../../../store/redux/slices/ordersSlice";
+import { getOrders } from "../../../store/redux/slices/ordersSlice";
 import { selectOrders } from "../../../store/redux/state-selectors";
 import { OrdersWrap, ProductWrap } from "./MyOrdersStyle";
 import { OrderInfo } from "./OprdersInfo";
+import { IOrder } from "../../../store/common/entitiesTypes";
 
 export const MyOrders = () => {
   const dispatch = useDispatch();

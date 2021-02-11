@@ -1,5 +1,7 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import { ordersAPI } from "../../../API/orders-API";
+import { PayloadAction } from "@reduxjs/toolkit";
+
+import { IOrderPostAPI, ordersAPI } from "../../../API/orders-API";
 import {
   addOrder,
   addOrderRejected,
@@ -31,7 +33,7 @@ export function* onGetOrdersSaga() {
 
 // __________ add orders ______________
 
-function* onAddOrder(action: any) {
+function* onAddOrder(action: PayloadAction<IOrderPostAPI>) {
   try {
     const product = yield call(ordersAPI.addOrder, action.payload);
     yield put(addOrderSuccess(product.data));
@@ -46,7 +48,7 @@ export function* addOrderSaga() {
 
 // __________ show order details______________
 
-function* showOrderDetails(action: any) {
+function* showOrderDetails(action: PayloadAction<string>) {
   try {
     const product = yield call(ordersAPI.getOrderDetails, action.payload);
     yield put(showDetailsSuccess(product.data));

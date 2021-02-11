@@ -1,7 +1,7 @@
 import { IInitialStateProduct } from "./slices/productSlice";
 import { RootState } from "./redux-store";
 import { IInitialStateFilters } from "./slices/filterSlice";
-import { IOrder } from "./slices/ordersSlice";
+import { IOrder } from "../common/entitiesTypes";
 
 export const selectProducts = (state: RootState): IInitialStateProduct =>
   state.products;
@@ -16,6 +16,10 @@ export const selectBagProducts = (state: RootState) =>
       count: product.quantity,
     };
   });
+
+export const selectCountiesArray = (state: RootState) => {
+  return state.filter.countries;
+};
 
 export const selectCountries = (state: RootState) => {
   return state.filter.countries

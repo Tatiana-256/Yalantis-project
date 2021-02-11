@@ -1,4 +1,5 @@
 import { call, debounce, put, takeEvery } from "redux-saga/effects";
+import { PayloadAction } from "@reduxjs/toolkit";
 import filtersAPI from "../../../API/filters-API";
 import {
   addNewProduct,
@@ -7,20 +8,28 @@ import {
   editProduct,
   editProductRejected,
   editProductSuccess,
+  INewProduct,
   loadProducts,
   loadProductsRejected,
   loadProductsSuccess,
 } from "../../redux/slices/productSlice";
 import { OwnProductsAPI } from "../../../API/OwnProducts-API";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { IFilterParameters, IProduct } from "../../common/entitiesTypes";
+import {
+  IEditProduct,
+  IFilterParameters,
+  IProduct,
+  IProductAPI,
+} from "../../common/entitiesTypes";
 
 // ____________ load product _______________
 
 // action: PayloadAction
 function* onGetProducts(action: PayloadAction<IFilterParameters>) {
   try {
-    const products: IProduct[] = yield call(filtersAPI.loadFiltersProducts, action.payload);
+    const products: IProductAPI = yield call(
+      filtersAPI.loadFiltersProducts,
+      action.payload
+    );
     yield put(loadProductsSuccess(products));
   } catch (e) {
     yield put(loadProductsRejected);
@@ -33,7 +42,7 @@ export default function* productSaga() {
 
 // ______________ edit product ______________
 
-function* onEditProducts(action: any) {
+function* onEditProducts(action: PayloadAction<IEditProduct>) {
   try {
     const product = yield call(OwnProductsAPI.editProduct, action.payload);
     yield put(editProductSuccess(product.data));
@@ -48,7 +57,7 @@ export function* editProductSaga() {
 
 // _______________ add new product _______________
 
-function* onAddNewProducts(action: any) {
+function* onAddNewProducts(action: PayloadAction<{ product: INewProduct }>) {
   try {
     const product = yield call(OwnProductsAPI.setNewProduct, action.payload);
     yield put(addNewProductSuccess(product.data));

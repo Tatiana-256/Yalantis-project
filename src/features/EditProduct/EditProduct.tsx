@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
-import { IProduct } from "../../store/common/entitiesTypes";
+import { IEditProduct, IProduct } from "../../store/common/entitiesTypes";
 import { Button } from "../../utils/common-styles";
 import { editProductSchema } from "./EditValidation";
 import {
@@ -22,7 +22,7 @@ export const EditProduct: React.FC<IProps> = ({ product, closeFunk }) => {
     initialValues: product,
     validationSchema: editProductSchema.schema,
     onSubmit: () => {
-      const newProd: { product: INewProduct; productId: string } = {
+      const newProd: IEditProduct = {
         product: {
           name: formik.values.name,
           price: Number(formik.values.price),

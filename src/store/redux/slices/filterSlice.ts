@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IInitialStateFilters {
   countries: Array<ICountries>;
@@ -24,7 +24,7 @@ const filterSlice = createSlice({
           : c
       );
     },
-    setCountriesSuccess(state, action) {
+    setCountriesSuccess(state, action: PayloadAction<ICountries[]>) {
       state.countries = action.payload.map((item: ICountries) => {
         item.isChecked = false;
         return item;

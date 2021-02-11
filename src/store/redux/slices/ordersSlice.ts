@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { IProduct } from "../../common/entitiesTypes";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { IOrder, IProduct } from "../../common/entitiesTypes";
 
 export interface IInitialStateOrders {
   status: "loading" | "succeeded" | "rejected" | "idle";
@@ -25,7 +25,7 @@ const ordersSlice = createSlice({
     getOrders(state) {
       state.status = "loading";
     },
-    getOrdersSuccess(state, action) {
+    getOrdersSuccess(state, action: PayloadAction<IOrder[]>) {
       state.orders = action.payload;
       state.status = "succeeded";
     },
@@ -37,7 +37,7 @@ const ordersSlice = createSlice({
     addOrder(state, action) {
       state.status = "loading";
     },
-    addOrderSuccess(state, action) {
+    addOrderSuccess(state, action: PayloadAction<IOrder>) {
       state.orders.push(action.payload);
       state.status = "succeeded";
     },
@@ -49,7 +49,7 @@ const ordersSlice = createSlice({
     showDetails(state, action) {
       state.status = "loading";
     },
-    showDetailsSuccess(state, action) {
+    showDetailsSuccess(state, action: PayloadAction<IOrder>) {
       state.orderDetails = action.payload;
       state.status = "succeeded";
     },
@@ -72,14 +72,3 @@ export const {
 } = ordersSlice.actions;
 
 export default ordersSlice.reducer;
-
-export interface IOrder {
-  id: string;
-  pieces: Array<IOrderProduct>;
-  createdAt: string;
-}
-
-export interface IOrderProduct {
-  product: IProduct;
-  count: number;
-}

@@ -7,7 +7,8 @@ interface IProps {
   error?: string;
   name?: string;
   onReset?: () => void;
-  value?: string;
+  value?: string | number;
+  checked?: boolean;
   onChange?: {
     (e: ChangeEvent<any>): void;
     // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -31,6 +32,7 @@ export const Input: React.FC<IProps> = ({
   onChange,
   placeholder,
   type = "text",
+  checked,
 }) => {
   const hasError = useMemo(() => error && touched, [error, touched]);
 
@@ -45,6 +47,7 @@ export const Input: React.FC<IProps> = ({
         onChange={onChange}
         placeholder={placeholder}
         onBlur={onBlur}
+        checked={checked}
       />
 
       {hasError && <div style={{ color: "red" }}>{error}</div>}

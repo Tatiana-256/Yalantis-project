@@ -1,5 +1,7 @@
 // ______type of actions___________
 
+import { INewProduct } from "../redux/slices/productSlice";
+
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;
 export type InferActionsTypes<
   T extends { [key: string]: (...args: any[]) => any }
@@ -9,9 +11,9 @@ export type InferActionsTypes<
 
 export interface IProductAPI {
   items: Array<IProduct>;
-  totalItems: 0;
-  page: 0;
-  perPage: 0;
+  totalItems: number;
+  page: number;
+  perPage: number;
 }
 
 export interface IProduct {
@@ -30,7 +32,6 @@ export interface IBasketProduct {
   quantity: number;
 }
 
-
 export interface IFilterParameters {
   origins?: string;
   minPrice?: number;
@@ -38,4 +39,22 @@ export interface IFilterParameters {
   pageCount?: number;
   page?: number;
   editable?: string;
+}
+
+export interface IEditProduct {
+  product: INewProduct;
+  productId: string;
+}
+
+// orders
+
+export interface IOrder {
+  id: string;
+  pieces: Array<IOrderProduct>;
+  createdAt: string;
+}
+
+export interface IOrderProduct {
+  product: IProduct;
+  count: number;
 }

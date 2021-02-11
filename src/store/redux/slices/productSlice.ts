@@ -1,5 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IBasketProduct, IProduct } from "../../common/entitiesTypes";
+import {
+  IBasketProduct,
+  IEditProduct,
+  IFilterParameters,
+  IProduct,
+  IProductAPI,
+} from "../../common/entitiesTypes";
 import {
   addItemToBasket,
   decreaseProduct,
@@ -76,7 +82,7 @@ const productsSlice = createSlice({
     // ____________ load product _______________
 
     //  PayloadAction, generic
-    loadProductsSuccess(state, action) {
+    loadProductsSuccess(state, action: PayloadAction<IProductAPI>) {
       const { page, perPage, totalItems } = action.payload;
       state.page = page;
       state.perPage = perPage;
@@ -96,7 +102,7 @@ const productsSlice = createSlice({
     editProduct(state, action) {
       state.status = "loading";
     },
-    editProductSuccess(state, action) {
+    editProductSuccess(state, action: PayloadAction<IProduct>) {
       state.products = state.products.map((product: IProduct) => {
         return product.id === action.payload.id
           ? { ...product, ...action.payload }
@@ -113,7 +119,7 @@ const productsSlice = createSlice({
     addNewProduct(state, action) {
       state.status = "loading";
     },
-    addNewProductSuccess(state, action) {
+    addNewProductSuccess(state, action: PayloadAction<IProduct>) {
       state.products.push(action.payload);
       state.status = "succeeded";
     },
