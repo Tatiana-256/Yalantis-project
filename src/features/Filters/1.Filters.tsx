@@ -30,7 +30,6 @@ export const Filters: React.FC<IProps> = () => {
     dispatch(changeCountriesFilter(country.value));
   };
 
-
   const setMaxMinFilter = () => {
     if (max === 0) {
       dispatch(addMaxPrice(undefined));

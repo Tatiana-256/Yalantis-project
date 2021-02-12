@@ -9,13 +9,14 @@ interface IProps {
   onReset?: () => void;
   value?: string | number;
   checked?: boolean;
-  onChange?: {
-    (e: ChangeEvent<any>): void;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any>
-      ? void
-      : (e: string | ChangeEvent<any>) => void;
-  };
+  onChange?: any
+  //   {
+  //   (e: ChangeEvent<any>): void;
+  //   // eslint-disable-next-line @typescript-eslint/naming-convention
+  //   <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any>
+  //     ? void
+  //     : (e: string | ChangeEvent<any>) => void;
+  // };
   placeholder?: string;
   onBlur?: {
     (e: React.FocusEvent<any>): void;

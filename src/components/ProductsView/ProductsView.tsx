@@ -5,6 +5,7 @@ import { ProductsWrap } from "../../features/Products/ProductsStyles";
 import Pagination from "../../features/Pagination/Pagination";
 import { IProduct } from "../../store/common/entitiesTypes";
 import { Product } from "../../features/Products/Product/Product";
+import { FilterForm } from "../../features/Filters/FiltersForm";
 
 interface IProps {
   products: Array<IProduct>;
@@ -19,7 +20,7 @@ export const ProductsView: React.FC<IProps> = ({
 }) => {
   return (
     <div style={{ display: "flex" }}>
-      <Filters isEditable={isEditable} />
+      <FilterForm isEditable={isEditable} />
       <ProductsWrap>
         <Pagination isEditable={isEditable} />
         <div style={{ width: "100%" }} />

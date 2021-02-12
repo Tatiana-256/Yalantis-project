@@ -13,6 +13,7 @@ interface IProps {
 }
 
 export const Country = React.memo<IProps>(({ country, setCountryFilter }) => {
+
   const setFilter = () => {
     setCountryFilter(country);
   };

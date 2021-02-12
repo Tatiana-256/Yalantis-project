@@ -54,6 +54,7 @@
     "react/require-default-props": "off",
     "react/prop-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "spaced-comment": "off",
     "prettier/prettier": [
       "error",
       {

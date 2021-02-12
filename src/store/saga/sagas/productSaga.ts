@@ -25,6 +25,7 @@ import {
 
 // action: PayloadAction
 function* onGetProducts(action: PayloadAction<IFilterParameters>) {
+  debugger;
   try {
     const products: IProductAPI = yield call(
       filtersAPI.loadFiltersProducts,
