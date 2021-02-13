@@ -17,7 +17,7 @@ export const putURL = (
   perPage: number | undefined,
   location: any
 ) => {
-  const queryParam = qs.parse(location.search);
+  const queryParam = qs.parse(location);
 
   return {
     ...queryParam,

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
 
 import { Page, PageWrap } from "./PaginationStyles";
 import {
@@ -9,7 +10,6 @@ import {
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadProducts } from "../../store/redux/slices/productSlice";
-import { getURL } from "../../utils/url.utils.";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -39,20 +39,11 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     showArrowRight,
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
-  useEffect(() => {
-    // const { maxPrice, minPrice, origins, page, perPage } = getURL(location);
+  const location = useLocation();
+  const history = useHistory();
 
-    dispatch(
-      loadProducts({})
-      //   {
-      //   origins,
-      //   minPrice,
-      //   maxPrice,
-      //   pageCount: perPage,
-      //   page,
-      // }
-    );
-    // eslint-disable-next-line  react-hooks/exhaustive-deps
+  useEffect(() => {
+    dispatch(loadProducts({ products: {} }));
   }, [dispatch]);
 
   useEffect(() => {

@@ -56,16 +56,22 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
         page,
         editable: isEditable,
       };
-      dispatch(loadProducts(parameters));
-      const url = putURL(
-        formik.values.originsFilter.join(","),
-        Number(formik.values.minPrice),
-        Number(formik.values.maxPrice),
-        perPage,
-        page,
-        location
+      dispatch(
+        loadProducts({
+          products: parameters,
+          history,
+          location: location.search,
+        })
       );
-      history.push(`/products?${qs.stringify(url)}`);
+      // const url = putURL(
+      //   formik.values.originsFilter.join(","),
+      //   Number(formik.values.minPrice),
+      //   Number(formik.values.maxPrice),
+      //   perPage,
+      //   page,
+      //   location
+      // );
+      // history.push(`/products?${qs.stringify(url)}`);
     },
   });
 

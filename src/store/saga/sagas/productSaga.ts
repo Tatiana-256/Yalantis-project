@@ -1,5 +1,6 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, fork, put, takeEvery } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
+import qs from "query-string";
 
 import filtersAPI from "../../../API/filters-API";
 import {
@@ -23,18 +24,34 @@ import {
   IProductAPI,
 } from "../../common/entitiesTypes";
 import { changeCountriesFilter } from "../../redux/slices/filterSlice";
+import { putURL } from "../../../utils/url.utils.";
 
 // ____________ load product _______________
 
-function* onGetProducts(action: PayloadAction<IFilterParameters>) {
+function* onGetProducts(
+  action: PayloadAction<{
+    products: IFilterParameters;
+    location?: string;
+    history?: any;
+  }>
+) {
+  console.log(action.payload);
   try {
     const products: IProductAPI = yield call(
       filtersAPI.loadFiltersProducts,
-      action.payload
+      action.payload.products
     );
     debugger;
+    const {
+      maxPrice,
+      minPrice,
+      origins,
+      pageCount,
+      page,
+    } = action.payload.products;
+
     yield put(loadProductsSuccess(products));
-    const { maxPrice, minPrice, origins, pageCount, page } = action.payload;
+
     if (maxPrice === 0 || NaN) {
       yield put(addMaxPrice(undefined));
     } else if (maxPrice === undefined || maxPrice > 0) {
@@ -48,18 +65,18 @@ function* onGetProducts(action: PayloadAction<IFilterParameters>) {
     const origin = origins?.split(",");
     yield put(changeCountriesFilter(origin));
 
-    // yield () => {
-    //   const url = putURL(
-    //     origins,
-    //     minPrice,
-    //     maxPrice,
-    //     pageCount,
-    //     page,
-    //     location
-    //   );
-    //   history.push(`/products?${qs.stringify(url)}`);
-    // };
+    const url = putURL(
+      origins,
+      minPrice,
+      maxPrice,
+      pageCount,
+      page,
+      action.payload.location
+    );
+    debugger;
+    action.payload.history?.push(`/products?${qs.stringify(url)}`);
   } catch (e) {
+    console.log(e);
     yield put(loadProductsRejected);
   }
 }
