@@ -39,9 +39,6 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     showArrowRight,
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
-  const location = useLocation();
-  const history = useHistory();
-
   useEffect(() => {
     dispatch(loadProducts({ products: {} }));
   }, [dispatch]);

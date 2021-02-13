@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import qs from "query-string";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
@@ -19,7 +18,6 @@ import { Button } from "../../../utils/common-styles";
 import { IFilterParameters } from "../../../store/common/entitiesTypes";
 import { CountryCheck } from "./CountryInput";
 import { filterSchema } from "./FilterValidation";
-import { getURL, putURL } from "../../../utils/url.utils.";
 
 export const FilterForm: React.FC<{ isEditable?: string }> = ({
   isEditable,
@@ -29,11 +27,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
   const history = useHistory();
 
   useEffect(() => {
-    const { maxPrice, minPrice, origins, page, perPage } = getURL(location);
-
     dispatch(loadCountries());
-    console.log(getURL(location));
-    // eslint-disable-next-line  react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const { page, perPage, maxPrice, minPrice } = useSelector(selectProducts);
@@ -63,15 +57,6 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
           location: location.search,
         })
       );
-      // const url = putURL(
-      //   formik.values.originsFilter.join(","),
-      //   Number(formik.values.minPrice),
-      //   Number(formik.values.maxPrice),
-      //   perPage,
-      //   page,
-      //   location
-      // );
-      // history.push(`/products?${qs.stringify(url)}`);
     },
   });
 
@@ -100,9 +85,9 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
               onBlur={formik.handleBlur}
               placeholder="min price"
               error={formik.errors.minPrice}
-              value={minPrice}
+              value={formik.values.minPrice}
               onChange={formik.handleChange}
-              type="input"
+              type="number"
               width={80}
             />
           </label>
@@ -116,7 +101,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
               onBlur={formik.handleBlur}
               placeholder="max price"
               error={formik.errors.maxPrice}
-              value={maxPrice}
+              value={formik.values.maxPrice}
               onChange={formik.handleChange}
               type="input"
               width={80}

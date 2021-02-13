@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   IBasketProduct,
-  IEditProduct,
-  IFilterParameters,
   IProduct,
   IProductAPI,
 } from "../../common/entitiesTypes";

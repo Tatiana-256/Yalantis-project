@@ -1,4 +1,4 @@
-import { call, fork, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import qs from "query-string";
 
@@ -15,14 +15,10 @@ import {
   INewProduct,
   loadProducts,
   loadProductsRejected,
-  loadProductsSuccess,
+  loadProductsSuccess
 } from "../../redux/slices/productSlice";
 import { OwnProductsAPI } from "../../../API/OwnProducts-API";
-import {
-  IEditProduct,
-  IFilterParameters,
-  IProductAPI,
-} from "../../common/entitiesTypes";
+import { IEditProduct, IFilterParameters, IProductAPI } from "../../common/entitiesTypes";
 import { changeCountriesFilter } from "../../redux/slices/filterSlice";
 import { putURL } from "../../../utils/url.utils.";
 
@@ -41,7 +37,6 @@ function* onGetProducts(
       filtersAPI.loadFiltersProducts,
       action.payload.products
     );
-    debugger;
     const {
       maxPrice,
       minPrice,
@@ -73,7 +68,6 @@ function* onGetProducts(
       page,
       action.payload.location
     );
-    debugger;
     action.payload.history?.push(`/products?${qs.stringify(url)}`);
   } catch (e) {
     console.log(e);
