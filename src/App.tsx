@@ -9,7 +9,7 @@ import { Bag } from "./features/Bag/Bag";
 import { MyProducts } from "./features/MyProducts/MyProducts";
 import { MyOrders } from "./features/Orders/MyOrders/MyOrders";
 import { OrderDetails } from "./features/Orders/Order/OrderDetails";
-import { FilterForm } from "./features/Filters/FiltersForm";
+import { FilterForm } from "./features/Filters/FilterForm/FiltersForm";
 
 function App() {
   return (

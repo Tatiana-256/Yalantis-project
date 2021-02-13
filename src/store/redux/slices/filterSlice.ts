@@ -14,14 +14,17 @@ const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    changeCountriesFilter(state, action) {
+    changeCountriesFilter(state, action: PayloadAction<string[] | undefined>) {
       state.countries = state.countries.map((c) =>
-        c.value === action.payload
+        action.payload?.includes(c.value)
           ? {
               ...c,
-              isChecked: !c.isChecked,
+              isChecked: true,
             }
-          : c
+          : {
+              ...c,
+              isChecked: false,
+            }
       );
     },
     setCountriesSuccess(state, action: PayloadAction<ICountries[]>) {

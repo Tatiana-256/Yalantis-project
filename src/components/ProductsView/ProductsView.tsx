@@ -5,7 +5,7 @@ import { ProductsWrap } from "../../features/Products/ProductsStyles";
 import Pagination from "../../features/Pagination/Pagination";
 import { IProduct } from "../../store/common/entitiesTypes";
 import { Product } from "../../features/Products/Product/Product";
-import { FilterForm } from "../../features/Filters/FiltersForm";
+import { FilterForm } from "../../features/Filters/FilterForm/FiltersForm";
 
 interface IProps {
   products: Array<IProduct>;

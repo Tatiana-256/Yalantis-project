@@ -9,6 +9,7 @@ import {
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadProducts } from "../../store/redux/slices/productSlice";
+import { getURL } from "../../utils/url.utils.";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -39,25 +40,51 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   useEffect(() => {
+    // const { maxPrice, minPrice, origins, page, perPage } = getURL(location);
+
+    dispatch(
+      loadProducts({})
+      //   {
+      //   origins,
+      //   minPrice,
+      //   maxPrice,
+      //   pageCount: perPage,
+      //   page,
+      // }
+    );
+    // eslint-disable-next-line  react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  useEffect(() => {
+    setValuePage(1);
+    setPortionNumber(1);
+  }, [perPage, ProductsTotalCount]);
+
+  const setProductsCount = (e: ChangeEvent<HTMLSelectElement>) => {
+    dispatch(
+      loadProducts({
+        origins,
+        minPrice,
+        maxPrice,
+        pageCount: Number(e.target.value),
+        page: valuePage,
+        editable: isEditable,
+      })
+    );
+  };
+
+  const setProductPage = (p: number) => {
+    setValuePage(p);
     dispatch(
       loadProducts({
         origins,
         minPrice,
         maxPrice,
         pageCount: value,
-        page: valuePage,
+        page: p,
         editable: isEditable,
       })
     );
-  }, [dispatch, value, maxPrice, minPrice, origins, valuePage, isEditable]);
-
-  useEffect(() => {
-    setValuePage(1);
-    setPortionNumber(1);
-  }, [value]);
-
-  const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setValue(Number(e.target.value));
   };
 
   if (status === "loading") return <div>loading...</div>;
@@ -66,7 +93,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     <PageWrap>
       <div style={{ display: "flex", flexDirection: "column" }}>
         Products per page:
-        <Option value={value} onChange={handlerChange} width="70px">
+        <Option value={value} onChange={setProductsCount} width="70px">
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
@@ -90,9 +117,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
           .map((p) => (
             <Page
               key={Math.random().toString()}
-              onClick={() => {
-                setValuePage(p);
-              }}
+              onClick={() => setProductPage(p)}
               prop={
                 page !== p
                   ? {
