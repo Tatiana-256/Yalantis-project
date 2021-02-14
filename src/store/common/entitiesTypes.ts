@@ -36,7 +36,7 @@ export interface IFilterParameters {
   origins?: string;
   minPrice?: number;
   maxPrice?: number;
-  pageCount?: number;
+  perPage?: number;
   page?: number;
   editable?: string;
 }

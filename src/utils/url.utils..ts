@@ -1,12 +1,13 @@
 import { useLocation } from "react-router-dom";
 import qs from "query-string";
+import { IFilterParameters } from "../store/common/entitiesTypes";
 
-interface IUrl {
-  origins?: number;
+export interface IUrl {
+  origins?: string;
   minPrice?: number;
   maxPrice?: number;
   page?: number;
-  perPage?: number;
+  pageCount?: number;
 }
 
 export const putURL = (
@@ -29,6 +30,6 @@ export const putURL = (
   };
 };
 
-export const getURL = (location: any): IUrl => {
+export const getURL = (location: any): IFilterParameters => {
   return qs.parse(location.search);
 };

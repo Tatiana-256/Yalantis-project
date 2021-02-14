@@ -9,16 +9,21 @@ import {
   addNewProduct,
   addNewProductRejected,
   addNewProductSuccess,
+  addPagePerPage,
   editProduct,
   editProductRejected,
   editProductSuccess,
   INewProduct,
   loadProducts,
   loadProductsRejected,
-  loadProductsSuccess
+  loadProductsSuccess,
 } from "../../redux/slices/productSlice";
 import { OwnProductsAPI } from "../../../API/OwnProducts-API";
-import { IEditProduct, IFilterParameters, IProductAPI } from "../../common/entitiesTypes";
+import {
+  IEditProduct,
+  IFilterParameters,
+  IProductAPI,
+} from "../../common/entitiesTypes";
 import { changeCountriesFilter } from "../../redux/slices/filterSlice";
 import { putURL } from "../../../utils/url.utils.";
 
@@ -32,6 +37,7 @@ function* onGetProducts(
   }>
 ) {
   console.log(action.payload);
+  debugger;
   try {
     const products: IProductAPI = yield call(
       filtersAPI.loadFiltersProducts,

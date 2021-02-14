@@ -63,6 +63,11 @@ const productsSlice = createSlice({
     addMaxPrice(state, action) {
       state.maxPrice = action.payload;
     },
+
+    addPagePerPage(state, action) {
+      state.page = action.payload.page;
+      state.perPage = action.payload.perPage;
+    },
     decreaseProductInBasket(state, action) {
       state.basket.allProducts = decreaseProduct(
         state.basket.allProducts,
@@ -166,6 +171,7 @@ export const {
   addNewProductRejected,
   addNewProductSuccess,
   addNewOrder,
+  addPagePerPage,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

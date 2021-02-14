@@ -4,7 +4,7 @@ import { IInitialStateFilters } from "./slices/filterSlice";
 import { IOrder } from "../common/entitiesTypes";
 
 export const selectProducts = (state: RootState): IInitialStateProduct => {
-  // console.log(state);
+  console.log(state);
   return state.products;
 };
 

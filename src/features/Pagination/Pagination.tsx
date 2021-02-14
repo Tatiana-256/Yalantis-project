@@ -10,6 +10,8 @@ import {
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadProducts } from "../../store/redux/slices/productSlice";
+import { getURL, IUrl } from "../../utils/url.utils.";
+import { IFilterParameters } from "../../store/common/entitiesTypes";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -17,6 +19,7 @@ interface IProps {
 
 const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const {
     status,
@@ -40,7 +43,18 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   useEffect(() => {
-    dispatch(loadProducts({ products: {} }));
+    const newURL: IFilterParameters = getURL(location);
+    const filterParameters: IFilterParameters = {
+      origins,
+      minPrice: Number(newURL.minPrice),
+      maxPrice: Number(newURL.maxPrice),
+      pageCount: newURL.pageCount,
+      // pageCount: Number(newURL.pageCount),
+      page: Number(newURL.page),
+    };
+    debugger;
+    dispatch(loadProducts({ products: filterParameters }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
