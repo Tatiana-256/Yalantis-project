@@ -4,6 +4,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import filtersAPI from "../../../API/filters-API";
 import {
   addMaxPrice,
+  addMinPrice,
   addNewProduct,
   addNewProductRejected,
   addNewProductSuccess,
@@ -41,7 +42,7 @@ function* onGetProducts(action: PayloadAction<IFilterParameters>) {
       yield put(addMaxPrice(maxPrice));
     }
     if (minPrice! > 0) {
-      yield put(addMaxPrice(minPrice));
+      yield put(addMinPrice(minPrice));
     }
 
     const origin = origins?.split(",");

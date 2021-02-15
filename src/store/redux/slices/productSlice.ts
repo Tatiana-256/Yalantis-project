@@ -58,9 +58,11 @@ const productsSlice = createSlice({
       state.basket.totalSum = state.basket.totalSum + action.payload.sum;
     },
     addMinPrice(state, action) {
+      debugger;
       state.minPrice = action.payload;
     },
     addMaxPrice(state, action) {
+      debugger;
       state.maxPrice = action.payload;
     },
 

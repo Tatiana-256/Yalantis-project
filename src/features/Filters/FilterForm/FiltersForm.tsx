@@ -8,7 +8,6 @@ import qs from "query-string";
 import { loadProducts } from "../../../store/redux/slices/productSlice";
 import {
   selectCounties,
-  selectCountiesArray,
   selectProducts,
 } from "../../../store/redux/state-selectors";
 import {
@@ -29,16 +28,20 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
   const location = useLocation();
   const history = useHistory();
 
+  // _________________ state selectors _________________
+
+  const origin = useSelector(selectCounties);
+  const { page, perPage } = useSelector(selectProducts);
+
+  // ________________ initial loading page_______________
+
+  const { maxPrice, minPrice, origins } = getURL(location);
+
   useEffect(() => {
     dispatch(loadCountries());
   }, [dispatch]);
 
-  // const { page, perPage, maxPrice, minPrice, origins } = getURL(location);
-  const { maxPrice, minPrice, origins } = getURL(location);
-  const origin = useSelector(selectCounties);
-  const { page, perPage } = useSelector(selectProducts);
-  // const origins = useSelector(selectCounties);
-  const originsArray = useSelector(selectCountiesArray);
+  // ________________ formic description _______________
 
   const formik = useFormik({
     initialValues: {
@@ -48,14 +51,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
     },
     validationSchema: filterSchema.schema,
     onSubmit: () => {
-      const parameters: IFilterParameters = {
-        origins: formik.values.originsFilter?.join(","),
-        minPrice: Number(formik.values.minPrice),
-        maxPrice: Number(formik.values.maxPrice),
-        perPage,
-        page,
-        editable: isEditable,
-      };
+      // _______________ url settings ________________
 
       const url = putURL(
         formik.values.originsFilter?.join(","),
@@ -66,6 +62,17 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
         location.search
       );
       history.push(`/products?${qs.stringify(url)}`);
+
+      // _________________ sent request ____________________
+
+      const parameters: IFilterParameters = {
+        origins: formik.values.originsFilter?.join(","),
+        minPrice: Number(formik.values.minPrice),
+        maxPrice: Number(formik.values.maxPrice),
+        perPage,
+        page,
+        editable: isEditable,
+      };
       dispatch(loadProducts(parameters));
     },
   });

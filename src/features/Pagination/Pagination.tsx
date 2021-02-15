@@ -23,6 +23,8 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const location = useLocation();
   const history = useHistory();
 
+  // _________________ state selectors _________________
+
   const {
     status,
     page,
@@ -31,15 +33,14 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     maxPrice,
     minPrice,
   } = useSelector(selectProducts);
-
   const origins = useSelector(selectCountries);
 
-  const filterParameters: IFilterParameters = getURL(location);
-
+  // _________________ local state _________________
   const [value, setValue] = useState<number | undefined>(perPage);
   const [valuePage, setValuePage] = useState<number>();
   const [portionNumber, setPortionNumber] = useState<number>(1);
 
+  // ______________ get page settings ________________
   const {
     pages,
     rightPortionPageNumber,
@@ -47,8 +48,11 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     showArrowRight,
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
+  // ______________ get url parameters ________________
+  const filterParameters: IFilterParameters = getURL(location);
+
+  // ________________ first page rendering _______________
   useEffect(() => {
-    debugger;
     dispatch(loadProducts(filterParameters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
@@ -58,7 +62,9 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     setPortionNumber(1);
   }, [valuePage, ProductsTotalCount]);
 
+  // _________ change number of products at page ________
   const setProductsCount = (e: ChangeEvent<HTMLSelectElement>) => {
+    // _______________ url settings ________________
     const url = putURL(
       origins,
       minPrice,
@@ -68,8 +74,9 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
       location.search
     );
     history.push(`/products?${qs.stringify(url)}`);
-    debugger;
     setValue(Number(e.target.value));
+
+    // _________________ sent request ____________________
     dispatch(
       loadProducts({
         origins,
@@ -83,7 +90,13 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   };
 
   const setProductPage = (p: number) => {
+    // _______________ url settings ________________
+    const url = putURL(origins, minPrice, maxPrice, value, p, location.search);
+    history.push(`/products?${qs.stringify(url)}`);
+
     setValuePage(p);
+
+    // _________________ sent request ____________________
     dispatch(
       loadProducts({
         origins,
@@ -94,8 +107,6 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
         editable: isEditable,
       })
     );
-    const url = putURL(origins, minPrice, maxPrice, value, p, location.search);
-    history.push(`/products?${qs.stringify(url)}`);
   };
 
   if (status === "loading") return <div>loading...</div>;
