@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
+import qs from "query-string";
 
 import { Page, PageWrap } from "./PaginationStyles";
 import {
@@ -10,7 +11,7 @@ import {
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadProducts } from "../../store/redux/slices/productSlice";
-import { getURL } from "../../utils/url.utils.";
+import { getURL, putURL } from "../../utils/url.utils.";
 import { IFilterParameters } from "../../store/common/entitiesTypes";
 
 interface IProps {
@@ -30,7 +31,10 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     maxPrice,
     minPrice,
   } = useSelector(selectProducts);
+
   const origins = useSelector(selectCountries);
+
+  const filterParameters: IFilterParameters = getURL(location);
 
   const [value, setValue] = useState<number | undefined>(perPage);
   const [valuePage, setValuePage] = useState<number>();
@@ -44,35 +48,36 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   useEffect(() => {
-    const filterParameters: IFilterParameters = getURL(location);
-    dispatch(
-      loadProducts({
-        products: filterParameters,
-        history,
-        location: location.search,
-      })
-    );
+    debugger;
+    dispatch(loadProducts(filterParameters));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   useEffect(() => {
     setValuePage(1);
     setPortionNumber(1);
-  }, [perPage, ProductsTotalCount]);
+  }, [valuePage, ProductsTotalCount]);
 
   const setProductsCount = (e: ChangeEvent<HTMLSelectElement>) => {
+    const url = putURL(
+      origins,
+      minPrice,
+      maxPrice,
+      valuePage,
+      Number(e.target.value),
+      location.search
+    );
+    history.push(`/products?${qs.stringify(url)}`);
+    debugger;
+    setValue(Number(e.target.value));
     dispatch(
       loadProducts({
-        products: {
-          origins,
-          minPrice,
-          maxPrice,
-          perPage: Number(e.target.value),
-          page: valuePage,
-          editable: isEditable,
-        },
-        history,
-        location: location.search,
+        origins,
+        minPrice,
+        maxPrice,
+        perPage: Number(e.target.value),
+        page: valuePage,
+        editable: isEditable,
       })
     );
   };
@@ -81,21 +86,20 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     setValuePage(p);
     dispatch(
       loadProducts({
-        products: {
-          origins,
-          minPrice,
-          maxPrice,
-          perPage: value,
-          page: p,
-          editable: isEditable,
-        },
-        history,
-        location: location.search,
+        origins,
+        minPrice,
+        maxPrice,
+        perPage,
+        page: p,
+        editable: isEditable,
       })
     );
+    const url = putURL(origins, minPrice, maxPrice, value, p, location.search);
+    history.push(`/products?${qs.stringify(url)}`);
   };
 
   if (status === "loading") return <div>loading...</div>;
+  if (status === "rejected") return <div>something wrong :( </div>;
 
   return (
     <PageWrap>

@@ -10,7 +10,7 @@ export const MyProducts = () => {
   const { status, products } = useSelector(selectProducts);
 
   useEffect(() => {
-    dispatch(loadProducts({ products: { editable: "true" } }));
+    dispatch(loadProducts({ editable: "true" }));
     dispatch(loadCountries());
   }, [dispatch]);
 

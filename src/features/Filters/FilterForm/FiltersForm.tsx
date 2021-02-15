@@ -66,11 +66,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
         location.search
       );
       history.push(`/products?${qs.stringify(url)}`);
-      dispatch(
-        loadProducts({
-          products: parameters,
-        })
-      );
+      dispatch(loadProducts(parameters));
     },
   });
 

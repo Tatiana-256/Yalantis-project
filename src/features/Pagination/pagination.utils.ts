@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
+import { selectProducts } from "../../store/redux/state-selectors";
+
 export const usePageOptions = (
-  perPage: number,
-  ProductsTotalCount: number,
+  perPageURL: number,
+  ProductsTotalCountURL: number,
   portionNumber: number
 ) => {
+  const { perPage, ProductsTotalCount } = useSelector(selectProducts);
   const placeholder = Math.ceil(ProductsTotalCount / perPage);
 
   const pages = [];

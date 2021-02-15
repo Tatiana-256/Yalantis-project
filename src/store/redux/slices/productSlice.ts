@@ -87,6 +87,7 @@ const productsSlice = createSlice({
     //  PayloadAction, generic
     loadProductsSuccess(state, action: PayloadAction<IProductAPI>) {
       const { page, perPage, totalItems } = action.payload;
+      debugger;
       state.page = page;
       state.perPage = perPage;
       state.ProductsTotalCount = totalItems;

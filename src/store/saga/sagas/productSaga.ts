@@ -1,15 +1,12 @@
 import { call, put, takeEvery } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import qs from "query-string";
 
 import filtersAPI from "../../../API/filters-API";
 import {
   addMaxPrice,
-  addMinPrice,
   addNewProduct,
   addNewProductRejected,
   addNewProductSuccess,
-  addPagePerPage,
   editProduct,
   editProductRejected,
   editProductSuccess,
@@ -25,30 +22,17 @@ import {
   IProductAPI,
 } from "../../common/entitiesTypes";
 import { changeCountriesFilter } from "../../redux/slices/filterSlice";
-import { putURL } from "../../../utils/url.utils.";
 
 // ____________ load product _______________
 
-function* onGetProducts(
-  action: PayloadAction<{
-    products: IFilterParameters;
-    location?: string;
-    history?: any;
-  }>
-) {
+function* onGetProducts(action: PayloadAction<IFilterParameters>) {
   console.log(action.payload);
   try {
     const products: IProductAPI = yield call(
       filtersAPI.loadFiltersProducts,
-      action.payload.products
+      action.payload
     );
-    const {
-      maxPrice,
-      minPrice,
-      origins,
-      perPage,
-      page,
-    } = action.payload.products;
+    const { maxPrice, minPrice, origins, perPage, page } = action.payload;
 
     yield put(loadProductsSuccess(products));
 
@@ -62,17 +46,6 @@ function* onGetProducts(
 
     const origin = origins?.split(",");
     yield put(changeCountriesFilter(origin));
-
-    // debugger;
-    // const url = putURL(
-    //   origins,
-    //   minPrice,
-    //   maxPrice,
-    //   perPage,
-    //   page,
-    //   action.payload.location
-    // );
-    // // action.payload.history?.push(`/products?${qs.stringify(url)}`);
   } catch (e) {
     console.log(e);
     yield put(loadProductsRejected);
