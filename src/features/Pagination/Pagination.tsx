@@ -10,7 +10,7 @@ import {
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
 import { loadProducts } from "../../store/redux/slices/productSlice";
-import { getURL, IUrl } from "../../utils/url.utils.";
+import { getURL } from "../../utils/url.utils.";
 import { IFilterParameters } from "../../store/common/entitiesTypes";
 
 interface IProps {
@@ -20,6 +20,7 @@ interface IProps {
 const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
 
   const {
     status,
@@ -43,17 +44,14 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
   useEffect(() => {
-    const newURL: IFilterParameters = getURL(location);
-    const filterParameters: IFilterParameters = {
-      origins,
-      minPrice: Number(newURL.minPrice),
-      maxPrice: Number(newURL.maxPrice),
-      pageCount: newURL.pageCount,
-      // pageCount: Number(newURL.pageCount),
-      page: Number(newURL.page),
-    };
-    debugger;
-    dispatch(loadProducts({ products: filterParameters }));
+    const filterParameters: IFilterParameters = getURL(location);
+    dispatch(
+      loadProducts({
+        products: filterParameters,
+        history,
+        location: location.search,
+      })
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
@@ -65,12 +63,16 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const setProductsCount = (e: ChangeEvent<HTMLSelectElement>) => {
     dispatch(
       loadProducts({
-        origins,
-        minPrice,
-        maxPrice,
-        pageCount: Number(e.target.value),
-        page: valuePage,
-        editable: isEditable,
+        products: {
+          origins,
+          minPrice,
+          maxPrice,
+          perPage: Number(e.target.value),
+          page: valuePage,
+          editable: isEditable,
+        },
+        history,
+        location: location.search,
       })
     );
   };
@@ -79,12 +81,16 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     setValuePage(p);
     dispatch(
       loadProducts({
-        origins,
-        minPrice,
-        maxPrice,
-        pageCount: value,
-        page: p,
-        editable: isEditable,
+        products: {
+          origins,
+          minPrice,
+          maxPrice,
+          perPage: value,
+          page: p,
+          editable: isEditable,
+        },
+        history,
+        location: location.search,
       })
     );
   };

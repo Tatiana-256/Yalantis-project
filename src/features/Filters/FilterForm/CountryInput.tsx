@@ -6,7 +6,7 @@ import { ICountries } from "../../../store/redux/slices/filterSlice";
 
 interface IProps {
   country: ICountries;
-  originsFilter: string[];
+  originsFilter: string[] | undefined;
   index: number;
   groupName: string;
   width?: number;
@@ -37,7 +37,7 @@ export const CountryCheck: React.FC<IProps> = ({
           const value = event.target.checked ? event.target.value : "";
           return setFieldValue(`${groupName}.${index}`, value);
         }}
-        checked={originsFilter.includes(country.value)}
+        checked={originsFilter?.includes(country.value)}
       />
     </label>
   );

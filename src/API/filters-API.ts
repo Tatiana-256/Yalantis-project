@@ -19,7 +19,7 @@ const filtersAPI = {
       minPrice,
       origins,
       page,
-      pageCount,
+      perPage,
       editable,
     } = parameters!;
     return request
@@ -28,7 +28,7 @@ const filtersAPI = {
           origins,
           minPrice,
           maxPrice,
-          perPage: pageCount,
+          perPage,
           page,
           editable,
         },

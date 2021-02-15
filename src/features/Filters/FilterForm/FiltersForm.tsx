@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
+import qs from "query-string";
+
 import { loadProducts } from "../../../store/redux/slices/productSlice";
 import {
   selectCounties,
@@ -18,6 +20,7 @@ import { Button } from "../../../utils/common-styles";
 import { IFilterParameters } from "../../../store/common/entitiesTypes";
 import { CountryCheck } from "./CountryInput";
 import { filterSchema } from "./FilterValidation";
+import { getURL, putURL } from "../../../utils/url.utils.";
 
 export const FilterForm: React.FC<{ isEditable?: string }> = ({
   isEditable,
@@ -30,31 +33,42 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
     dispatch(loadCountries());
   }, [dispatch]);
 
-  const { page, perPage, maxPrice, minPrice } = useSelector(selectProducts);
-  const origins = useSelector(selectCounties);
+  // const { page, perPage, maxPrice, minPrice, origins } = getURL(location);
+  const { maxPrice, minPrice, origins } = getURL(location);
+  const origin = useSelector(selectCounties);
+  const { page, perPage } = useSelector(selectProducts);
+  // const origins = useSelector(selectCounties);
   const originsArray = useSelector(selectCountiesArray);
 
   const formik = useFormik({
     initialValues: {
-      originsFilter: originsArray,
+      originsFilter: origins?.split(","),
       minPrice,
       maxPrice,
     },
     validationSchema: filterSchema.schema,
     onSubmit: () => {
       const parameters: IFilterParameters = {
-        origins: formik.values.originsFilter.join(","),
+        origins: formik.values.originsFilter?.join(","),
         minPrice: Number(formik.values.minPrice),
         maxPrice: Number(formik.values.maxPrice),
-        pageCount: perPage,
+        perPage,
         page,
         editable: isEditable,
       };
+
+      const url = putURL(
+        formik.values.originsFilter?.join(","),
+        Number(formik.values.minPrice),
+        Number(formik.values.maxPrice),
+        perPage,
+        page,
+        location.search
+      );
+      history.push(`/products?${qs.stringify(url)}`);
       dispatch(
         loadProducts({
           products: parameters,
-          history,
-          location: location.search,
         })
       );
     },
@@ -64,7 +78,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
     <div style={{ padding: "18vh 0 0 4rem", width: "20vw" }}>
       <form onSubmit={formik.handleSubmit}>
         <div>
-          {origins.map((country: ICountries, i) => (
+          {origin.map((country: ICountries, i) => (
             <CountryCheck
               key={Math.random().toString()}
               index={i}
@@ -103,7 +117,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
               error={formik.errors.maxPrice}
               value={formik.values.maxPrice}
               onChange={formik.handleChange}
-              type="input"
+              type="number"
               width={80}
             />
           </label>

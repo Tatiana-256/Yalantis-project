@@ -37,7 +37,6 @@ function* onGetProducts(
   }>
 ) {
   console.log(action.payload);
-  debugger;
   try {
     const products: IProductAPI = yield call(
       filtersAPI.loadFiltersProducts,
@@ -47,34 +46,33 @@ function* onGetProducts(
       maxPrice,
       minPrice,
       origins,
-      pageCount,
+      perPage,
       page,
     } = action.payload.products;
 
     yield put(loadProductsSuccess(products));
 
-    if (maxPrice === 0 || NaN) {
-      yield put(addMaxPrice(undefined));
-    } else if (maxPrice === undefined || maxPrice > 0) {
+    debugger;
+    if (maxPrice! > 0) {
       yield put(addMaxPrice(maxPrice));
     }
-    if (minPrice === 0 || NaN) {
-      yield put(addMinPrice(undefined));
-    } else if (minPrice === undefined || minPrice > 0) {
-      yield put(addMinPrice(minPrice));
+    if (minPrice! > 0) {
+      yield put(addMaxPrice(minPrice));
     }
+
     const origin = origins?.split(",");
     yield put(changeCountriesFilter(origin));
 
-    const url = putURL(
-      origins,
-      minPrice,
-      maxPrice,
-      pageCount,
-      page,
-      action.payload.location
-    );
-    action.payload.history?.push(`/products?${qs.stringify(url)}`);
+    // debugger;
+    // const url = putURL(
+    //   origins,
+    //   minPrice,
+    //   maxPrice,
+    //   perPage,
+    //   page,
+    //   action.payload.location
+    // );
+    // // action.payload.history?.push(`/products?${qs.stringify(url)}`);
   } catch (e) {
     console.log(e);
     yield put(loadProductsRejected);
