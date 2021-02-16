@@ -13,6 +13,7 @@ import { usePageOptions } from "./pagination.utils";
 import { loadProducts } from "../../store/redux/slices/productSlice";
 import { getURL, putURL } from "../../utils/url.utils.";
 import { IFilterParameters } from "../../store/common/entitiesTypes";
+import { uniqueID } from "../../utils/dataGenerator";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -140,7 +141,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
           )
           .map((p) => (
             <Page
-              key={Math.random().toString()}
+              key={uniqueID()}
               onClick={() => setProductPage(p)}
               prop={
                 page !== p

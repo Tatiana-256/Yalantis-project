@@ -2,7 +2,13 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { BagIcon, LinkWrapper, StyledLink, Wrapper } from "./NavigationStyles";
+import {
+  BagIcon,
+  Li,
+  LinkWrapper,
+  StyledLink,
+  Wrapper,
+} from "./NavigationStyles";
 import shoppingBag from "../../assets/bag.png";
 import { selectProducts } from "../../store/redux/state-selectors";
 import { uiActions } from "../../store/redux/UI-handling/ui-actions";
@@ -33,21 +39,18 @@ export const Navigation: React.FunctionComponent = () => {
           </div>
         )}
         <LinkWrapper>
-          <li style={{ display: "flex", margin: "0 3.5rem" }}>
+          <Li>
             <StyledLink to="/products">Main page</StyledLink>
-          </li>
-          <li style={{ display: "flex", margin: "0 3.5rem" }}>
+          </Li>
+          <Li>
             <StyledLink to="/myProducts">My products</StyledLink>
-          </li>
-          <li
-            style={{ display: "flex", margin: "0 3.5rem" }}
-            onClick={() => dispatch(uiActions.modal.open())}
-          >
+          </Li>
+          <Li onClick={() => dispatch(uiActions.modal.open())}>
             <StyledLink to="/products">Add product</StyledLink>
-          </li>
-          <li style={{ display: "flex", margin: "0 3.5rem" }}>
+          </Li>
+          <Li>
             <StyledLink to="/myOrders">My orders</StyledLink>
-          </li>
+          </Li>
           {location.pathname === "/bag" ? (
             <div />
           ) : (

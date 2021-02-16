@@ -8,6 +8,7 @@ import { selectOrders } from "../../../store/redux/state-selectors";
 import { OrdersWrap, ProductWrap } from "./MyOrdersStyle";
 import { OrderInfo } from "./OprdersInfo";
 import { IOrder } from "../../../store/common/entitiesTypes";
+import { uniqueID } from "../../../utils/dataGenerator";
 
 export const MyOrders = () => {
   const dispatch = useDispatch();
@@ -43,14 +44,14 @@ export const MyOrders = () => {
         My orders
       </h1>
       {orders.map((order: IOrder) => (
-        <OrdersWrap>
+        <OrdersWrap key={uniqueID()}>
           <div>
             <div>Your order created at:</div>
             <div> {order.createdAt}</div>
           </div>
           <ProductWrap>
             {order.pieces.map((prod) => (
-              <OrderInfo product={prod.product} />
+              <OrderInfo product={prod.product} key={uniqueID()} />
             ))}
           </ProductWrap>
           <Button

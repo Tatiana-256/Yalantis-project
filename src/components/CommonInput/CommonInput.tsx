@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo } from "react";
+import React, { useMemo } from "react";
 import { InputStyle } from "./CommonInputStyle";
 
 interface IProps {
@@ -38,7 +38,7 @@ export const Input: React.FC<IProps> = ({
   width,
 }) => {
   const hasError = useMemo(() => error && touched, [error, touched]);
-
+  const inputValue = Number.isNaN(value) ? "" : value;
   return (
     <>
       <InputStyle
@@ -47,7 +47,7 @@ export const Input: React.FC<IProps> = ({
         error={Boolean(error)}
         usedInput={Boolean(value)}
         type={type}
-        value={value}
+        value={inputValue}
         onChange={onChange}
         placeholder={placeholder}
         onBlur={onBlur}

@@ -8,7 +8,6 @@ interface IProps {
 
 export const InputStyle = styled.input<IProps>`
   width: 300px;
-  //width: ${({ width }) => `${width}px` || `300px`};
   height: 30px;
   padding: 5px 10px;
   border: 1px solid gray;

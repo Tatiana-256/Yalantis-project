@@ -19,6 +19,7 @@ import { Button } from "../../utils/common-styles";
 import { IFilterParameters } from "../../store/common/entitiesTypes";
 import { CountryCheck } from "./CountryInput";
 import { getURL, putURL } from "../../utils/url.utils.";
+import { uniqueID } from "../../utils/dataGenerator";
 
 export const FilterForm: React.FC<{ isEditable?: string }> = ({
   isEditable,
@@ -90,7 +91,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
         <div>
           {origin.map((country: ICountries, i) => (
             <CountryCheck
-              key={Math.random().toString()}
+              key={uniqueID()}
               index={i}
               country={country}
               originsFilter={formik.values.originsFilter}

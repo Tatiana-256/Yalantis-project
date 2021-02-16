@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IOrder, IProduct } from "../../common/entitiesTypes";
+import { IOrder } from "../../common/entitiesTypes";
 
 export interface IInitialStateOrders {
   status: "loading" | "succeeded" | "rejected" | "idle";

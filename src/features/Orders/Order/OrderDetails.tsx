@@ -8,6 +8,7 @@ import { DetailWrap, OrderWrap } from "./OrderDetailsStyles";
 import { Date } from "../../../components/convertDate/Date";
 import { TotalWrap } from "../../Bag/BagStyles";
 import { IOrder } from "../../../store/common/entitiesTypes";
+import { uniqueID } from "../../../utils/dataGenerator";
 
 interface MatchParams {
   id: string;
@@ -34,7 +35,7 @@ export const OrderDetails = ({ match }: RouteComponentProps<MatchParams>) => {
       </h2>
       <div>
         {order.pieces.map((item) => (
-          <DetailWrap>
+          <DetailWrap key={uniqueID()}>
             <div>
               <h3>Name:</h3>
               {item.product.name}

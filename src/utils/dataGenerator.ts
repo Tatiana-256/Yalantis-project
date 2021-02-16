@@ -21,3 +21,7 @@ export const getMonth = (userBirthday: string) => {
   const d = new Date(userBirthday);
   return months[d.getMonth()];
 };
+
+export function uniqueID() {
+  return Math.floor(Math.random() * Date.now()).toString();
+}
