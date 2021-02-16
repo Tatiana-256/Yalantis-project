@@ -5,21 +5,20 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useFormik } from "formik";
 import qs from "query-string";
 
-import { loadProducts } from "../../../store/redux/slices/productSlice";
+import { loadProducts } from "../../store/redux/slices/productSlice";
 import {
   selectCounties,
   selectProducts,
-} from "../../../store/redux/state-selectors";
+} from "../../store/redux/state-selectors";
 import {
   ICountries,
   loadCountries,
-} from "../../../store/redux/slices/filterSlice";
-import { Input } from "../../../components/CommonInput/CommonInput";
-import { Button } from "../../../utils/common-styles";
-import { IFilterParameters } from "../../../store/common/entitiesTypes";
+} from "../../store/redux/slices/filterSlice";
+import { Input } from "../CommonInput/CommonInput";
+import { Button } from "../../utils/common-styles";
+import { IFilterParameters } from "../../store/common/entitiesTypes";
 import { CountryCheck } from "./CountryInput";
-import { filterSchema } from "./FilterValidation";
-import { getURL, putURL } from "../../../utils/url.utils.";
+import { getURL, putURL } from "../../utils/url.utils.";
 
 export const FilterForm: React.FC<{ isEditable?: string }> = ({
   isEditable,
@@ -49,14 +48,22 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
       minPrice,
       maxPrice,
     },
-    validationSchema: filterSchema.schema,
     onSubmit: () => {
       // _______________ url settings ________________
 
+      const minUrlPrice =
+        Number(formik.values.minPrice) > 0
+          ? Number(formik.values.minPrice)
+          : undefined;
+      const maxUrlPrice =
+        Number(formik.values.maxPrice) > 0
+          ? Number(formik.values.maxPrice)
+          : undefined;
+
       const url = putURL(
         formik.values.originsFilter?.join(","),
-        Number(formik.values.minPrice),
-        Number(formik.values.maxPrice),
+        minUrlPrice,
+        maxUrlPrice,
         perPage,
         page,
         location.search
@@ -67,8 +74,8 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
 
       const parameters: IFilterParameters = {
         origins: formik.values.originsFilter?.join(","),
-        minPrice: Number(formik.values.minPrice),
-        maxPrice: Number(formik.values.maxPrice),
+        minPrice: minUrlPrice,
+        maxPrice: maxUrlPrice,
         perPage,
         page,
         editable: isEditable,

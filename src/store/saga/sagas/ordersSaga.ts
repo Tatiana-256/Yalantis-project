@@ -23,7 +23,7 @@ function* onGetOrders() {
     yield put(getOrdersSuccess(orders.data.items));
     yield put(addNewOrder());
   } catch (e) {
-    yield put(getOrdersRejected);
+    yield put(getOrdersRejected());
   }
 }
 
@@ -38,7 +38,7 @@ function* onAddOrder(action: PayloadAction<IOrderPostAPI>) {
     const product = yield call(ordersAPI.addOrder, action.payload);
     yield put(addOrderSuccess(product.data));
   } catch (e) {
-    yield put(addOrderRejected);
+    yield put(addOrderRejected());
   }
 }
 
@@ -53,7 +53,7 @@ function* showOrderDetails(action: PayloadAction<string>) {
     const product = yield call(ordersAPI.getOrderDetails, action.payload);
     yield put(showDetailsSuccess(product.data));
   } catch (e) {
-    yield put(showDetailsRejected);
+    yield put(showDetailsRejected());
   }
 }
 

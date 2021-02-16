@@ -8,9 +8,6 @@ const filtersAPI = {
       .get<{ items: Array<ICountries> }>(`/products-origins`)
       .then((res) => {
         return res.data.items;
-      })
-      .catch(() => {
-        return "error";
       });
   },
   loadFiltersProducts(parameters?: IFilterParameters) {
@@ -38,9 +35,6 @@ const filtersAPI = {
       })
       .then((res) => {
         return res.data;
-      })
-      .catch(() => {
-        return "error";
       });
   },
 };

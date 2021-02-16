@@ -1,8 +1,8 @@
 import React from "react";
 import { FormikErrors } from "formik/dist/types";
 
-import { Input } from "../../../components/CommonInput/CommonInput";
-import { ICountries } from "../../../store/redux/slices/filterSlice";
+import { Input } from "../CommonInput/CommonInput";
+import { ICountries } from "../../store/redux/slices/filterSlice";
 
 interface IProps {
   country: ICountries;

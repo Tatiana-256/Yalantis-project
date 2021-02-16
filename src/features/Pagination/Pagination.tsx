@@ -65,12 +65,13 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
   // _________ change number of products at page ________
   const setProductsCount = (e: ChangeEvent<HTMLSelectElement>) => {
     // _______________ url settings ________________
+
     const url = putURL(
       origins,
       minPrice,
       maxPrice,
-      valuePage,
       Number(e.target.value),
+      valuePage,
       location.search
     );
     history.push(`/products?${qs.stringify(url)}`);

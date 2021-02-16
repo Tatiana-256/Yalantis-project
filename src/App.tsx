@@ -1,12 +1,6 @@
 import React from "react";
 import "./App.css";
-import {
-  BrowserRouter,
-  Redirect,
-  Route,
-  Switch,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { Navigation } from "./features/Navigation/Navigation";
 import { Error404 } from "./features/Error/Error";
 import { Products } from "./features/Products/Products";
@@ -15,8 +9,7 @@ import { Bag } from "./features/Bag/Bag";
 import { MyProducts } from "./features/MyProducts/MyProducts";
 import { MyOrders } from "./features/Orders/MyOrders/MyOrders";
 import { OrderDetails } from "./features/Orders/Order/OrderDetails";
-import { FilterForm } from "./features/Filters/FilterForm/FiltersForm";
-import { getURL } from "./utils/url.utils.";
+import { FilterForm } from "./components/FilterForm/FiltersForm";
 
 function App() {
   return (

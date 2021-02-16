@@ -22,6 +22,9 @@ export const MyOrders = () => {
   if (status === "loading") {
     return <div>...loading</div>;
   }
+  if (status === "rejected") {
+    return <div>something wrong :( </div>;
+  }
 
   if (!orders) {
     return <div>No orders</div>;

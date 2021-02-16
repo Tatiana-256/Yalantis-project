@@ -13,6 +13,7 @@ import {
 export interface IInitialStateProduct {
   status: "loading" | "succeeded" | "rejected" | "idle";
   products: IProduct[];
+  product: IProduct | {};
   minPrice?: number;
   maxPrice?: number;
   page: number;
@@ -28,6 +29,7 @@ export interface IInitialStateProduct {
 export const initialStateProducts: IInitialStateProduct = {
   status: "idle",
   products: [],
+  product: {},
   page: 1,
   perPage: 25,
   ProductsTotalCount: 50,
@@ -58,11 +60,9 @@ const productsSlice = createSlice({
       state.basket.totalSum = state.basket.totalSum + action.payload.sum;
     },
     addMinPrice(state, action) {
-      debugger;
       state.minPrice = action.payload;
     },
     addMaxPrice(state, action) {
-      debugger;
       state.maxPrice = action.payload;
     },
 
@@ -89,7 +89,6 @@ const productsSlice = createSlice({
     //  PayloadAction, generic
     loadProductsSuccess(state, action: PayloadAction<IProductAPI>) {
       const { page, perPage, totalItems } = action.payload;
-      debugger;
       state.page = page;
       state.perPage = perPage;
       state.ProductsTotalCount = totalItems;

@@ -11,10 +11,10 @@ import {
   editProduct,
   editProductRejected,
   editProductSuccess,
-  INewProduct,
   loadProducts,
   loadProductsRejected,
   loadProductsSuccess,
+  INewProduct,
 } from "../../redux/slices/productSlice";
 import { OwnProductsAPI } from "../../../API/OwnProducts-API";
 import {
@@ -27,7 +27,6 @@ import { changeCountriesFilter } from "../../redux/slices/filterSlice";
 // ____________ load product _______________
 
 function* onGetProducts(action: PayloadAction<IFilterParameters>) {
-  console.log(action.payload);
   try {
     const products: IProductAPI = yield call(
       filtersAPI.loadFiltersProducts,
@@ -37,7 +36,6 @@ function* onGetProducts(action: PayloadAction<IFilterParameters>) {
 
     yield put(loadProductsSuccess(products));
 
-    debugger;
     if (maxPrice! > 0) {
       yield put(addMaxPrice(maxPrice));
     }
@@ -48,8 +46,7 @@ function* onGetProducts(action: PayloadAction<IFilterParameters>) {
     const origin = origins?.split(",");
     yield put(changeCountriesFilter(origin));
   } catch (e) {
-    console.log(e);
-    yield put(loadProductsRejected);
+    yield put(loadProductsRejected());
   }
 }
 
@@ -64,7 +61,7 @@ function* onEditProducts(action: PayloadAction<IEditProduct>) {
     const product = yield call(OwnProductsAPI.editProduct, action.payload);
     yield put(editProductSuccess(product.data));
   } catch (e) {
-    yield put(editProductRejected);
+    yield put(editProductRejected());
   }
 }
 
@@ -79,7 +76,7 @@ function* onAddNewProducts(action: PayloadAction<{ product: INewProduct }>) {
     const product = yield call(OwnProductsAPI.setNewProduct, action.payload);
     yield put(addNewProductSuccess(product.data));
   } catch (e) {
-    yield put(addNewProductRejected);
+    yield put(addNewProductRejected());
   }
 }
 
