@@ -73,7 +73,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
       maxPrice,
       Number(e.target.value),
       valuePage,
-      location.search
+      location
     );
     history.push(`/products?${qs.stringify(url)}`);
     setValue(Number(e.target.value));
@@ -93,7 +93,7 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
 
   const setProductPage = (p: number) => {
     // _______________ url settings ________________
-    const url = putURL(origins, minPrice, maxPrice, value, p, location.search);
+    const url = putURL(origins, minPrice, maxPrice, value, p, location);
     history.push(`/products?${qs.stringify(url)}`);
 
     setValuePage(p);

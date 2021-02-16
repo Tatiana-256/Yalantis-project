@@ -1,4 +1,5 @@
 import qs from "query-string";
+import { Location } from "history";
 import { IFilterParameters } from "../store/common/entitiesTypes";
 
 export interface IUrl {
@@ -15,9 +16,9 @@ export const putURL = (
   maxPrice: number | undefined,
   perPage: number | undefined,
   page: number | undefined,
-  location: any
+  location: Location
 ) => {
-  const queryParam = qs.parse(location);
+  const queryParam = qs.parse(location.search);
 
   return {
     ...queryParam,
@@ -29,7 +30,7 @@ export const putURL = (
   };
 };
 
-export const getURL = (location: any): IFilterParameters => {
+export const getURL = (location: Location): IFilterParameters => {
   const newURL: IFilterParameters = qs.parse(location.search);
   return {
     origins: newURL.origins,

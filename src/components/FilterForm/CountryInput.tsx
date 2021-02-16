@@ -12,7 +12,7 @@ interface IProps {
   width?: number;
   setFieldValue: (
     field: string,
-    value: any,
+    value: string | number,
     shouldValidate?: boolean | undefined
   ) => Promise<FormikErrors<any>> | Promise<void>;
 }

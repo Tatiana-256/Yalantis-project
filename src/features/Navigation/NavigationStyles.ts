@@ -17,7 +17,7 @@ export const Wrapper = styled.ul`
   margin-inline-end: 0;
   padding-inline-start: 0;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     font-size: 0.8rem;
   }
 `;

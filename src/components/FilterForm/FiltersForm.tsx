@@ -67,7 +67,7 @@ export const FilterForm: React.FC<{ isEditable?: string }> = ({
         maxUrlPrice,
         perPage,
         page,
-        location.search
+        location
       );
       history.push(`/products?${qs.stringify(url)}`);
 
