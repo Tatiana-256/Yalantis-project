@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
-import { productsAPI } from "../../../API/products-API";
-import { IProduct } from "../../../store/common/entitiesTypes";
+
 import productIcon from "../../../assets/product-icon.png";
 import { ProdInfo, Wrapper } from "./ProductPageStyles";
 import CountQuality from "../../../components/CountQuantity/CountQuantity";
+import { loadProduct } from "../../../store/redux/slices/productSlice";
+import { selectProducts } from "../../../store/redux/state-selectors";
 
 interface MatchParams {
   id: string;
 }
 
 const ProductPage = ({ match }: RouteComponentProps<MatchParams>) => {
-  const [product, setProduct] = useState<IProduct | null>(null);
   const [itemQuantity, setItemQuantity] = useState(1);
-  const [error, setError] = useState(false);
+  const dispatch = useDispatch();
 
   const productId = match.params.id;
 
-  useEffect(() => {
-    productsAPI.getProduct(productId).then((data) => {
-      if (data === "error") {
-        setError((prevState) => !prevState);
-      } else if (typeof data !== "string") {
-        setProduct(data);
-      }
-    });
-  }, [productId]);
+  const { product, status } = useSelector(selectProducts);
 
-  if (error) {
-    return <div>Network error. Please try again later</div>;
+  useEffect(() => {
+    dispatch(loadProduct(productId));
+  }, [productId, dispatch]);
+
+  if (status === "loading") {
+    return <div>...loading</div>;
+  }
+  if (status === "rejected") {
+    return <div>something wrong :( </div>;
   }
 
   return (

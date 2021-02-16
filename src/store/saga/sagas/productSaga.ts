@@ -2,6 +2,8 @@ import { call, put, takeEvery } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 import filtersAPI from "../../../API/filters-API";
+import { productsAPI } from "../../../API/products-API";
+import { OwnProductsAPI } from "../../../API/OwnProducts-API";
 import {
   addMaxPrice,
   addMinPrice,
@@ -14,17 +16,20 @@ import {
   loadProducts,
   loadProductsRejected,
   loadProductsSuccess,
+  loadProduct,
+  loadProductSuccess,
+  loadProductRejected,
   INewProduct,
 } from "../../redux/slices/productSlice";
-import { OwnProductsAPI } from "../../../API/OwnProducts-API";
 import {
   IEditProduct,
   IFilterParameters,
+  IProduct,
   IProductAPI,
 } from "../../common/entitiesTypes";
 import { changeCountriesFilter } from "../../redux/slices/filterSlice";
 
-// ____________ load product _______________
+// ____________ load products _______________
 
 function* onGetProducts(action: PayloadAction<IFilterParameters>) {
   try {
@@ -32,7 +37,7 @@ function* onGetProducts(action: PayloadAction<IFilterParameters>) {
       filtersAPI.loadFiltersProducts,
       action.payload
     );
-    const { maxPrice, minPrice, origins, perPage, page } = action.payload;
+    const { maxPrice, minPrice, origins } = action.payload;
 
     yield put(loadProductsSuccess(products));
 
@@ -50,8 +55,26 @@ function* onGetProducts(action: PayloadAction<IFilterParameters>) {
   }
 }
 
-export default function* productSaga() {
+export function* productsSaga() {
   yield takeEvery(loadProducts.type, onGetProducts);
+}
+
+// ____________ load product _______________
+
+function* onGetProduct(action: PayloadAction<string>) {
+  try {
+    const product: IProduct = yield call(
+      productsAPI.getProduct,
+      action.payload
+    );
+    yield put(loadProductSuccess(product));
+  } catch (e) {
+    yield put(loadProductRejected());
+  }
+}
+
+export default function* productSaga() {
+  yield takeEvery(loadProduct.type, onGetProduct);
 }
 
 // ______________ edit product ______________

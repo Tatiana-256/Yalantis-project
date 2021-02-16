@@ -13,7 +13,7 @@ import {
 export interface IInitialStateProduct {
   status: "loading" | "succeeded" | "rejected" | "idle";
   products: IProduct[];
-  product: IProduct | {};
+  product?: IProduct;
   minPrice?: number;
   maxPrice?: number;
   page: number;
@@ -29,7 +29,7 @@ export interface IInitialStateProduct {
 export const initialStateProducts: IInitialStateProduct = {
   status: "idle",
   products: [],
-  product: {},
+  product: undefined,
   page: 1,
   perPage: 25,
   ProductsTotalCount: 50,
@@ -84,9 +84,8 @@ const productsSlice = createSlice({
       );
       state.basket.totalSum = state.basket.totalSum - action.payload.sum;
     },
-    // ____________ load product _______________
 
-    //  PayloadAction, generic
+    // ____________ load products _______________
     loadProductsSuccess(state, action: PayloadAction<IProductAPI>) {
       const { page, perPage, totalItems } = action.payload;
       state.page = page;
@@ -99,6 +98,17 @@ const productsSlice = createSlice({
       state.status = "loading";
     },
     loadProductsRejected(state) {
+      state.status = "rejected";
+    },
+    // ____________ load product _______________
+    loadProductSuccess(state, action: PayloadAction<IProduct>) {
+      state.product = action.payload;
+      state.status = "succeeded";
+    },
+    loadProduct(state, action) {
+      state.status = "loading";
+    },
+    loadProductRejected(state) {
       state.status = "rejected";
     },
 
@@ -174,6 +184,9 @@ export const {
   addNewProductSuccess,
   addNewOrder,
   addPagePerPage,
+  loadProductSuccess,
+  loadProduct,
+  loadProductRejected,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

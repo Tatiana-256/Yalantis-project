@@ -8,11 +8,13 @@ import {
 import productSaga, {
   addNewProductSaga,
   editProductSaga,
+  productsSaga,
 } from "../sagas/productSaga";
 
 export default function* rootSaga() {
   yield all([
     productSaga(),
+    productsSaga(),
     countriesSaga(),
     editProductSaga(),
     addNewProductSaga(),
