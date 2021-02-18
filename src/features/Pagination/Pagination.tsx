@@ -1,15 +1,19 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import qs from "query-string";
 
 import { Page, PageWrap } from "./PaginationStyles";
 import {
-  selectFilters,
+  selectCountries,
   selectProducts,
 } from "../../store/redux/state-selectors";
-import { selectCountries } from "../../store/redux/slices/filterSlice";
 import { Button, Option } from "../../utils/common-styles";
 import { usePageOptions } from "./pagination.utils";
-import { loadFilteredProducts } from "../../store/redux/thunk-creators";
+import { loadProducts } from "../../store/redux/slices/productSlice";
+import { getURL, putURL } from "../../utils/url.utils.";
+import { IFilterParameters } from "../../store/common/entitiesTypes";
+import { uniqueID } from "../../utils/dataGenerator";
 
 interface IProps {
   isEditable?: "true" | "false";
@@ -17,17 +21,27 @@ interface IProps {
 
 const Pagination: React.FC<IProps> = ({ isEditable }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
 
-  const { page, perPage, ProductsTotalCount, maxPrice, minPrice } = useSelector(
-    selectFilters
-  );
-  const { status } = useSelector(selectProducts);
+  // _________________ state selectors _________________
+
+  const {
+    status,
+    page,
+    perPage,
+    ProductsTotalCount,
+    maxPrice,
+    minPrice,
+  } = useSelector(selectProducts);
   const origins = useSelector(selectCountries);
 
+  // _________________ local state _________________
   const [value, setValue] = useState<number | undefined>(perPage);
   const [valuePage, setValuePage] = useState<number>();
   const [portionNumber, setPortionNumber] = useState<number>(1);
 
+  // ______________ get page settings ________________
   const {
     pages,
     rightPortionPageNumber,
@@ -35,44 +49,76 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
     showArrowRight,
   } = usePageOptions(perPage, ProductsTotalCount, portionNumber);
 
+  // ______________ get url parameters ________________
+  const filterParameters: IFilterParameters = getURL(location);
+
+  // ________________ first page rendering _______________
   useEffect(() => {
-    dispatch(
-      loadFilteredProducts({
-        origins,
-        minPrice,
-        maxPrice,
-        pageCount: value,
-        page: valuePage,
-        editable: isEditable,
-      })
-    );
-  }, [
-    dispatch,
-    value,
-    page,
-    maxPrice,
-    minPrice,
-    origins,
-    valuePage,
-    isEditable,
-  ]);
+    dispatch(loadProducts(filterParameters));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   useEffect(() => {
     setValuePage(1);
     setPortionNumber(1);
-  }, [value]);
+  }, [valuePage, ProductsTotalCount]);
 
-  const handlerChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  // _________ change number of products at page ________
+  const setProductsCount = (e: ChangeEvent<HTMLSelectElement>) => {
+    // _______________ url settings ________________
+
+    const url = putURL(
+      origins,
+      minPrice,
+      maxPrice,
+      Number(e.target.value),
+      valuePage,
+      location
+    );
+    history.push(`/products?${qs.stringify(url)}`);
     setValue(Number(e.target.value));
+
+    // _________________ sent request ____________________
+    dispatch(
+      loadProducts({
+        origins,
+        minPrice,
+        maxPrice,
+        perPage: Number(e.target.value),
+        page: valuePage,
+        editable: isEditable,
+      })
+    );
+  };
+
+  const setProductPage = (p: number) => {
+    // _______________ url settings ________________
+    const url = putURL(origins, minPrice, maxPrice, value, p, location);
+    history.push(`/products?${qs.stringify(url)}`);
+
+    setValuePage(p);
+
+    // _________________ sent request ____________________
+    dispatch(
+      loadProducts({
+        origins,
+        minPrice,
+        maxPrice,
+        perPage,
+        page: p,
+        editable: isEditable,
+      })
+    );
   };
 
   if (status === "loading") return <div>loading...</div>;
+  if (status === "rejected") return <div>something wrong :( </div>;
 
   return (
     <PageWrap>
       <div style={{ display: "flex", flexDirection: "column" }}>
         Products per page:
-        <Option value={value} onChange={handlerChange} width="70px">
+        <Option value={value} onChange={setProductsCount} width="70px">
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
@@ -95,8 +141,8 @@ const Pagination: React.FC<IProps> = ({ isEditable }) => {
           )
           .map((p) => (
             <Page
-              key={Math.random().toString()}
-              onClick={() => setValuePage(p)}
+              key={uniqueID()}
+              onClick={() => setProductPage(p)}
               prop={
                 page !== p
                   ? {

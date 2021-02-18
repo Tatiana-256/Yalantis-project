@@ -9,6 +9,7 @@ import { Bag } from "./features/Bag/Bag";
 import { MyProducts } from "./features/MyProducts/MyProducts";
 import { MyOrders } from "./features/Orders/MyOrders/MyOrders";
 import { OrderDetails } from "./features/Orders/Order/OrderDetails";
+import { FilterForm } from "./components/FilterForm/FiltersForm";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route exact path="/myOrders" component={MyOrders} />
         <Route exact path="/orders/:id" component={OrderDetails} />
         <Route exact path="/bag" component={Bag} />
+        <Route exact path="/FilterForm" component={FilterForm} />
         <Route path="*">
           <Error404 />
         </Route>

@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import productIcon from "../../../assets/product-icon.png";
 import { ImageProd, WrapperProd } from "./ProductStyles";
-import { IProduct } from "../../../store/entitiesTypes";
+import { IProduct } from "../../../store/common/entitiesTypes";
 import CountQuality from "../../../components/CountQuantity/CountQuantity";
 import { Button } from "../../../utils/common-styles";
 import { EditProduct } from "../../EditProduct/EditProduct";

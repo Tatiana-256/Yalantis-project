@@ -4,7 +4,9 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import store from "./store/redux/redux-store";
+import configureStore from "./store/saga/settings/configureSagaStore";
+
+export const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,4 +1,5 @@
-import { INewProduct } from "../store/redux/slices/prosuctSlice";
+import { IEditProduct } from "../store/common/entitiesTypes";
+import { INewProduct } from "../store/redux/slices/productSlice";
 import request, { authKey } from "./API-settings";
 
 export const OwnProductsAPI = {
@@ -9,7 +10,7 @@ export const OwnProductsAPI = {
       },
     });
   },
-  editProduct(product: { product: INewProduct; productId: string }) {
+  editProduct(product: IEditProduct) {
     return request.patch(`/products/${product.productId}`, product, {
       headers: {
         Authorization: authKey,

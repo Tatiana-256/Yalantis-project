@@ -1,6 +1,6 @@
 import request, { authKey } from "./API-settings";
 import { ICountries } from "../store/redux/slices/filterSlice";
-import { IFilterParameters } from "../store/redux/thunk-creators";
+import { IFilterParameters } from "../store/common/entitiesTypes";
 
 const filtersAPI = {
   getOriginCountries() {
@@ -8,9 +8,6 @@ const filtersAPI = {
       .get<{ items: Array<ICountries> }>(`/products-origins`)
       .then((res) => {
         return res.data.items;
-      })
-      .catch(() => {
-        return "error";
       });
   },
   loadFiltersProducts(parameters?: IFilterParameters) {
@@ -19,7 +16,7 @@ const filtersAPI = {
       minPrice,
       origins,
       page,
-      pageCount,
+      perPage,
       editable,
     } = parameters!;
     return request
@@ -28,7 +25,7 @@ const filtersAPI = {
           origins,
           minPrice,
           maxPrice,
-          perPage: pageCount,
+          perPage,
           page,
           editable,
         },
@@ -38,9 +35,6 @@ const filtersAPI = {
       })
       .then((res) => {
         return res.data;
-      })
-      .catch(() => {
-        return "error";
       });
   },
 };

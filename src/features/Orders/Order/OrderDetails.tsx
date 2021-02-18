@@ -2,11 +2,13 @@ import React, { useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { IOrder, showDetails } from "../../../store/redux/slices/ordersSlice";
+import { showDetails } from "../../../store/redux/slices/ordersSlice";
 import { selectOrder } from "../../../store/redux/state-selectors";
 import { DetailWrap, OrderWrap } from "./OrderDetailsStyles";
 import { Date } from "../../../components/convertDate/Date";
 import { TotalWrap } from "../../Bag/BagStyles";
+import { IOrder } from "../../../store/common/entitiesTypes";
+import { uniqueID } from "../../../utils/dataGenerator";
 
 interface MatchParams {
   id: string;
@@ -33,7 +35,7 @@ export const OrderDetails = ({ match }: RouteComponentProps<MatchParams>) => {
       </h2>
       <div>
         {order.pieces.map((item) => (
-          <DetailWrap>
+          <DetailWrap key={uniqueID()}>
             <div>
               <h3>Name:</h3>
               {item.product.name}

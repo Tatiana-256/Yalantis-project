@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 interface IProps {
   usedInput?: boolean;
   error?: boolean;
+  width?: number;
 }
 
 export const InputStyle = styled.input<IProps>`
@@ -22,5 +23,10 @@ export const InputStyle = styled.input<IProps>`
     error &&
     css`
       border: solid 1px darkred;
+    `}
+  ${({ width }) =>
+    width &&
+    css`
+      width: ${width}%;
     `}
 `;

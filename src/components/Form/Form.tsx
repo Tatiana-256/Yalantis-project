@@ -28,7 +28,7 @@ export const Form: React.FC<IProps> = ({
         <form onSubmit={formik.handleSubmit}>
           <label>
             {" "}
-            1. Product name
+            <div>1. Product name</div>
             <Input
               name="name"
               onBlur={formik.handleBlur}
@@ -40,7 +40,7 @@ export const Form: React.FC<IProps> = ({
             />
           </label>
           <label>
-            2. Price
+            <div> 2. Price</div>
             <Input
               type="number"
               name="price"
@@ -53,7 +53,7 @@ export const Form: React.FC<IProps> = ({
             />
           </label>
           <label>
-            3. Origin
+            <div> 3. Origin</div>
             <Select
               name="role"
               options={options}

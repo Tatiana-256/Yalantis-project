@@ -16,10 +16,14 @@ export const Wrapper = styled.ul`
   margin-inline-start: 0;
   margin-inline-end: 0;
   padding-inline-start: 0;
+
+  @media (max-width: 1200px) {
+    font-size: 0.8rem;
+  }
 `;
 
 export const LinkWrapper = styled.div`
-  width: 55%;
+  width: 75%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -39,6 +43,16 @@ export const StyledLink = styled(Link)`
     color: white;
   }
 `;
+
+export const Li = styled.li`
+  display: flex;
+  margin: 0 3.5rem;
+
+  @media (max-width: 1000px) {
+    margin: 0 1.5rem;
+  }
+`;
+
 export const BagIcon = styled.img`
   height: 5vh;
   width: 51px;

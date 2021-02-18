@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useMemo } from "react";
+import React, { useMemo } from "react";
 import { InputStyle } from "./CommonInputStyle";
 
 interface IProps {
@@ -7,14 +7,10 @@ interface IProps {
   error?: string;
   name?: string;
   onReset?: () => void;
-  value?: string;
-  onChange?: {
-    (e: ChangeEvent<any>): void;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    <T_1 = string | ChangeEvent<any>>(field: T_1): T_1 extends ChangeEvent<any>
-      ? void
-      : (e: string | ChangeEvent<any>) => void;
-  };
+  value?: string | number;
+  checked?: boolean;
+  width?: number;
+  onChange?: any;
   placeholder?: string;
   onBlur?: {
     (e: React.FocusEvent<any>): void;
@@ -31,23 +27,27 @@ export const Input: React.FC<IProps> = ({
   onChange,
   placeholder,
   type = "text",
+  checked,
+  width,
 }) => {
   const hasError = useMemo(() => error && touched, [error, touched]);
-
+  const inputValue = Number.isNaN(value) ? "" : value;
   return (
-    <div>
+    <>
       <InputStyle
+        width={width}
         name={name}
         error={Boolean(error)}
         usedInput={Boolean(value)}
         type={type}
-        value={value}
+        value={inputValue}
         onChange={onChange}
         placeholder={placeholder}
         onBlur={onBlur}
+        checked={checked}
       />
 
       {hasError && <div style={{ color: "red" }}>{error}</div>}
-    </div>
+    </>
   );
 };

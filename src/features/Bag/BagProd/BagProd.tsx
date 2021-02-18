@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { IBasketProduct } from "../../../store/entitiesTypes";
+import { IBasketProduct } from "../../../store/common/entitiesTypes";
 import { ImageProd } from "../../Products/Product/ProductStyles";
 import { Info, Wrap } from "../BagStyles";
 import { Button } from "../../../utils/common-styles";
@@ -12,7 +12,7 @@ import {
   addProductToBasket,
   decreaseProductInBasket,
   deleteProductFromBasket,
-} from "../../../store/redux/slices/prosuctSlice";
+} from "../../../store/redux/slices/productSlice";
 
 interface IProd {
   productItem: IBasketProduct;
